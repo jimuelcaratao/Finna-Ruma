@@ -18,10 +18,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('external_provider')->nullable();
+            $table->string('external_id')->nullable();
+            $table->boolean('is_admin')->default(0);
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->text('profile_photo_path')->nullable();
+            $table->timestamp('is_banned')->nullable();
             $table->timestamps();
         });
     }
