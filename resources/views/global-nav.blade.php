@@ -51,9 +51,14 @@
                 <div class="hidden sm:block sm:ml-6">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href=""
+                        <a href="{{ route('home') }}"
                             class="text-black hover:bg-gray-300 px-3 py-2 rounded-md text-sm font-medium">Home</a>
 
+                        <a href="{{ route('rentals') }}"
+                            class="text-black hover:bg-gray-300 px-3 py-2 rounded-md text-sm font-medium">Rentals</a>
+
+                        <a href="{{ route('about') }}"
+                            class="text-black hover:bg-gray-300 px-3 py-2 rounded-md text-sm font-medium">About</a>
                     </div>
                 </div>
             </div>
@@ -102,6 +107,9 @@
                         @guest
                             @if (Route::has('login'))
                                 <div class="md:px-2 py-4 sm:block">
+
+                                    <a href="" class="invisible md:visible text-sm text-black"> Become a Host </a>
+                                    <span class="invisible md:visible  text-sm text-gray-500 mx-2">|</span>
                                     <a href="{{ route('login') }}" class="text-sm text-black">Log
                                         In</a>
 
@@ -158,7 +166,7 @@
 
                                         <x-jet-dropdown-link href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
 
                                             {{ __('Log Out') }}
                                         </x-jet-dropdown-link>
@@ -177,19 +185,19 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            {{-- <a href="{{ route('home') }}"
-                class="text-gray-300 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium"
+            <a href="{{ route('home') }}"
+                class="text-gray-500 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium"
                 aria-current="page">Home</a>
 
-            <a href="{{ route('catalog') }}"
-                class="text-gray-300 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium">Products</a>
+            <a href="{{ route('rentals') }}"
+                class="text-gray-500 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium">Rentals</a>
 
             <a href="{{ route('about') }}"
-                class="text-gray-300 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                class="text-gray-500 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium">About</a>
 
-            <a href="{{ route('contact') }}"
-                class="text-gray-300 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium">Contact</a> --}}
-
+            <a href="#"
+                class="text-gray-500 hover:bg-[#E7CC9A] hover:text-yellow-900 block px-3 py-2 rounded-md text-base font-medium">Become
+                a Host</a>
         </div>
     </div>
 </nav>
