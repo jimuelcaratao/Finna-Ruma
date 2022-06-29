@@ -12,9 +12,14 @@
     <link rel="icon" href="{{ asset('img/logo/icon-logo.png') }}">
 
     <!-- Fonts -->
+    {{-- poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    {{-- inter --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -24,10 +29,11 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            /* font-family: 'Inter', sans-serif; */
         }
 
         .navbar-dark {
-            box-shadow: 0px 2px 8px 2px #7e7e7e;
+            box-shadow: 0px 0px 6px 1px #b1b1b1;
             /* background-color: rgb(216, 216, 216); */
             transition-duration: 0.5s;
             transition-function: ease-in-out;
