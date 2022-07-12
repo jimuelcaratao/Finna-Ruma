@@ -42,10 +42,12 @@
             <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0 flex items-center">
 
-                    <img class="block lg:hidden h-10 w-auto" src={{ asset('img/logo/icon-logo.png') }}
-                        alt="Main Logo">
-                    <img class="hidden lg:block h-10 w-auto" src={{ asset('img/logo/main-logo.png') }}
-                        alt="Main Logo">
+                    <a href="{{ route('home') }}">
+                        <img class="block lg:hidden h-10 w-auto" src={{ asset('img/logo/icon-logo.png') }}
+                            alt="Main Logo">
+                        <img class="hidden lg:block h-10 w-auto" src={{ asset('img/logo/main-logo.png') }}
+                            alt="Main Logo">
+                    </a>
                 </div>
 
                 <div class="hidden sm:block sm:ml-6">
@@ -108,7 +110,8 @@
                             @if (Route::has('login'))
                                 <div class="md:px-2 py-4 sm:block">
 
-                                    <a href="" class="invisible md:visible text-sm text-black"> Become a Host </a>
+                                    <a href="{{ route('host.home') }}" class="invisible md:visible text-sm text-black">
+                                        Become a Host </a>
                                     <span class="invisible md:visible  text-sm text-gray-500 mx-2">|</span>
                                     <a href="{{ route('login') }}" class="text-sm text-black">Log
                                         In</a>
@@ -156,6 +159,28 @@
                                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                         {{ __('Profile') }}
                                     </x-jet-dropdown-link>
+
+                                    @if (Auth::user()->is_admin == 2)
+                                        <!-- Go to Dashboard -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('Go to Dashboard') }}
+                                        </div>
+
+                                        <x-jet-dropdown-link href="{{ route('host.dashboard') }}">
+                                            {{ __('Dashboard') }}
+                                        </x-jet-dropdown-link>
+                                    @endif
+
+                                    @if (Auth::user()->is_admin == 1)
+                                        <!-- Go to Dashboard -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('Go to Dashboard') }}
+                                        </div>
+
+                                        <x-jet-dropdown-link href="{{ route('admin.dashboard') }}">
+                                            {{ __('Dashboard') }}
+                                        </x-jet-dropdown-link>
+                                    @endif
 
 
                                     <div class="border-t border-gray-100"></div>

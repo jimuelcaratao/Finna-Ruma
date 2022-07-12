@@ -9,22 +9,29 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     {{-- icon --}}
-    <link rel="icon" href="{{ asset('img/logo/icon-logo.png') }}">
+    <link rel="icon" href="{{ asset('img/KH-ICON.png') }}">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/guest.css') }}">
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div class="font-sans text-gray-900 antialiased">
         {{ $slot }}
     </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
