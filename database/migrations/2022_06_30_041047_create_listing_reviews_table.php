@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('listing_reviews', function (Blueprint $table) {
-            $table->id();
+            $table->id('listing_review_id');
             $table->foreignId('user_id');
             $table->foreignId('booking_id');
             $table->foreignId('listing_id');
