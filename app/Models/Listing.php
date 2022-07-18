@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Listing extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
 
     protected $table = 'listings';
@@ -34,10 +34,12 @@ class Listing extends Model
 
         'location',
         'map_pin',
-        'location_details',
+        'city',
+        'country',
 
         'bedrooms',
         'beds',
+        'bed_detials',
         'bathrooms',
         'property_type',
         'listing_status',
@@ -49,25 +51,25 @@ class Listing extends Model
         'additional_notes',
     ];
 
-    public function listing_amenities()
+    public function listing_amenity()
     {
-        return $this->hasMany(ListingAmenity::class, 'listing_amenity_id', 'listing_amenity_id')->latest();
+        return $this->hasOne(ListingAmenity::class, 'listing_id', 'listing_id');
     }
 
-    public function listing_galleries()
+    public function listing_gallery()
     {
-        return $this->hasMany(ListingGallery::class, 'listing_gallery_id', 'listing_gallery_id')->latest();
+        return $this->hasOne(ListingGallery::class, 'listing_id', 'listing_id');
     }
 
     public function listing_reviews()
     {
-        return $this->hasMany(ListingReview::class, 'listing_review_id', 'listing_review_id')->latest();
+        return $this->hasMany(ListingReview::class, 'listing_id', 'listing_id')->latest();
     }
 
 
-    public function listing_rules()
+    public function listing_rule()
     {
-        return $this->hasMany(ListingRule::class, 'listing_rule_id', 'listing_rule_id')->latest();
+        return $this->hasOne(ListingRule::class, 'listing_id', 'listing_id');
     }
 
     public function category()
@@ -75,9 +77,26 @@ class Listing extends Model
         return $this->hasOne(Category::class, 'category_id', 'category_id');
     }
 
-
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function scopeSearchFilter($q)
+    {
+        if (!empty(request()->search)) {
+            $q->Where('listing_title', 'LIKE', '%' .  request()->search  .  '%');
+            // ->OrWhere('product_name', 'LIKE', '%' .  request()->search  .  '%');
+        }
+
+        return $q;
+    }
+
+    public function scopeCategoryFilter($q)
+    {
+        if (request()->search_col != null) {
+            $q->Where('category_id', 'LIKE', '%' .  request()->search_col  .  '%');
+        }
+        return $q;
     }
 }

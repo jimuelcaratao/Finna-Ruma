@@ -17,7 +17,12 @@ return new class extends Migration
             $table->id('listing_gallery_id');
             $table->foreignId('listing_id');
 
-            $table->text('photo')->nullable();
+            $table->text('photo_1')->nullable();
+            $table->text('photo_2')->nullable();
+            $table->text('photo_3')->nullable();
+            $table->text('photo_4')->nullable();
+            $table->text('photo_5')->nullable();
+            $table->text('photo_6')->nullable();
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
