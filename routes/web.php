@@ -83,6 +83,7 @@ Route::middleware([
         Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories');
         Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
         Route::delete('/categories/{category_id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+        Route::put('/categories/{category_id}', [CategoryController::class, 'restore'])->name('categories.restore');
         Route::put('/categories/update', [CategoryController::class, 'update'])->name('categories.update');
     });
 });
@@ -97,10 +98,15 @@ Route::middleware([
     Route::prefix('host')->group(function () {
         Route::get('/dashboard', [HostDashboardController::class, 'index'])->name('host.dashboard');
 
+
+        // host listing apis
         Route::get('/my-listing', [ListingController::class, 'index'])->name('host.listing');
 
-        Route::get('/add-listing', [AddListingController::class, 'index'])->name('host.add.listing');
-        Route::post('/add-listing/store', [AddListingController::class, 'store'])->name('host.store.listing');
+        Route::get('/listing/add', [AddListingController::class, 'index'])->name('host.add.listing');
+        Route::get('/listing/edit/{slug}', [ListingController::class, 'edit'])->name('host.edit.listing');
+        Route::post('/listing/add/store', [AddListingController::class, 'store'])->name('host.store.listing');
+        Route::put('/listing/update/{listing_id}', [AddListingController::class, 'update'])->name('host.update.listing');
+        Route::delete('/my-listing/{listing_id}', [ListingController::class, 'destroy'])->name('host.listing.destroy');
 
         Route::get('/bookings', [HostBookingController::class, 'index'])->name('host.bookings');
     });

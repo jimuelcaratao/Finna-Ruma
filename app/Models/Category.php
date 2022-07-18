@@ -17,6 +17,7 @@ class Category extends Model
         // 'sku',
         'category_id',
         'category_name',
+        'status',
     ];
 
     public function listings()

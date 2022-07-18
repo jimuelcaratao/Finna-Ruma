@@ -34,6 +34,31 @@
             font-family: 'Poppins', sans-serif;
             /* font-family: 'Inter', sans-serif; */
         }
+
+
+        /*
+ *  STYLE 9
+ */
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+            border-radius: 40px;
+
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+            background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 40px;
+            background-color: rgb(179, 179, 179);
+
+
+        }
     </style>
 
     <!-- Scripts -->
@@ -230,6 +255,23 @@
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                    </svg>
+                </a>
+
+                {{-- Tooltip --}}
+                <div id="tooltip-add" role="tooltip"
+                    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Add Listing
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+
+                <a href="{{ route('host.add.listing') }}"data-tooltip-target="tooltip-add"
+                    data-tooltip-placement="right"
+                    class="app-sidebar-link {{ request()->is('host/listing/add') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                 </a>
 
