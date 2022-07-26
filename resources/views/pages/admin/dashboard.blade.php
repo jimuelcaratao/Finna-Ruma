@@ -59,6 +59,7 @@
             </div>
         </div>
         <div class="project-boxes jsGridView">
+
             <div class="project-box-wrapper">
                 <div class="project-box" style="background-color: #fee4cb;">
                     <div class="project-box-header">

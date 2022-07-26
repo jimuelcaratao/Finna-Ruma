@@ -1,7 +1,7 @@
 <x-app-layout>
 
     {{-- search bar --}}
-    <x-slot name="searchbar">
+    {{-- <x-slot name="searchbar">
         <div class="search-wrapper ml-4">
             <input class="search-input" type="text" placeholder="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
@@ -12,7 +12,7 @@
                 <path d="M21 21l-4.35-4.35"></path>
             </svg>
         </div>
-    </x-slot>
+    </x-slot> --}}
 
 
     {{-- Contents --}}
@@ -162,16 +162,15 @@
                                     {{ $user->email }}
                                 </td>
                                 <td class="px-6 py-3">
-                                    @if ($user->external_provider == 'Facebook')
-                                        <span class="badge badge-sm bg-gradient-info">
-                                            {{ $user->external_provider }}
-                                        </span>
-                                    @elseif ($user->external_provider == 'Google')
-                                        <span class="badge badge-sm bg-gradient-danger">
+
+                                    @if ($user->external_provider == 'Google')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
                                             {{ $user->external_provider }}
                                         </span>
                                     @else
-                                        <span class="badge badge-sm bg-gradient-secondary">
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-gray-500  to-gray-600">
                                             None
                                         </span>
                                     @endif

@@ -94,8 +94,16 @@ class Listing extends Model
 
     public function scopeCategoryFilter($q)
     {
-        if (request()->search_col != null) {
-            $q->Where('category_id', 'LIKE', '%' .  request()->search_col  .  '%');
+        if (request()->search_cat != null) {
+            $q->Where('category_id', 'LIKE', '%' .  request()->search_cat  .  '%');
+        }
+        return $q;
+    }
+
+    public function scopeStatusFilter($q)
+    {
+        if (request()->search_status != null) {
+            $q->Where('listing_status', 'LIKE', '%' .  request()->search_status  .  '%');
         }
         return $q;
     }

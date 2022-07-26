@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 
-<nav x-data="{ open: false }" class="navbar-main bg-white sticky top-0 z-50 always-top">
+<nav x-data="{ open: false }" class="navbar-main bg-white sticky top-0 z-50 always-top border-b-2 ">
 
     <div class="max-w-screen-2xl mx-auto px-2 sm:px-6 lg:px-24">
         <div class="relative flex items-center justify-between h-16">

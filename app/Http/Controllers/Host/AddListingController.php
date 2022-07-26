@@ -40,6 +40,17 @@ class AddListingController extends Controller
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'listing_title' => 'required|unique:listings',
+            'default_photo' => 'required',
+            'photo_1' => 'required',
+            'photo_2' => 'required',
+            'photo_3' => 'required',
+
+            'listing_title' => 'required',
+            'description' => 'required',
+            'price_per_night' => 'required',
+            'service_fee' => 'required',
+            'location' => 'required',
+
         ]);
 
         if ($validator->fails()) {
@@ -62,7 +73,7 @@ class AddListingController extends Controller
             'max_pet' => $request->input('max_pet'),
 
             'location' => $request->input('location'),
-            'map_pin' => $request->input('map_pin'),
+            'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
             'country' => $request->input('country'),
 
@@ -131,7 +142,7 @@ class AddListingController extends Controller
             'max_pet' => $request->input('max_pet'),
 
             'location' => $request->input('location'),
-            'map_pin' => $request->input('map_pin'),
+            'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
             'country' => $request->input('country'),
 
@@ -142,7 +153,6 @@ class AddListingController extends Controller
 
             'property_type' => $request->input('property_type'),
 
-            'listing_status' => 'Pending Approval',
             'messenger_url' => $request->input('messenger_url'),
             'additional_notes' => $request->input('additional_notes'),
             'viewers' => 0,

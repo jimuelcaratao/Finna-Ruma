@@ -11,6 +11,8 @@
     {{-- icon --}}
     <link rel="icon" href="{{ asset('img/logo/icon-logo.png') }}">
 
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
+
     <!-- Fonts -->
     {{-- poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,6 +48,7 @@
 </head>
 
 <body class=" antialiased">
+    @include('sweetalert::alert')
     <x-jet-banner />
 
     <div class="min-h-screen">
@@ -61,6 +64,13 @@
 
     @stack('modals')
 
+
+    {{-- scripts --}}
+    {{-- Sweet alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     @livewireScripts
     @stack('scripts')
 

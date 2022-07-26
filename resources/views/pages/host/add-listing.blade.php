@@ -7,8 +7,7 @@
     <div class="projects-section">
         <div class="projects-section-header">
             <p>Add Listing</p>
-            <a href="{{ route('host.listing') }}" class="bg-gray-800 text-white p-1 rounded-full"
-                title="Add New Project">
+            <a href="{{ route('host.listing') }}" class="bg-gray-800 text-white p-1 rounded-full" title="Add New Project">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -148,7 +147,7 @@
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
-                                            <div class="col-span-6 sm:col-span-4">
+                                            {{-- <div class="col-span-6 sm:col-span-4">
                                                 <label for="map_pin"
                                                     class="flex text-sm font-medium text-gray-700">Google Map
                                                     Pin <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
@@ -159,14 +158,13 @@
                                                     </svg></label>
                                                 <input type="text" name="map_pin" id="map_pin" required
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div>
-
-                                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                            </div> --}}
+                                            {{-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                 <label for="city"
                                                     class="block text-sm font-medium text-gray-700">City</label>
                                                 <input type="text" name="city" id="city" required
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div>
+                                            </div> --}}
 
 
 
@@ -407,7 +405,8 @@
                                                             <span class="">Upload a
                                                                 file</span>
                                                             <input id="photo_1" name="photo_1" type="file"
-                                                                class="sr-only" accept=".jpg,.gif,.png,.jpeg">
+                                                                required class="sr-only"
+                                                                accept=".jpg,.gif,.png,.jpeg">
                                                         </label>
                                                         {{-- <p class="pl-1">or drag and drop</p> --}}
                                                     </div>
@@ -436,7 +435,8 @@
                                                             <span class="">Upload a
                                                                 file</span>
                                                             <input id="photo_2" name="photo_2" type="file"
-                                                                class="sr-only" accept=".jpg,.gif,.png,.jpeg">
+                                                                required class="sr-only"
+                                                                accept=".jpg,.gif,.png,.jpeg">
                                                         </label>
                                                         {{-- <p class="pl-1">or drag and drop</p> --}}
                                                     </div>
@@ -465,7 +465,8 @@
                                                             <span class="">Upload a
                                                                 file</span>
                                                             <input id="photo_3" name="photo_3" type="file"
-                                                                class="sr-only" accept=".jpg,.gif,.png,.jpeg">
+                                                                required class="sr-only"
+                                                                accept=".jpg,.gif,.png,.jpeg">
                                                         </label>
                                                         {{-- <p class="pl-1">or drag and drop</p> --}}
                                                     </div>
@@ -662,7 +663,23 @@
     </div>
 
     @push('scripts')
+        <script src="{{ asset('js/ckeditor.js') }}"></script>
+
         <script>
+            ClassicEditor.create(document.getElementById('description'))
+                .then(editor => {
+                    thisEditor = editor
+                });
+
+            ClassicEditor.create(document.getElementById('additional_rules'))
+                .then(editor => {
+                    thisEditor = editor
+                });
+
+            ClassicEditor.create(document.getElementById('additional_notes'))
+                .then(editor => {
+                    thisEditor = editor
+                });
             // edit_is_customizable
             $('#output_default_photo').click(function() {
                 $('#default_photo').trigger('click');
