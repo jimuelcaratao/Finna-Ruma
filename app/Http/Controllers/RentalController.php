@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
 {
     public function index()
     {
-        return view('pages.rentals');
+        $listings = Listing::where('listing_status', 'Approved')->get();
+
+        return view('pages.rentals', [
+            'listings' => $listings,
+        ]);
     }
 }

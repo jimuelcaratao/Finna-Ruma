@@ -1,7 +1,7 @@
 <x-app-layout>
 
     {{-- search bar --}}
-    <x-slot name="searchbar">
+    {{-- <x-slot name="searchbar">
         <div class="search-wrapper ml-4">
             <input class="search-input" type="text" placeholder="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
@@ -12,7 +12,7 @@
                 <path d="M21 21l-4.35-4.35"></path>
             </svg>
         </div>
-    </x-slot>
+    </x-slot> --}}
 
 
     {{-- Contents --}}

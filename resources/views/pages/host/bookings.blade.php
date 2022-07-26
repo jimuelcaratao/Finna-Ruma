@@ -1,18 +1,6 @@
 <x-host-layout>
 
-    {{-- search bar --}}
-    {{-- <x-slot name="searchbar">
-        <div class="search-wrapper ml-4">
-            <input class="search-input" type="text" placeholder="Search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search"
-                viewBox="0 0 24 24">
-                <defs></defs>
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="M21 21l-4.35-4.35"></path>
-            </svg>
-        </div>
-    </x-slot> --}}
+
 
 
     {{-- Contents --}}
@@ -39,10 +27,39 @@
             </div>
             <div class="view-actions">
                 <div class="search-wrapper mr-4">
-                    <input class="search-input" type="text" placeholder="Search">
+
+                    <form id="search_tbl" style="outline: none;">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center">
+                                <label for="search_col" class="sr-only">Users role</label>
+                                <select id="search_col" name="search_col"
+                                    class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-12 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                                    @if (!empty(request()->search_col))
+                                        <option class="bg-gray-200" disabled selected="{{ request()->search_col }}">
+                                            {{ request()->search_col }}
+                                        </option>
+                                    @endif
+                                    <option value="">
+                                        All</option>
+                                    <option class="text-xs py-2 font-bold uppercase" disabled>
+                                        User Role</option>
+                                    <option value="1">
+                                        Admin</option>
+                                    <option value="2">
+                                        Host</option>
+                                    <option value="0">
+                                        User</option>
+                                </select>
+                            </div>
+
+                            <input id="search_inp" class="ml-28 search-input outline-offset-4" type="search"
+                                name="search" placeholder="Search" value="{{ request()->search }}"
+                                style="outline: none;">
+                        </div>
+                    </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                         stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        class="feather feather-search" viewBox="0 0 24 24">
+                        class="search_btn feather feather-search" viewBox="0 0 24 24">
                         <defs></defs>
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="M21 21l-4.35-4.35"></path>
@@ -109,5 +126,15 @@
         </div>
     </div>
 
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+
+                $(".search_btn").click(function() {
+                    $("#search_tbl").submit();
+                });
+            });
+        </script>
+    @endpush
 
 </x-host-layout>

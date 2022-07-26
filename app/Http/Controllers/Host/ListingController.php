@@ -10,6 +10,7 @@ use App\Models\ListingGallery;
 use App\Models\ListingReview;
 use App\Models\ListingRule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class ListingController extends Controller
@@ -17,6 +18,16 @@ class ListingController extends Controller
     public function index()
     {
         $tableListing = Listing::all();
+        $categories = Category::get();
+
+        $listing_total = Listing::where('user_id', Auth::user()->id)->count();
+
+        $listing_approved = Listing::where('user_id', Auth::user()->id)->where('listing_status', 'Approved')->count();
+
+        $listing_pending = Listing::where('user_id', Auth::user()->id)->where('listing_status', 'Pending Approval')->count();
+
+        $listing_denied = Listing::where('user_id', Auth::user()->id)->where('listing_status', 'Denied')->count();
+
 
         if ($tableListing->isEmpty()) {
             $listings = Listing::paginate(10);
@@ -27,26 +38,35 @@ class ListingController extends Controller
             // search validation
             $search = Listing::searchfilter()
                 ->categoryfilter()
+                ->statusfilter()
                 ->first();
 
             $searchAdvance = Listing::searchfilter()
                 ->categoryfilter()
+                ->statusfilter()
                 ->first();
 
             if ($search === null) {
-                return Redirect::route('host.listing')->with('info', 'No "' . request()->search . '" found in the database.');
+                return Redirect::route('host.listing')->with('info', 'No data found in the database.');
             }
 
             if ($search != null) {
                 // default returning
                 $listings = Listing::searchfilter()
                     ->categoryfilter()
+                    ->statusfilter()
                     ->latest()
                     ->paginate(10);
             }
         }
         return view('pages.host.my-listings', [
             'listings' => $listings,
+            'categories' => $categories,
+            'listing_total' => $listing_total,
+            'listing_approved' => $listing_approved,
+            'listing_pending' => $listing_pending,
+            'listing_denied' => $listing_denied,
+
         ]);
     }
 

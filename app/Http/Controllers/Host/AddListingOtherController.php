@@ -104,6 +104,72 @@ class AddListingOtherController extends Controller
                     ]);
             }
         }
+
+        if ($request->hasFile('photo_4') != null) {
+            if ($request->file('photo_4')->isValid()) {
+                // create images
+                $image       = $request->file('photo_4');
+                $filename    = $image->getClientOriginalName();
+                $listing_id =  $listing->listing_id;
+
+                $image_resize = Image::make($image);
+                $image_resize->resize(1200, 600);
+
+                $image_resize->save(public_path('storage/media/listing/photo_4_'
+                    . $listing_id . '_' . $filename));
+
+                // insert path to db 
+                $char = strval($filename);
+                ListingGallery::where('listing_id', $listing_id)
+                    ->update([
+                        'photo_4' => $char,
+                    ]);
+            }
+        }
+
+        if ($request->hasFile('photo_5') != null) {
+            if ($request->file('photo_5')->isValid()) {
+                // create images
+                $image       = $request->file('photo_5');
+                $filename    = $image->getClientOriginalName();
+                $listing_id =  $listing->listing_id;
+
+                $image_resize = Image::make($image);
+                $image_resize->resize(1200, 600);
+
+                $image_resize->save(public_path('storage/media/listing/photo_5_'
+                    . $listing_id . '_' . $filename));
+
+                // insert path to db 
+                $char = strval($filename);
+                ListingGallery::where('listing_id', $listing_id)
+                    ->update([
+                        'photo_5' => $char,
+                    ]);
+            }
+        }
+
+        if ($request->hasFile('photo_6') != null) {
+            if ($request->file('photo_6')->isValid()) {
+                // create images
+                $image       = $request->file('photo_6');
+                $filename    = $image->getClientOriginalName();
+                $listing_id =  $listing->listing_id;
+
+                $image_resize = Image::make($image);
+                $image_resize->resize(1200, 600);
+
+                $image_resize->save(public_path('storage/media/listing/photo_6_'
+                    . $listing_id . '_' . $filename));
+
+                // insert path to db 
+                $char = strval($filename);
+                ListingGallery::where('listing_id', $listing_id)
+                    ->update([
+                        'photo_6' => $char,
+                    ]);
+            }
+        }
     }
 
     public function AddAmenities($request, $listing)

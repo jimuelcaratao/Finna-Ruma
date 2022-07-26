@@ -215,15 +215,27 @@
                             </div>
                         </div>
 
+                        <input id="is_admin" type="text" class="hidden" name="is_admin" value="">
+
                         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                             <div class="flex justify-between items-center mt-4">
                                 <label for="terms" class="flex items-center">
                                     <x-jet-checkbox id="terms" name="terms" />
                                     <span class="ml-2 text-sm text-gray-600">
                                         {!! __('I agree to the :terms_of_service and :privacy_policy', [
-    'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline text-sm text-gray-600 hover:text-gray-900">' . __('Terms of Service') . '</a>',
-    'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline text-sm text-gray-600 hover:text-gray-900">' . __('Privacy Policy') . '</a>',
-]) !!}
+                                            'terms_of_service' =>
+                                                '<a target="_blank" href="' .
+                                                route('terms.show') .
+                                                '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
+                                                __('Terms of Service') .
+                                                '</a>',
+                                            'privacy_policy' =>
+                                                '<a target="_blank" href="' .
+                                                route('policy.show') .
+                                                '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
+                                                __('Privacy Policy') .
+                                                '</a>',
+                                        ]) !!}
                                     </span>
                                 </label>
 

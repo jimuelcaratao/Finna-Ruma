@@ -7,8 +7,7 @@
     <div class="projects-section">
         <div class="projects-section-header">
             <p>Edit: {{ $listing->listing_title }}</p>
-            <a href="{{ route('host.listing') }}" class="bg-gray-800 text-white p-1 rounded-full"
-                title="Add New Project">
+            <a href="{{ route('host.listing') }}" class="bg-gray-800 text-white p-1 rounded-full" title="Add New Project">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -20,8 +19,8 @@
 
         <div class="overflow-y-auto">
             <div class="relative shadow-sm pr-0 md:pr-3">
-                <form action="{{ route('host.update.listing', [$listing->listing_id]) }}" method="POST"
-                    id="add-form" enctype="multipart/form-data">
+                <form action="{{ route('host.update.listing', [$listing->listing_id]) }}" method="POST" id="add-form"
+                    enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div>
@@ -158,7 +157,7 @@
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
-                                            <div class="col-span-6 sm:col-span-4">
+                                            {{-- <div class="col-span-6 sm:col-span-4">
                                                 <label for="map_pin"
                                                     class="flex text-sm font-medium text-gray-700">Google Map
                                                     Pin <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
@@ -170,15 +169,15 @@
                                                 <input type="text" name="map_pin" id="map_pin" required
                                                     value="{{ $listing->map_pin }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                            {{-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                 <label for="city"
                                                     class="block text-sm font-medium text-gray-700">City</label>
                                                 <input type="text" name="city" id="city" required
                                                     value="{{ $listing->city }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div>
+                                            </div> --}}
 
 
 
@@ -394,9 +393,15 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_default_photo" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->default_photo == null)
+                                                        <img id="output_default_photo" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_default_photo" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/cover_' . $listing->listing_id . '_' . $listing->default_photo) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
                                                     <div class="flex text-sm text-gray-600 ">
                                                         <label for="default_photo"
@@ -424,9 +429,16 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_photo_1" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->listing_gallery->photo_1 == null)
+                                                        <img id="output_photo_1" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_photo_1" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/photo_1_' . $listing->listing_id . '_' . $listing->listing_gallery->photo_1) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
+
 
                                                     <div class="flex text-sm text-gray-600 ">
                                                         <label for="photo_1"
@@ -453,9 +465,15 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_photo_2" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->listing_gallery->photo_2 == null)
+                                                        <img id="output_photo_2" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_photo_2" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/photo_2_' . $listing->listing_id . '_' . $listing->listing_gallery->photo_2) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
                                                     <div class="flex text-sm text-gray-600 ">
                                                         <label for="photo_2"
@@ -482,9 +500,15 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_photo_3" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->listing_gallery->photo_3 == null)
+                                                        <img id="output_photo_3" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_photo_3" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/photo_3_' . $listing->listing_id . '_' . $listing->listing_gallery->photo_3) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
                                                     <div class="flex text-sm text-gray-600 ">
                                                         <label for="photo_3"
@@ -653,14 +677,14 @@
                                                     class="block text-sm font-medium text-gray-700">Check In Time
                                                 </label>
                                                 <input type="text" name="check_in" id="check_in"
-                                                    value="{{ $listing->check_in }}"
+                                                    value="{{ $listing->listing_rule->check_in }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 
                                                 <label for="check_out"
                                                     class="block text-sm font-medium text-gray-700 mt-4">Check Out Time
                                                 </label>
                                                 <input type="text" name="check_out" id="check_out"
-                                                    value="{{ $listing->check_out }}"
+                                                    value="{{ $listing->listing_rule->check_out }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -673,7 +697,7 @@
                                                 <div class="mt-1">
                                                     <textarea id="additional_rules" name="additional_rules" rows="6"
                                                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md">
-                                                        {{ $listing->additional_rules }}</textarea>
+                                                        {{ $listing->listing_rule->additional_rules }}</textarea>
                                                 </div>
                                                 <p class="mt-2 text-sm text-gray-500">Brief description for your
                                                     Rule.</p>
@@ -702,7 +726,25 @@
     </div>
 
     @push('scripts')
+        <script src="{{ asset('js/ckeditor.js') }}"></script>
+
         <script>
+            ClassicEditor.create(document.getElementById('description'))
+                .then(editor => {
+                    thisEditor = editor
+                });
+
+            ClassicEditor.create(document.getElementById('additional_rules'))
+                .then(editor => {
+                    thisEditor = editor
+                });
+
+            ClassicEditor.create(document.getElementById('additional_notes'))
+                .then(editor => {
+                    thisEditor = editor
+                });
+
+
             // edit_is_customizable
             $('#output_default_photo').click(function() {
                 $('#default_photo').trigger('click');

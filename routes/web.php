@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RentalController as AdminRentalController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BookingController as ControllersBookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Host\AddListingController;
 use App\Http\Controllers\Host\BookingController as HostBookingController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\SinglePostController;
+use App\Http\Controllers\WishListController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -47,9 +49,15 @@ Route::get('/host/register', function () {
 })->name('host.register');
 
 // Global routes
+//Rentals
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/rentals', [RentalController::class, 'index'])->name('rentals');
-Route::get('/rental', [SinglePostController::class, 'index'])->name('single-post');
+Route::get('/rooms/{slug}', [SinglePostController::class, 'index'])->name('single-list');
+
+//Wishlists
+Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
+Route::post('/wishlist/{listing_id}', [WishListController::class, 'add_to_wishlist'])->name('wishlist.add');
+Route::delete('/wishlist/{listing_id}/delete', [WishListController::class, 'remove_to_wishlist'])->name('wishlist.remove');
 
 Route::get('/host/try', function () {
     return view('pages.host-home');
@@ -58,6 +66,18 @@ Route::get('/host/try', function () {
 Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
+
+// Auth Users
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+
+    Route::prefix('booking')->group(function () {
+        Route::post('/store', [ControllersBookingController::class, 'store'])->name('global.booking');
+    });
+});
 
 // Admin Users
 Route::middleware([
@@ -69,6 +89,8 @@ Route::middleware([
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::get('/rentals', [AdminRentalController::class, 'index'])->name('admin.rentals');
+        Route::post('/rentals/store', [AdminRentalController::class, 'edit_status'])->name('admin.rentals.status');
+
 
         Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings');
 
