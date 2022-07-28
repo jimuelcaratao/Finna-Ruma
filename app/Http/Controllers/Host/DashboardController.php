@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use DateTime;
@@ -26,6 +27,17 @@ class DashboardController extends Controller
         } else {
             $dayTerm = "Why aren't you asleep?  Are you programming?";
         }
+
+        $pending = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Pending Confirmation')->count();
+
+        $confirmed = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Confirmed Reservation')->count();
+
+        $canceled = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Canceled')->count();
+
+        $complete = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Complete')->count();
+
+        $total = Booking::where('host_id', Auth::user()->id)->count();
+
         $listing_total = Listing::where('user_id', Auth::user()->id)->count();
 
         $listing_approved = Listing::where('user_id', Auth::user()->id)->where('listing_status', 'Approved')->count();
@@ -34,12 +46,20 @@ class DashboardController extends Controller
 
         $listings = Listing::where('user_id', Auth::user()->id)->latest()->limit(6)->get();
 
+
         return view('pages.host.dashboard', [
             'dayTerm' => $dayTerm,
             'listing_total' => $listing_total,
             'listing_approved' => $listing_approved,
             'listing_pending' => $listing_pending,
             'listings' => $listings,
+
+            'pending' => $pending,
+            'confirmed' => $confirmed,
+            'canceled' => $canceled,
+            'complete' => $complete,
+            'total' => $total,
+
         ]);
     }
 }

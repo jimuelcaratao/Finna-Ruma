@@ -3,12 +3,132 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class BookingController extends Controller
 {
     public function index()
     {
-        return view('pages.host.bookings');
+        $tablebookings = Booking::where('host_id', Auth::user()->id)->get();
+
+        $pending = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Pending Confirmation')->count();
+
+        $confirmed = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Confirmed Reservation')->count();
+
+        $canceled = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Canceled')->count();
+
+        $complete = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Complete')->count();
+
+
+        if ($tablebookings->isEmpty()) {
+            $bookings = Booking::paginate(10);
+        }
+
+        if ($tablebookings->isNotEmpty()) {
+
+            // search validation
+            $search = Booking::searchfilter()
+                ->statusfilter()
+                ->first();
+
+            if ($search === null) {
+                return Redirect::route('host.bookings')->with('info', 'No data found in the database.');
+            }
+
+            if ($search != null) {
+                // default returning
+                $bookings = Booking::searchfilter()
+                    ->statusfilter()
+                    ->latest()
+                    ->paginate(10);
+            }
+
+            return view('pages.host.bookings', [
+                'bookings' => $bookings,
+                'pending' => $pending,
+                'confirmed' => $confirmed,
+                'canceled' => $canceled,
+                'complete' => $complete,
+
+            ]);
+        }
+    }
+
+
+    public function view_details($booking_id)
+    {
+        $booking = Booking::where('booking_id', $booking_id)->first();
+
+        return view('pages.host.booking-details', [
+            'booking' => $booking,
+        ]);
+    }
+
+    public function update_payment(Request $request, $booking_id)
+    {
+        $user = User::where('email', Auth::user()->email)->first();
+
+        if ($user->password == null) {
+            return Redirect::back()->with('info', 'Opps you have currently no password.');
+        }
+
+        if (Hash::check($request->input('password'), $user->password)) {
+
+            if (!empty($request->input('payment_status'))) {
+                $booking = Booking::where('booking_id', $booking_id)->first();
+                Booking::where('booking_id', $booking_id)
+                    ->update([
+                        'total_paid' => $booking->total,
+                        'payment_status' => $request->input('payment_status'),
+                        'paid_at' => Carbon::now(),
+                    ]);
+
+                return Redirect::back()->with('success', 'Payment Successfully updated.');
+            }
+        } else {
+            return Redirect::back()->with('info', 'Sorry Wrong credentials.');
+        }
+    }
+
+    public function complete_booking($booking_id)
+    {
+        if (is_null($booking_id)) {
+            return Redirect::route('host.bookings')->withInfo('Something went wrong. Contact Us.');
+        }
+
+        $booking = Booking::where('booking_id', $booking_id)->first();
+
+        if ($booking != null) {
+            $booking->update([
+                'booking_status' => 'Complete',
+                'completed_at' => Carbon::now(),
+            ]);
+        }
+
+        return Redirect::route('host.bookings')->withSuccess('Listing Complete!');
+    }
+
+
+    public function archive($booking_id)
+    {
+        if (is_null($booking_id)) {
+            return Redirect::route('host.bookings')->withInfo('Something went wrong. Contact Us.');
+        }
+
+        $booking = Booking::where('booking_id', $booking_id)->first();
+
+        if ($booking != null) {
+            $booking->update([
+                'deleted_at' => Carbon::now(),
+            ]);
+        }
+
+        return Redirect::route('host.bookings')->withSuccess('Listing Archived!');
     }
 }

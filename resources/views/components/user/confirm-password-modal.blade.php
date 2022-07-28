@@ -20,14 +20,14 @@
 
                                             <div class=" col-span-6 sm:col-span-4">
                                                 <input type="text" name="id" id="id" required
-                                                    class="hidden mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow sm:text-sm border-gray-300 rounded-md">
+                                                    class="hidden mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full  sm:text-sm border-gray-300 rounded-md">
                                             </div>
                                             <div class=" col-span-6 sm:col-span-4">
                                                 <label for="password"
                                                     class="block text-sm font-medium text-gray-700">Password <span
                                                         class="text-red-600">*</span></label>
                                                 <input type="password" name="password" id="password" required
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md">
                                             </div>
                                         </div>
 

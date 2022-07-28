@@ -49,10 +49,11 @@
 
 <body class=" antialiased">
     @include('sweetalert::alert')
+    @include('global-nav')
+
     <x-jet-banner />
 
     <div class="min-h-screen">
-        @include('global-nav')
 
         <!-- Page Content -->
         <main>
