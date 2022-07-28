@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RentalController as AdminRentalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BookingController as ControllersBookingController;
+use App\Http\Controllers\ConfirmBookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Host\AddListingController;
 use App\Http\Controllers\Host\BookingController as HostBookingController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\SinglePostController;
 use App\Http\Controllers\WishListController;
+use App\Http\Controllers\WriteReviewController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -33,7 +35,7 @@ use Laravel\Socialite\Facades\Socialite;
 //     return view('pages.home');
 // });
 
-// Google Auth
+// Google Auth APIs
 Route::get('/signin-google', function () {
     return Socialite::driver('google')->redirect();
 })->name('auth.google');
@@ -48,13 +50,13 @@ Route::get('/host/register', function () {
     return view('auth.host-register');
 })->name('host.register');
 
-// Global routes
-//Rentals
+// Global routes APIs
+//Rentals APIs
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/rentals', [RentalController::class, 'index'])->name('rentals');
 Route::get('/rooms/{slug}', [SinglePostController::class, 'index'])->name('single-list');
 
-//Wishlists
+//Wishlists APIs
 Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
 Route::post('/wishlist/{listing_id}', [WishListController::class, 'add_to_wishlist'])->name('wishlist.add');
 Route::delete('/wishlist/{listing_id}/delete', [WishListController::class, 'remove_to_wishlist'])->name('wishlist.remove');
@@ -74,12 +76,25 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
+    // My Bookings APIs
+    Route::get('/my-bookings', [ControllersBookingController::class, 'my_bookings'])->name('my-bookings');
+    Route::get('/my-bookings/{booking_id}', [ControllersBookingController::class, 'index'])->name('booking');
+    Route::get('/confirm/{slug}/{booking_id}', [ConfirmBookingController::class, 'confirm'])->name('confirm-booking');
+
+    // Reviews APIs
+    Route::get('/review/{booking_id}/{listing_id}', [WriteReviewController::class, 'index'])->name('write_review');
+    Route::post('/review/{booking_id}/{listing_id}', [WriteReviewController::class, 'write_review'])->name('write_review.write');
+
     Route::prefix('booking')->group(function () {
-        Route::post('/store', [ControllersBookingController::class, 'store'])->name('global.booking');
+
+        // Payments APIs
+        Route::post('/store/{listing_id}', [ControllersBookingController::class, 'store'])->name('global.booking');
+        Route::post('/payment/{booking_id}', [ConfirmBookingController::class, 'payment'])->name('payment.booking');
+        Route::post('/payment/complete/{booking_id}', [ConfirmBookingController::class, 'complete_payment'])->name('complete_payment.booking');
     });
 });
 
-// Admin Users
+// Admin Users APIs
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -91,17 +106,15 @@ Route::middleware([
         Route::get('/rentals', [AdminRentalController::class, 'index'])->name('admin.rentals');
         Route::post('/rentals/store', [AdminRentalController::class, 'edit_status'])->name('admin.rentals.status');
 
-
         Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings');
 
-        // user apis
+        // user APIs
         Route::get('/users', [UserController::class, 'index'])->name('admin.users');
         Route::post('/users', [UserController::class, 'store'])->name('users.store');
         Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
         Route::post('/users/ban', [UserController::class, 'ban'])->name('user.ban');
 
-
-        //categories Apis
+        //categories APIs
         Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories');
         Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
         Route::delete('/categories/{category_id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
@@ -118,10 +131,10 @@ Route::middleware([
     'verified',  'is_host'
 ])->group(function () {
     Route::prefix('host')->group(function () {
+
         Route::get('/dashboard', [HostDashboardController::class, 'index'])->name('host.dashboard');
 
-
-        // host listing apis
+        // host listing APIs
         Route::get('/my-listing', [ListingController::class, 'index'])->name('host.listing');
 
         Route::get('/listing/add', [AddListingController::class, 'index'])->name('host.add.listing');
@@ -130,6 +143,11 @@ Route::middleware([
         Route::put('/listing/update/{listing_id}', [AddListingController::class, 'update'])->name('host.update.listing');
         Route::delete('/my-listing/{listing_id}', [ListingController::class, 'destroy'])->name('host.listing.destroy');
 
+        // booking APIs
         Route::get('/bookings', [HostBookingController::class, 'index'])->name('host.bookings');
+        Route::get('/booking/{booking_id}', [HostBookingController::class, 'view_details'])->name('host.bookings.view_details');
+        Route::put('/booking/payment/{booking_id}', [HostBookingController::class, 'update_payment'])->name('host.bookings.update_payment');
+        Route::post('/booking/archive/{booking_id}', [HostBookingController::class, 'archive'])->name('host.bookings.archive');
+        Route::post('/booking/complete/{booking_id}', [HostBookingController::class, 'complete_booking'])->name('host.bookings.complete');
     });
 });

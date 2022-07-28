@@ -182,7 +182,7 @@
                             <div class="flex-initial w-full lg:w-3/5 lg:block bg-white lg:mr-10 px-4 lg:px-0">
                                 <div class=" mb-4">
 
-                                    <div class="flex justify-between">
+                                    <div class="flex justify-between gap-10">
                                         <div>
                                             <h3 class="pt-4 mb-2 text-4xl font-semibold">{{ $listing->listing_title }}
                                             </h3>
@@ -238,7 +238,7 @@
                                         </div>
 
                                         <div class=" inline-flex gap-4 mt-4">
-                                            <div>
+                                            {{-- <div>
                                                 <p class="relative inline-flex items-center w-full  py-1  text-sm ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-5 w-5"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -248,17 +248,42 @@
                                                     </svg>
                                                     Share
                                                 </p>
-                                            </div>
+                                            </div> --}}
                                             <div>
-                                                <p class="relative inline-flex items-center w-full  py-1  text-sm ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-5 w-5"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                        stroke-width="2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                                    </svg>
-                                                    Save
-                                                </p>
+                                                @if ($wishlist == null)
+                                                    <form action="{{ route('wishlist.add', [$listing->listing_id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="float-right text-black  rounded-full p-2 cursor-pointer group mb-2  inline-flex">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2"
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                            </svg>
+                                                            Save
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form
+                                                        action="{{ route('wishlist.remove', [$listing->listing_id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="float-right text-black  rounded-full p-2 cursor-pointer group mb-2 inline-flex ">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-5 w-5  mr-2" viewBox="0 0 20 20"
+                                                                fill="currentColor">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg> Saved
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
 
                                         </div>
@@ -299,7 +324,7 @@
 
                             <!-- Payment Section -->
                             <div class="flex-initial  w-full lg:w-2/5 ">
-                                <div class=" mb-4 py-5 px-8 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
+                                <div class=" mb-4 p-6 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
                                     <h3 class=" mb-4 text-3xl font-semibold">₱ @convert($listing->price_per_night) <span
                                             class="text-sm text-gray-400 font-normal">night</span></h3>
 
@@ -307,7 +332,8 @@
 
                                     {{-- Datepicker --}}
 
-                                    <form action="{{ route('global.booking') }}" method="POST">
+                                    <form action="{{ route('global.booking', [$listing->listing_id]) }}"
+                                        method="POST">
                                         @csrf
                                         <div date-rangepicker="" class="flex items-center">
                                             <div class="relative">
@@ -323,7 +349,7 @@
                                                 </div>
                                                 <label for="check-in" class="text-xs font-semibold">CHECK-IN</label>
 
-                                                <input name="check-in" id="check-in" type="text"
+                                                <input name="check-in" id="check-in" type="text" required
                                                     class="w-full bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5  datepicker-input"
                                                     placeholder="Select date start">
                                             </div>
@@ -341,7 +367,7 @@
                                                 </div>
                                                 <label for="checkout" class="text-xs font-semibold">CHECKOUT</label>
 
-                                                <input name="checkout" id="checkout" type="text"
+                                                <input name="checkout" id="checkout" type="text" required
                                                     class="w-full bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5  datepicker-input"
                                                     placeholder="Select date end">
                                             </div>
@@ -476,6 +502,7 @@
                                         <div class="mt-4 hidden" id="total-fee">
                                             <div class="flex items-center justify-between w-full">
                                                 <div class="mr-2 underline">
+                                                    <input id="days" name="days" class="hidden">
                                                     <input id="price_night" name="price_night"
                                                         value="{{ $listing->price_per_night }}" readonly
                                                         class="w-16 text-base text-gray-900 font-thin  underline inline-flex outline-none">
@@ -663,14 +690,14 @@
 
                     $('#total-days').text(days);
 
-
+                    $('#days').val(days);
                     $('#pending-total').val((price_night * days).toLocaleString());
 
                     var service = parseInt(service_fee);
                     var get_total = (price_night * days) + service;
-                    $('#total').val((get_total).toLocaleString());
+                    $('#total').val(get_total);
                     $('#total-fee').show();
-
+                    // (get_total).toLocaleString()
                 });
 
                 $('#checkout').focusout(function() {
@@ -679,11 +706,11 @@
                     var days = daysBetween(first, second);
 
                     $('#total-days').text(days);
-                    $('#pending-total').val((price_night * days).toLocaleString());
+                    $('#pending-total').val(price_night * days);
 
                     var service = parseInt(service_fee);
                     var get_total = (price_night * days) + service;
-                    $('#total').val((get_total).toLocaleString());
+                    $('#total').val(get_total);
                     $('#total-fee').show();
 
                 });

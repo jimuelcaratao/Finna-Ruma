@@ -13,6 +13,17 @@ class WishListController extends Controller
     {
         $wishlists = WishList::Where('user_id', Auth::user()->id)->get();
 
+        foreach ($wishlists as $item) {
+            $get_wish = WishList::where('user_id', $item->user_id)->first();
+
+            if ($get_wish->viewed_by_user == 0) {
+
+                WishList::where('user_id', $get_wish->user_id)->update([
+                    'viewed_by_user' => 1,
+                ]);
+            }
+        }
+
         return view('pages.wishlist', [
             'wishlists' => $wishlists,
         ]);
