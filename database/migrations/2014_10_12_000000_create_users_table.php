@@ -17,11 +17,18 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('status')->nullable(); //if admin or user (active/inactive) else host (Approved/Pending/Denied)
+            $table->string('contact')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('external_provider')->nullable();
+            $table->string('external_id')->nullable();
+            $table->integer('is_admin')->default(0);
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->text('profile_photo_path')->nullable();
+            $table->timestamp('is_banned')->nullable();
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

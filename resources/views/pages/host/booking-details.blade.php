@@ -1,0 +1,272 @@
+<x-host-layout>
+
+    {{-- Contents --}}
+    <div class="projects-section">
+
+
+
+
+        <div class="overflow-y-auto">
+            <div>
+                <div class="container mx-auto">
+
+                    <div class="flex justify-center lg:my-8">
+                        <!-- Row -->
+                        <div class="w-full flex-1 md:flex">
+
+                            <!-- Col -->
+                            <div class="flex-initial w-full lg:w-3/5 lg:block bg-white lg:mr-10 px-4 lg:px-0">
+                                <div class=" mb-4">
+
+                                    <div class="flex justify-between gap-10">
+                                        <div>
+                                            <h3 class="pt-4 mb-2 text-3xl font-semibold">
+                                                Booking ID: {{ $booking->booking_id }}
+                                            </h3>
+                                            <span
+                                                class="mt-4 mb-2 bg-blue-100 text-blue-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+
+                                                {{ $booking->booking_status }}
+                                            </span>
+                                            <h3 class=" mb-2 text-xl ">{{ $booking->listing->listing_title }}
+                                            </h3>
+                                            <a class="text-sm font-medium text-gray-700 underline">
+                                                {{ $booking->listing->location }}</a>
+
+                                            <!-- Breadcrumb -->
+                                            <nav class="flex" aria-label="Breadcrumb">
+                                                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                                                    <li class="inline-flex items-center">
+                                                        <span
+                                                            class="inline-flex items-center text-sm font-medium text-gray-700">
+                                                            {{ $booking->listing->max_guest }} guests
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="flex items-center">
+                                                            <span class="mx-1">
+                                                                •
+                                                            </span>
+                                                            <span
+                                                                class="ml-1 text-sm font-medium text-gray-700 md:ml-2 ">{{ $booking->listing->bedrooms }}
+                                                                bedrooms</span>
+                                                        </div>
+                                                    </li>
+                                                    <li aria-current="page">
+                                                        <div class="flex items-center">
+                                                            <span class="mx-1">
+                                                                •
+                                                            </span>
+
+                                                            <span
+                                                                class="ml-1 text-sm font-medium text-gray-700 md:ml-2">{{ $booking->listing->beds }}
+                                                                beds</span>
+                                                        </div>
+                                                    </li>
+
+                                                    <li aria-current="page">
+                                                        <div class="flex items-center">
+                                                            <span class="mx-1">
+                                                                •
+                                                            </span>
+
+                                                            <span
+                                                                class="ml-1 text-sm font-medium text-gray-700 md:ml-2">{{ $booking->listing->bathrooms }}
+                                                                baths
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </nav>
+
+
+                                            {{-- Your Trip --}}
+                                            <div class="mt-8">
+                                                <h5 class="text-lg font-bold mb-2">Booking Details</h5>
+
+                                                <h3 class="text-base font-bold mt-4">Person who books</h3>
+                                                <span class="text-sm">{{ $booking->user->name }}</span>
+
+                                                <h3 class="text-base font-bold mt-2">Dates</h3>
+                                                <span class="text-sm">{{ $booking->check_in }} -
+                                                    {{ $booking->checkout }} </span>
+
+                                                <h3 class="text-base font-bold mt-2">Guests</h3>
+                                                <span class="text-sm">{{ $booking->adults }} Adults,
+                                                    {{ $booking->children }} Children, {{ $booking->infants }}
+                                                    Infants, {{ $booking->pets }} Pets </span>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <!-- Payment Section -->
+                            <div class="flex-initial  w-full lg:w-2/5 ">
+                                <div class=" mb-4 p-6 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
+
+
+
+                                    <div class=" mb-6 text-2xl font-semibold">
+                                        Price details <span
+                                            class="text-sm text-gray-600">{{ $booking->payment_status }}</span>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="flex items-center justify-between w-full md:w-2/4">
+                                            <div>
+                                                <h3 class="text-base text-gray-900 underline">₱ @convert($booking->price_per_night) ×
+                                                    {{ $booking->days }}</h3>
+                                            </div>
+                                            <div class="mt-2">
+                                                ₱ {{ $booking->pending_total }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mt-4">
+                                        <div class="flex items-center justify-between w-full md:w-2/4">
+                                            <div>
+                                                <h3 class="text-base text-gray-900 underline">Service Fee</h3>
+                                            </div>
+                                            <div class="mt-2">
+                                                ₱ @convert($booking->service_fee)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if ($booking->payment_status == 'Half Paid')
+                                        <div class="mt-6">
+                                            <div class="flex items-center justify-between w-full md:w-2/4">
+                                                <div>
+                                                    <h3 class="text-base text-gray-900 font-bold">Paid</h3>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <h3 class=" text-lg font-semibold">₱
+                                                        @convert($booking->total_paid)</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="flex items-center justify-between w-full md:w-2/4">
+                                                <div>
+                                                    <h3 class="text-base text-gray-900 font-bold">Balance</h3>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <h3 class=" text-lg font-semibold">₱
+                                                        @convert($booking->total - $booking->total_paid)</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="mt-2">
+                                        <div class="flex items-center justify-between w-full md:w-2/4">
+                                            <div>
+                                                <h3 class="text-base text-gray-900 font-bold">Total</h3>
+                                            </div>
+                                            <div class="mt-2">
+                                                <h3 class=" mb-4 text-xl font-semibold">₱
+                                                    @convert($booking->total)</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="border-b-2 border-gray-30 my-6"></div>
+
+                                    @if ($booking->payment_status == 'Half Paid')
+                                        {{-- form --}}
+                                        <form action="{{ route('complete_payment.booking', [$booking->booking_id]) }}"
+                                            method="POST" id="payment">
+                                            @csrf
+
+                                        </form>
+
+                                        <div id="paypal-button-container"></div>
+                                    @endif
+
+
+                                    <div class="flex justify-between">
+
+                                        <a href="{{ route('host.bookings') }}">
+                                            <button type="button"
+                                                class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                Go to bookings
+                                            </button>
+                                        </a>
+
+                                        @if ($booking->completed_at == null)
+                                            <form class="archive-booking ml-2"
+                                                action="{{ route('host.bookings.complete', [$booking->booking_id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <a type="submit" data-tooltip-target="tooltip-delete"
+                                                    data-tooltip-placement="top"
+                                                    class=" text-gray-900 bg-white border no-underline border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                    Complete
+                                                </a>
+                                            </form>
+                                        @endif
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+
+                $(".search_btn").click(function() {
+                    $("#search_tbl").submit();
+                });
+            });
+
+            $(".archive-booking").click(function(e) {
+                e.preventDefault();
+                swal({
+                        title: "Are you sure to Complete this booking?",
+                        text: "Once you complete it, you can't change it's status.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $(e.target)
+                                .closest("form")
+                                .submit(); // Post the surrounding form
+                        } else {
+                            return false;
+                        }
+                    });
+            });
+        </script>
+    @endpush
+</x-host-layout>
