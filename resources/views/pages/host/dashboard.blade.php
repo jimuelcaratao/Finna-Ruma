@@ -1,17 +1,5 @@
 <x-host-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div> --}}
 
     <div class="projects-section">
         <div class="projects-section-header">
@@ -83,8 +71,34 @@
                         </div>
                     </div>
                     <div class="project-box-content-header">
+                        <p class="box-content-header">{{ $half }}</p>
+                        <p class="box-content-subheader">Half paid bookings</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="project-box-wrapper">
+                <div class="project-box" style="background-color: #ffd3e2;">
+                    <div class="project-box-header">
+                        <span></span>
+                        <div class="more-wrapper">
+                            <a href="http://localhost:8000/host/bookings?search_status=Confirmed+Reservation&search=">
+
+                                <button class="project-btn-more">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-box-content-header">
                         <p class="box-content-header">{{ $confirmed }}</p>
-                        <p class="box-content-subheader">Confirmed</p>
+                        <p class="box-content-subheader">Confirmed Bookings</p>
                     </div>
 
                 </div>
