@@ -34,6 +34,8 @@ class DashboardController extends Controller
 
         $canceled = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Canceled')->count();
 
+        $half = Booking::where('host_id', Auth::user()->id)->where('payment_status', 'Half Paid')->count();
+
         $complete = Booking::where('host_id', Auth::user()->id)->where('booking_status', 'Complete')->count();
 
         $total = Booking::where('host_id', Auth::user()->id)->count();
@@ -55,6 +57,7 @@ class DashboardController extends Controller
             'listings' => $listings,
 
             'pending' => $pending,
+            'half' => $half,
             'confirmed' => $confirmed,
             'canceled' => $canceled,
             'complete' => $complete,

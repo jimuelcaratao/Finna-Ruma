@@ -56,6 +56,11 @@ class Listing extends Model
         return $this->hasOne(ListingAmenity::class, 'listing_id', 'listing_id');
     }
 
+    public function Booking()
+    {
+        return $this->hasMany(Booking::class, 'listing_id', 'listing_id');
+    }
+
     public function listing_gallery()
     {
         return $this->hasOne(ListingGallery::class, 'listing_id', 'listing_id');
@@ -104,6 +109,52 @@ class Listing extends Model
     {
         if (request()->search_status != null) {
             $q->Where('listing_status', 'LIKE', '%' .  request()->search_status  .  '%');
+        }
+        return $q;
+    }
+
+    public function scopeDestinationFilter($q)
+    {
+        if (!empty(request()->destination)) {
+            $q->Where('listing_title', 'LIKE', '%' .  request()->destination  .  '%')
+                ->OrWhere('location', 'LIKE', '%' .  request()->destination  .  '%');
+        }
+        return $q;
+    }
+
+    public function scopeDateFilter($q)
+    {
+        if (!empty(request()->check_in)) {
+            $q->whereDoesntHave('Booking', function ($s) {
+                $s->WhereBetween('check_in', [request()->check_in, request()->checkout])
+                    ->OrWhereBetween('checkout', [request()->check_in, request()->checkout]);
+            });
+        }
+        return $q;
+    }
+
+    public function scopeGuestFilter($q)
+    {
+        if (!empty(request()->guests)) {
+            $q->whereBetween('max_guest', [0, request()->guests]);
+        }
+        return $q;
+    }
+
+    public function scopeBudgetFilter($q)
+    {
+        if (!empty(request()->budget_1)) {
+            $q->Where('price_per_night', 'LIKE', '%' .  request()->budget_1  .  '%')
+                ->OrWhere('price_per_night', 'LIKE', '%' .  request()->budget_2  .  '%');
+        }
+        return $q;
+    }
+
+    public function scopePropertyFilter($q)
+    {
+        if (!empty(request()->property_house)) {
+            $q->Where('property_type', 'LIKE', '%' .  request()->property_house  .  '%')
+                ->OrWhere('property_type', 'LIKE', '%' .  request()->property_guest  .  '%');
         }
         return $q;
     }

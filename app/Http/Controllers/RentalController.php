@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Listing;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $listings = Listing::where('listing_status', 'Approved')->get();
+        $listings = Listing::with('Booking')->where('listing_status', 'Approved')
+            ->destinationfilter()
+            ->datefilter()
+            ->guestfilter()
+            ->get();
+
+        $categories = Category::get();
 
         return view('pages.rentals', [
             'listings' => $listings,
+            'categories' => $categories,
         ]);
     }
 }
