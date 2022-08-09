@@ -162,7 +162,7 @@
                             @forelse ($listings as $listing)
                                 <a href="{{ route('single-list', [$listing->slug]) }}">
                                     <div
-                                        class=" flex w-96 flex-col justify-center bg-white rounded-2xl shadow-md transition duration-500 ease-in-out transform hover:translate-y-1">
+                                        class="text-left flex w-96 flex-col justify-center bg-white rounded-2xl shadow-md transition duration-500 ease-in-out transform hover:translate-y-1">
                                         <!-- img -->
                                         <img class="aspect-video w-full rounded-t-2xl object-cover object-center"
                                             src="{{ asset('storage/media/listing/cover_' . $listing->listing_id . '_' . $listing->default_photo) }}" />

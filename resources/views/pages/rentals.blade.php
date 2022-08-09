@@ -88,7 +88,7 @@
                     </select>
                 </li>
 
-                <button type="submit"
+                <button type="submit" id="go"
                     class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full py-2.5 mr-2 mt-4 ">
                     Search
                 </button>
@@ -111,8 +111,8 @@
                 <h3 class="pt-4 pb-4">Your budget</h3>
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="budget_1" name="budget_1" type="checkbox" value="2000"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                        <input id="budget_1" name="budget_1" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
                         <label for="budget_1" class="ml-2 text-sm font-medium text-gray-900 ">₱ 0
                             - ₱ 2000</label>
                     </div>
@@ -120,8 +120,8 @@
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="budget_2" name="budget_2" type="checkbox" value=""
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                        <input id="budget_2" name="budget_2" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
                         <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 2000
                             - ₱ 4000</label>
                     </div>
@@ -129,8 +129,8 @@
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="budget_3" name="budget_3" type="checkbox" value=""
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                        <input id="budget_3" name="budget_3" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
                         <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 4000
                             - ₱ 6000</label>
                     </div>
@@ -138,8 +138,8 @@
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="budget_4" name="budget_4" type="checkbox" value=""
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                        <input id="budget_4" name="budget_4" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
                         <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 6000+</label>
                     </div>
                 </li>
@@ -147,7 +147,7 @@
                 <div class="border-b border-gray-200 py-2"></div>
 
                 {{-- Category Filter --}}
-                <h3 class="pt-4 pb-4">Category</h3>
+                {{-- <h3 class="pt-4 pb-4">Category</h3>
 
                 @forelse ($categories as $category)
                     <li>
@@ -167,7 +167,7 @@
                 @endforelse
 
 
-                <div class="border-b border-gray-200 py-2"></div>
+                <div class="border-b border-gray-200 py-2"></div> --}}
 
 
                 {{-- Property Filter --}}
@@ -175,37 +175,41 @@
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="property-apartment" name="property-house" type="checkbox" value="House"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
-                        <label for="property-house" class="ml-2 text-sm font-medium text-gray-900 ">House</label>
+                        <input id="property_type_1" type="radio" value="House" name="property_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                        <label for="property_type_1" class="ml-2 text-sm font-medium text-gray-900 ">House
+                        </label>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="property_type_2" type="radio" value="Guest House" name="property_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Guest House
+                        </label>
                     </div>
                 </li>
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="property-guest" name="property-guest" type="checkbox" value="Guest House"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
-                        <label for="property-guest" class="ml-2 text-sm font-medium text-gray-900 ">Guest
-                            House</label>
+                        <input id="property_type_2" type="radio" value="Apartment" name="property_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Apartment
+                        </label>
                     </div>
                 </li>
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="property-apartment" name="property-apartment" type="checkbox" value="Apartment"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
-                        <label for="property-apartment"
-                            class="ml-2 text-sm font-medium text-gray-900 ">Apartment</label>
+                        <input id="property_type_2" type="radio" value="Hotel" name="property_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Hotel
+                        </label>
                     </div>
                 </li>
 
-                <li>
-                    <div class="flex items-center mb-2">
-                        <input id="property-hotel" name="property-hotel" type="checkbox" value="Hotel"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
-                        <label for="property-hotel" class="ml-2 text-sm font-medium text-gray-900 ">Hotel</label>
-                    </div>
-                </li>
+
 
             </form>
         </x-slot>
@@ -259,5 +263,46 @@
     @push('scripts')
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
+
+        <script>
+            window.document.onload = $(document).ready(function() {
+                // budget
+                if ('{{ request()->budget_1 }}' != '') {
+                    $('input[name="budget_1"]').prop("checked", true);
+                }
+
+                if ('{{ request()->budget_2 }}' != '') {
+                    $('input[name="budget_2"]').prop("checked", true);
+                }
+
+                if ('{{ request()->budget_3 }}' != '') {
+                    $('input[name="budget_3"]').prop("checked", true);
+                }
+
+                if ('{{ request()->budget_4 }}' != '') {
+                    $('input[name="budget_4"]').prop("checked", true);
+                }
+
+                // property type
+
+                if ('{{ request()->property_type }}' != '') {
+                    $('input[name="property_type"][value={{ request()->property_type }}]')
+                        .prop("checked", true);
+                }
+            });
+            // $('input#budget_1').click(function() {
+            //     brand = $('input[name="budget_1"]:checked').val();
+
+            //     $('#go').click();
+            // });
+
+            // $("input.form_inp").click(function() {
+
+            //     if ($('input.form_inp').prop('checked')) {}
+
+            //     $("#filter-form").submit();
+
+            // });
+        </script>
     @endpush
 </x-global-layout>

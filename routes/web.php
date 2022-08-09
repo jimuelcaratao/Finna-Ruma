@@ -56,10 +56,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/rentals', [RentalController::class, 'index'])->name('rentals');
 Route::get('/rooms/{slug}', [SinglePostController::class, 'index'])->name('single-list');
 
-//Wishlists APIs
-Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
-Route::post('/wishlist/{listing_id}', [WishListController::class, 'add_to_wishlist'])->name('wishlist.add');
-Route::delete('/wishlist/{listing_id}/delete', [WishListController::class, 'remove_to_wishlist'])->name('wishlist.remove');
+
 
 Route::get('/host/try', function () {
     return view('pages.host-home');
@@ -75,6 +72,12 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
+    //Wishlists APIs
+    Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
+    Route::post('/wishlist/{listing_id}', [WishListController::class, 'add_to_wishlist'])->name('wishlist.add');
+    Route::delete('/wishlist/{listing_id}/delete', [WishListController::class, 'remove_to_wishlist'])->name('wishlist.remove');
+
 
     // My Bookings APIs
     Route::get('/my-bookings', [ControllersBookingController::class, 'my_bookings'])->name('my-bookings');
