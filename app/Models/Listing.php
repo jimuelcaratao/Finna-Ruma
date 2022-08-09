@@ -144,18 +144,29 @@ class Listing extends Model
     public function scopeBudgetFilter($q)
     {
         if (!empty(request()->budget_1)) {
-            $q->Where('price_per_night', 'LIKE', '%' .  request()->budget_1  .  '%')
-                ->OrWhere('price_per_night', 'LIKE', '%' .  request()->budget_2  .  '%');
+            $q->whereBetween('price_per_night', [0, 2000]);
+        }
+
+        if (!empty(request()->budget_2)) {
+            $q->OrwhereBetween('price_per_night', [2000, 4000]);
+        }
+
+        if (!empty(request()->budget_3)) {
+            $q->OrwhereBetween('price_per_night', [4000, 6000]);
+        }
+
+        if (!empty(request()->budget_4)) {
+            $q->Orwhere('price_per_night', '>', 6000);
         }
         return $q;
     }
 
     public function scopePropertyFilter($q)
     {
-        if (!empty(request()->property_house)) {
-            $q->Where('property_type', 'LIKE', '%' .  request()->property_house  .  '%')
-                ->OrWhere('property_type', 'LIKE', '%' .  request()->property_guest  .  '%');
+        if (!empty(request()->property_type)) {
+            $q->Where('property_type', request()->property_type);
         }
+
         return $q;
     }
 }

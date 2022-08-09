@@ -17,7 +17,7 @@ class ListingController extends Controller
 {
     public function index()
     {
-        $tableListing = Listing::all();
+        $tableListing = Listing::where('user_id', Auth::user()->id)->get();
         $categories = Category::get();
 
         $listing_total = Listing::where('user_id', Auth::user()->id)->count();
@@ -30,18 +30,18 @@ class ListingController extends Controller
 
 
         if ($tableListing->isEmpty()) {
-            $listings = Listing::paginate(10);
+            $listings = Listing::where('user_id', Auth::user()->id)->paginate(10);
         }
 
         if ($tableListing->isNotEmpty()) {
 
             // search validation
-            $search = Listing::searchfilter()
+            $search = Listing::where('user_id', Auth::user()->id)->searchfilter()
                 ->categoryfilter()
                 ->statusfilter()
                 ->first();
 
-            $searchAdvance = Listing::searchfilter()
+            $searchAdvance = Listing::where('user_id', Auth::user()->id)->searchfilter()
                 ->categoryfilter()
                 ->statusfilter()
                 ->first();
@@ -52,7 +52,7 @@ class ListingController extends Controller
 
             if ($search != null) {
                 // default returning
-                $listings = Listing::searchfilter()
+                $listings = Listing::where('user_id', Auth::user()->id)->searchfilter()
                     ->categoryfilter()
                     ->statusfilter()
                     ->latest()
