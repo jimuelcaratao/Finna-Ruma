@@ -30,17 +30,15 @@
 ![Screenshot 2020-10-30 220837](https://user-images.githubusercontent.com/61103022/97714835-9ba08080-1afc-11eb-8377-32dc40f40eb0.png)
 
 -   Close the Git bash.
+-   After clone open the project folder in vscode.
 
--   right click the `eCommerce-laravel` (Finna Ruma) and click `Git bash here`
-
-![Screenshot 2020-10-30 221236](https://user-images.githubusercontent.com/61103022/97715215-17023200-1afd-11eb-9d8e-6e2d5e6beef1.png)
-
+### Database config
 -   create db in phpmyadmin
 -   finna_ruma_db (dbname note: create on phpmyadmin and import given sql file)
 -   reference: https://www.youtube.com/watch?v=jW5lrS6EUPM
 
 
-### Type this in terminal
+### Type this in terminal to install dependencies
 -   composer install
 -   npm install
 -   npm run dev
