@@ -182,6 +182,34 @@
                                         </div>
                                     </div>
 
+                                    @if ($booking->payment_method == 'Gcash Payment')
+                                        <div class="col-span-6 sm:col-span-6 lg:col-span-3">
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700">
+                                                    Receipt
+                                                    <span class="text-xs font-bold "> (
+                                                        @if ($booking->payment_approved_at == null)
+                                                            Waiting for your approval
+                                                        @else
+                                                            Approved
+                                                        @endif
+                                                        )
+                                                    </span>
+                                                </label>
+                                                <div
+                                                    class="mt-1 flex justify-center items-center border-2 border-gray-300 border-dashed rounded-md">
+                                                    <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                        <img id="output"
+                                                            src="{{ asset('storage/media/booking/receipt_' . $booking->booking_id . '_' . $booking->payment_proof) }}"
+                                                            style="width:400px;height:300px;">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
 
 
                                     <div class="border-b-2 border-gray-30 my-6"></div>
@@ -207,21 +235,20 @@
                                             </button>
                                         </a>
 
-                                        @if ($booking->completed_at == null)
-                                            <form class="archive-booking ml-2"
-                                                action="{{ route('host.bookings.complete', [$booking->booking_id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                <a type="submit" data-tooltip-target="tooltip-delete"
-                                                    data-tooltip-placement="top"
-                                                    class=" text-gray-900 bg-white border no-underline border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
-                                                    Complete
-                                                </a>
-                                            </form>
+                                        @if ($booking->booking_status == 'Confirmed Reservation')
+                                            @if ($booking->completed_at == null)
+                                                <form class="archive-booking ml-2"
+                                                    action="{{ route('host.bookings.complete', [$booking->booking_id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <a type="submit" data-tooltip-target="tooltip-delete"
+                                                        data-tooltip-placement="top"
+                                                        class=" text-gray-900 bg-white border no-underline border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                        Complete
+                                                    </a>
+                                                </form>
+                                            @endif
                                         @endif
-
-
-
 
                                     </div>
                                 </div>

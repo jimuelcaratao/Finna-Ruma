@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('payment_status')->nullable(); // halfed, unpaid, fully paid
             $table->timestamp('paid_at')->nullable();
 
+            $table->text('payment_proof')->nullable();
+            $table->timestamp('payment_approved_at')->nullable();
+
             $table->string('check_in');
             $table->string('checkout');
             $table->string('days');

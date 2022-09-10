@@ -252,7 +252,7 @@
 
                     <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                         <span>Already have an account?</span>
-                        <a href="{{ route('host.login') }}"
+                        <a href="{{ route('login') }}"
                             class="text-[#7F4C1C] hover:text-[#E7CC9A] no-underline hover:underline cursor-pointer transition ease-in duration-300">Sign
                             in</a>
                     </p>

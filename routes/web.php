@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RentalController as AdminRentalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BookingController as ControllersBookingController;
+use App\Http\Controllers\CancelBookingController;
 use App\Http\Controllers\ConfirmBookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Host\AddListingController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\SinglePostController;
+use App\Http\Controllers\SubmitReceiptController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\WriteReviewController;
 use Illuminate\Support\Facades\Route;
@@ -78,11 +80,19 @@ Route::middleware([
     Route::post('/wishlist/{listing_id}', [WishListController::class, 'add_to_wishlist'])->name('wishlist.add');
     Route::delete('/wishlist/{listing_id}/delete', [WishListController::class, 'remove_to_wishlist'])->name('wishlist.remove');
 
+    // Cancel booking
+    Route::delete('/cancel/{booking_id}', [CancelBookingController::class, 'destroy'])->name('cancel.booking');
 
     // My Bookings APIs
     Route::get('/my-bookings', [ControllersBookingController::class, 'my_bookings'])->name('my-bookings');
     Route::get('/my-bookings/{booking_id}', [ControllersBookingController::class, 'index'])->name('booking');
     Route::get('/confirm/{slug}/{booking_id}', [ConfirmBookingController::class, 'confirm'])->name('confirm-booking');
+
+
+    // Submit receipt
+    Route::get('/submit/{booking_id}/{listing_id}', [SubmitReceiptController::class, 'index'])->name('submit_receipt');
+    Route::post('/receipt/{booking_id}', [SubmitReceiptController::class, 'store'])->name('submit_receipt.store');
+
 
     // Reviews APIs
     Route::get('/review/{booking_id}/{listing_id}', [WriteReviewController::class, 'index'])->name('write_review');
@@ -149,6 +159,7 @@ Route::middleware([
         // booking APIs
         Route::get('/bookings', [HostBookingController::class, 'index'])->name('host.bookings');
         Route::get('/booking/{booking_id}', [HostBookingController::class, 'view_details'])->name('host.bookings.view_details');
+        Route::put('/booking/approve/{booking_id}', [HostBookingController::class, 'approve_receipt'])->name('host.bookings.approve_receipt');
         Route::put('/booking/payment/{booking_id}', [HostBookingController::class, 'update_payment'])->name('host.bookings.update_payment');
         Route::post('/booking/archive/{booking_id}', [HostBookingController::class, 'archive'])->name('host.bookings.archive');
         Route::post('/booking/complete/{booking_id}', [HostBookingController::class, 'complete_booking'])->name('host.bookings.complete');

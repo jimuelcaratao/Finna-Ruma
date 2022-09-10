@@ -69,8 +69,7 @@
                                 <select id="search_status" name="search_status"
                                     class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-12 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
                                     @if (!empty(request()->search_status))
-                                        <option class="bg-gray-200" disabled
-                                            selected="{{ request()->search_status }}">
+                                        <option class="bg-gray-200" disabled selected="{{ request()->search_status }}">
                                             {{ request()->search_status }}
                                         </option>
                                     @endif
@@ -142,7 +141,7 @@
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                Host
+                                Host name
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Status
@@ -151,11 +150,15 @@
                                 Category
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Description
+                                Location
                             </th>
 
                             <th scope="col" class="px-6 py-3">
                                 Price Per Night
+                            </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Property Size
                             </th>
 
                             <th scope="col" class="px-6 py-3">
@@ -202,12 +205,17 @@
 
                                 </td>
                                 <td class="px-6 py-3">
-                                    {{ \Illuminate\Support\Str::limit($listing->description, 50) }}
+                                    {{ \Illuminate\Support\Str::limit($listing->location, 50) }}
 
                                 </td>
                                 <td class="px-6 py-3 ">
                                     ₱ @convert($listing->price_per_night)
                                 </td>
+
+                                <td class="px-6 py-3 ">
+                                    {{ $listing->property_size }} sq. m
+                                </td>
+
                                 <td class="px-6 py-3 text-center">
                                     {{ $listing->max_guest }}
                                 </td>

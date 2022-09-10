@@ -319,6 +319,32 @@
 
                                     <div class="text-right">
 
+                                        {{-- @if ($booking->payment_proof != null)
+                                            <a href="{{ route('booking', [$booking->booking_id]) }}">
+                                                <button type="button"
+                                                    class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                    View receipt
+                                                </button>
+                                            </a>
+                                        @endif --}}
+
+                                        @if ($booking->booking_status == 'Waiting for payment proof')
+                                            <a
+                                                href="{{ route('submit_receipt', [$booking->booking_id, $booking->listing->listing_id]) }}">
+                                                <button type="button"
+                                                    class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                    Submit receipt
+                                                </button>
+                                            </a>
+
+                                            <a href="{{ route('booking', [$booking->booking_id]) }}">
+                                                <button type="button"
+                                                    class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                    View
+                                                </button>
+                                            </a>
+                                        @endif
+
                                         @if ($booking->booking_status == 'Pending Confirmation')
                                             <a
                                                 href="{{ route('confirm-booking', [$booking->listing->slug, $booking->booking_id]) }}">

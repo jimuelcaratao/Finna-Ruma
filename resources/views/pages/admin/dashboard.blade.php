@@ -24,14 +24,14 @@
 
         </div>
 
-        <div class="project-boxes jsGridView overflow-hidden">
+        <div class="project-boxes jsGridView overflow-hidden h-80">
 
             <div class="project-box-wrapper">
                 <div class="project-box" style="background-color: #fee4cb;">
                     <div class="project-box-header">
                         <span></span>
                         <div class="more-wrapper">
-                            <a href="http://localhost:8000/host/bookings?search_status=Pending+Confirmation&search=">
+                            <a href="http://localhost:8000/admin/rentals?search_status=Pending+Approval&search=">
                                 <button class="project-btn-more">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="project-box-content-header">
-                        <p class="box-content-header">{{ $pending }}</p>
+                        <p class="box-content-header">{{ $listing_pending }}</p>
                         <p class="box-content-subheader">Pending Bookings</p>
                     </div>
 

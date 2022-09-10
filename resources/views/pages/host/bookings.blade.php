@@ -135,6 +135,16 @@
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-blue-500  to-blue-600">
                                             {{ $booking->booking_status }}
                                         </span>
+                                    @elseif($booking->booking_status == 'Waiting for payment approval')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-purple-500  to-purple-600">
+                                            {{ $booking->booking_status }}
+                                        </span>
+                                    @elseif($booking->booking_status == 'Waiting for payment proof')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-yellow-500  to-yellow-600">
+                                            {{ $booking->booking_status }}
+                                        </span>
                                     @elseif($booking->booking_status == 'Complete')
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-green-500  to-green-600">
@@ -174,7 +184,7 @@
                                     {{-- Tooltip --}}
                                     <div id="tooltip-payment" role="tooltip"
                                         class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                        Update Payment
+                                        Approve Payment
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
 
@@ -206,15 +216,28 @@
                                         </svg>
                                     </a>
 
-                                    <a data-tooltip-target="tooltip-payment" data-tooltip-placement="top"
-                                        data-bs-toggle="modal" data-bs-target="#confirm-modal"
-                                        class="confirm-password ml-2 font-medium text-purple-600  hover:text-purple-900  hover:underline no-underline">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                    </a>
+                                    {{-- approve payment --}}
+
+                                    @if ($booking->payment_method == 'Gcash Payment')
+                                        @if ($booking->booking_status != 'Waiting for payment proof')
+                                            @if ($booking->payment_approved_at == null)
+                                                <a data-tooltip-target="tooltip-payment" data-tooltip-placement="top"
+                                                    data-bs-toggle="modal" data-bs-target="#confirm-modal"
+                                                    id="approve-item"
+                                                    data-item-booking_id="{{ $booking->booking_id }}"
+                                                    data-item-payment_proof="{{ $booking->payment_proof }}"
+                                                    class="confirm-password ml-2 font-medium text-purple-600  hover:text-purple-900  hover:underline no-underline">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                    </svg>
+                                                </a>
+                                            @endif
+                                        @endif
+                                    @endif
+
 
 
 
@@ -273,7 +296,7 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <form action="{{ route('host.bookings.update_payment', [$booking->booking_id]) }}"
+                        <form action="{{ route('host.bookings.approve_receipt', [$booking->booking_id]) }}"
                             method="POST" id="confirm-form">
                             @csrf
                             @method('PUT')
@@ -284,6 +307,31 @@
 
                                             <div class="grid grid-cols-6 gap-3">
 
+
+                                                <div class=" col-span-6 sm:col-span-4">
+                                                    <label for="booking_id"
+                                                        class="block text-sm font-medium text-gray-700">Booking ID
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="booking_id" id="booking_id" readonly
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+
+                                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700">
+                                                            Receipt <span class="text-red-600">*</span>
+                                                        </label>
+                                                        <div
+                                                            class="mt-1 flex justify-center items-center border-2 border-gray-300 border-dashed rounded-md">
+                                                            <div
+                                                                class="flex flex-col place-items-center space-y-1 text-center">
+                                                                <img id="output" src=""
+                                                                    style="width:400px;height:300px;">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-span-6 sm:col-span-4">
                                                     <label for="payment_status"
                                                         class="block text-sm font-medium text-gray-700">Payment
@@ -291,7 +339,7 @@
                                                     <select id="payment_status" name="payment_status" required
                                                         class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                         <option selected disabled value="">Choose...</option>
-                                                        <option value="Fully Paid">Fully Paid</option>
+                                                        <option value="Approve">Approve</option>
 
                                                     </select>
                                                 </div>
@@ -333,6 +381,43 @@
 
     @push('scripts')
         <script>
+            $(document).ready(function() {
+                $(document).on("click", "#approve-item", function() {
+                    $(this).addClass(
+                        "edit-item-trigger-clicked"
+                    ); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
+                    var options = {
+                        backdrop: "static"
+                    };
+                    $("#confirm-modal").modal(options);
+                    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
+                    var row = el.closest(".data-row");
+
+                    // get the data
+                    var booking_id = el.data("item-booking_id");
+                    var payment_proof = el.data("item-payment_proof");
+
+
+                    $("#booking_id").val(booking_id);
+                    // image preview
+                    $("img#output").attr('src', $("img#output").attr('src') +
+                        `{{ asset('storage/media/booking/receipt_${booking_id}_${payment_proof}') }}`);
+
+                    // alert(category_name);
+
+                });
+                // on modal hide
+                $("#confirm-modal").on("hide.bs.modal", function() {
+                    $(".edit-item-trigger-clicked").removeClass(
+                        "edit-item-trigger-clicked"
+                    );
+                    $("#confirm-form").trigger("reset");
+
+                    $('#output').attr('src', '');
+                });
+            });
+
+
             $(document).ready(function() {
                 $(".close-modal-confirm").click(function() {
                     swal({

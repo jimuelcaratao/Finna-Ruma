@@ -25,25 +25,30 @@ class ConfirmBookingController extends Controller
 
     public function payment(Request $request, $booking_id)
     {
-        // dd($booking_id);
+        // dd($request->all());
 
         $booking = Booking::where('booking_id', $booking_id)->first();
 
-        if ($request->input('payment_status') == "Half Paid") {
-            $total_paid = $booking->total / 2;
-        }
+        if ($request->input('payment_method') != 'Gcash Payment') {
 
-        if ($request->input('payment_status') == "Fully Paid") {
-            $paid_at = Carbon::now();
+            if ($request->input('payment_status') == "Fully Paid") {
+                $paid_at = Carbon::now();
+            }
         }
 
         Booking::where('booking_id', $booking_id)->update([
-            'total_paid' => $total_paid ?? $booking->total,
+            'total_paid' =>  $request->input('total_paid') ?? null,
             'payment_status' => $request->input('payment_status'),
-            'payment_method' => 'Online Payment',
+            'payment_method' => $request->input('payment_method') ?? 'Online Payment',
             'paid_at' => $paid_at ?? null,
-            'booking_status' => 'Confirmed Reservation',
+            'booking_status' => $request->input('booking_status'),
         ]);
+
+        if ($request->input('payment_method') == 'Gcash Payment') {
+
+            return Redirect::route('submit_receipt', [$booking_id, $booking->listing_id])
+                ->with('toast_success', 'Submit your receipt');
+        }
 
         return Redirect::route('my-bookings')
             ->with('toast_success', 'Reservation Succesful!');

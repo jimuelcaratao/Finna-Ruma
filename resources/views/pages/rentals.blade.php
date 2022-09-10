@@ -96,7 +96,9 @@
                 @if (!empty(request()->destination) ||
                     !empty(request()->check_in) ||
                     !empty(request()->checkout) ||
-                    !empty(request()->guests))
+                    !empty(request()->guests) ||
+                    !empty(request()->search_cat) ||
+                    !empty(request()->property_type))
                     <a href="{{ route('rentals') }}"><button type="button"
                             class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full py-2.5 mr-2 mt-4 ">
                             Clear
@@ -112,7 +114,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="budget_1" name="budget_1" type="checkbox" value="1"
-                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="budget_1" class="ml-2 text-sm font-medium text-gray-900 ">₱ 0
                             - ₱ 2000</label>
                     </div>
@@ -121,7 +124,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="budget_2" name="budget_2" type="checkbox" value="1"
-                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 2000
                             - ₱ 4000</label>
                     </div>
@@ -130,7 +134,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="budget_3" name="budget_3" type="checkbox" value="1"
-                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 4000
                             - ₱ 6000</label>
                     </div>
@@ -139,24 +144,87 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="budget_4" name="budget_4" type="checkbox" value="1"
-                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 6000+</label>
                     </div>
                 </li>
 
                 <div class="border-b border-gray-200 py-2"></div>
 
+                {{-- Property Size --}}
+                <h3 class="pt-4 pb-4">Property Size</h3>
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="size_1" name="size_1" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="size_1" class="ml-2 text-sm font-medium text-gray-900 ">0
+                            - 10 sq. m</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="size_2" name="size_2" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                        <label for="size_2" class="ml-2 text-sm font-medium text-gray-900 "> 10 sq. m
+                            - 20 sq. m</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="size_3" name="size_3" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="size_3" class="ml-2 text-sm font-medium text-gray-900 "> 20 sq. m
+                            - 30 sq. m</label>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="size_4" name="size_4" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="size_4" class="ml-2 text-sm font-medium text-gray-900 "> 30 sq. m
+                            - 40 sq. m</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="size_5" name="size_5" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="size_5" class="ml-2 text-sm font-medium text-gray-900 "> 50+ sq. m</label>
+                    </div>
+                </li>
+
+                <div class="border-b border-gray-200 py-2"></div>
+
                 {{-- Category Filter --}}
-                {{-- <h3 class="pt-4 pb-4">Category</h3>
+                <div class="justify-between flex">
+                    <h3 class="pt-4 pb-4">Category</h3>
+
+                    {{-- <div class="mt-3 text-gray-500 hover:text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6 x_cat">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div> --}}
+                </div>
 
                 @forelse ($categories as $category)
                     <li>
                         <div class="flex items-center mb-2">
-                            <input id="category-{{ $category->category_id }}"
-                                name="category-{{ $category->category_id }}" type="checkbox"
-                                value="{{ $category->category_id }}"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
-                            <label for="category-{{ $category->category_id }}"
+                            <input name="search_cat" type="radio" value="{{ $category->category_name }}"
+                                class="search_cat_class w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                                onChange="this.form.submit()">
+                            <label
                                 class="ml-2 text-sm font-medium text-gray-900 ">{{ $category->category_name }}</label>
                         </div>
                     </li>
@@ -167,7 +235,7 @@
                 @endforelse
 
 
-                <div class="border-b border-gray-200 py-2"></div> --}}
+                <div class="border-b border-gray-200 py-2"></div>
 
 
                 {{-- Property Filter --}}
@@ -176,7 +244,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="property_type_1" type="radio" value="House" name="property_type"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="property_type_1" class="ml-2 text-sm font-medium text-gray-900 ">House
                         </label>
                     </div>
@@ -185,7 +254,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="property_type_2" type="radio" value="Guest House" name="property_type"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Guest House
                         </label>
                     </div>
@@ -194,7 +264,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="property_type_2" type="radio" value="Apartment" name="property_type"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Apartment
                         </label>
                     </div>
@@ -203,13 +274,56 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="property_type_2" type="radio" value="Hotel" name="property_type"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Hotel
                         </label>
                     </div>
                 </li>
 
+                <div class="border-b border-gray-200 py-2"></div>
 
+                {{-- Property Size --}}
+                <h3 class="pt-4 pb-4">No. of Bedrooms</h3>
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="bedroom_1" name="bedroom_1" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="bedroom_1" class="ml-2 text-sm font-medium text-gray-900 ">0
+                            - 2</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="bedroom_2" name="bedroom_2" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="bedroom_2" class="ml-2 text-sm font-medium text-gray-900 "> 2
+                            - 4</label>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="bedroom_3" name="bedroom_3" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="bedroom_3" class="ml-2 text-sm font-medium text-gray-900 "> 4
+                            - 6</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="bedroom_4" name="bedroom_4" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="bedroom_4" class="ml-2 text-sm font-medium text-gray-900 "> 7+</label>
+                    </div>
+                </li>
 
             </form>
         </x-slot>
@@ -265,7 +379,18 @@
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
 
         <script>
+            // $(document).ready(function() {
+            //     $(".x_cat").click(function() {
+            //         // alert('sad');
+            //         "{{ request()->property_type }} ="
+            //         $("#filter-form").submit();
+
+            //     });
+            // });
+
+
             window.document.onload = $(document).ready(function() {
+
                 // budget
                 if ('{{ request()->budget_1 }}' != '') {
                     $('input[name="budget_1"]').prop("checked", true);
@@ -286,15 +411,59 @@
                 // property type
 
                 if ('{{ request()->property_type }}' != '') {
-                    $('input[name="property_type"][value={{ request()->property_type }}]')
+                    $('input[name="property_type"][value="{{ request()->property_type }}"]')
                         .prop("checked", true);
                 }
-            });
-            // $('input#budget_1').click(function() {
-            //     brand = $('input[name="budget_1"]:checked').val();
 
-            //     $('#go').click();
-            // });
+                // category type
+
+                if ('{{ request()->search_cat }}' != '') {
+                    $('input[name="search_cat"][value="{{ request()->search_cat }}"]')
+                        .prop("checked", true);
+                }
+
+
+                // property_size
+                if ('{{ request()->size_1 }}' != '') {
+                    $('input[name="size_1"]').prop("checked", true);
+                }
+
+                if ('{{ request()->size_2 }}' != '') {
+                    $('input[name="size_2"]').prop("checked", true);
+                }
+
+                if ('{{ request()->size_3 }}' != '') {
+                    $('input[name="size_3"]').prop("checked", true);
+                }
+
+                if ('{{ request()->size_4 }}' != '') {
+                    $('input[name="size_4"]').prop("checked", true);
+                }
+
+                if ('{{ request()->size_5 }}' != '') {
+                    $('input[name="size_5"]').prop("checked", true);
+                }
+
+                // bedroom
+                if ('{{ request()->bedroom_1 }}' != '') {
+                    $('input[name="bedroom_1"]').prop("checked", true);
+                }
+
+                if ('{{ request()->bedroom_2 }}' != '') {
+                    $('input[name="bedroom_2"]').prop("checked", true);
+                }
+
+                if ('{{ request()->bedroom_3 }}' != '') {
+                    $('input[name="bedroom_3"]').prop("checked", true);
+                }
+
+                if ('{{ request()->bedroom_4 }}' != '') {
+                    $('input[name="bedroom_4"]').prop("checked", true);
+                }
+
+
+            });
+
 
             // $("input.form_inp").click(function() {
 

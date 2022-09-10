@@ -70,8 +70,36 @@ class BookingController extends Controller
         ]);
     }
 
+    public function approve_receipt(Request $request, $booking_id)
+    {
+        // dd($request->all());
+        $user = User::where('email', Auth::user()->email)->first();
+
+        if ($user->password == null) {
+            return Redirect::back()->with('info', 'Opps you have currently no password.');
+        }
+
+        if (Hash::check($request->input('password'), $user->password)) {
+
+            if (!empty($request->input('payment_status'))) {
+                $booking = Booking::where('booking_id', $request->input('booking_id'))->first();
+                Booking::where('booking_id', $request->input('booking_id'))
+                    ->update([
+                        'booking_status' => 'Confirmed Reservation',
+                        'payment_approved_at' => Carbon::now(),
+                        'paid_at' => Carbon::now(),
+                    ]);
+
+                return Redirect::back()->with('success', 'Payment Successfully updated.');
+            }
+        } else {
+            return Redirect::back()->with('info', 'Sorry Wrong credentials.');
+        }
+    }
+
     public function update_payment(Request $request, $booking_id)
     {
+
         $user = User::where('email', Auth::user()->email)->first();
 
         if ($user->password == null) {

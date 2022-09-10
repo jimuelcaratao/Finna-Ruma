@@ -232,6 +232,19 @@
                                                             </span>
                                                         </div>
                                                     </li>
+
+                                                    <li aria-current="page">
+                                                        <div class="flex items-center">
+                                                            <span class="mx-1">
+                                                                •
+                                                            </span>
+
+                                                            <span
+                                                                class="ml-1 text-sm font-medium text-gray-700 md:ml-2">{{ $listing->property_size }}
+                                                                sq. m
+                                                            </span>
+                                                        </div>
+                                                    </li>
                                                 </ol>
                                             </nav>
 
