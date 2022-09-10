@@ -11,6 +11,13 @@
 -   https://git-scm.com/download/win
 -   https://nodejs.org/en/download/
 
+
+## Step to run
+
+### Locally
+
+-   git clone
+
 -   go to `This PC -> Local Disk (C:) -> xampp -> htdocs` folder.
 
 ![Screenshot 2020-10-30 215333](https://user-images.githubusercontent.com/61103022/97713413-c12c8a80-1afa-11eb-8ad6-de787fb453d0.png)
@@ -28,18 +35,12 @@
 
 ![Screenshot 2020-10-30 221236](https://user-images.githubusercontent.com/61103022/97715215-17023200-1afd-11eb-9d8e-6e2d5e6beef1.png)
 
-## Step to run
-
-### Locally
-
--   git clone
 -   create db in phpmyadmin
 -   finna_ruma_db (dbname note: create on phpmyadmin and import given sql file)
 -   reference: https://www.youtube.com/watch?v=jW5lrS6EUPM
 
-[![047b8918-525f-4f62-913c-fe73ad123c1c.png](https://i.postimg.cc/zvZjdJTC/047b8918-525f-4f62-913c-fe73ad123c1c.png)](https://postimg.cc/CB7k5pP5)
 
-#### Type this in terminal
+### Type this in terminal
 -   composer install
 -   npm install
 -   npm run dev
@@ -48,6 +49,8 @@
 -   php artisan config:cache
 -   php artisan serve (start)
 -   then go to link
+
+[![047b8918-525f-4f62-913c-fe73ad123c1c.png](https://i.postimg.cc/zvZjdJTC/047b8918-525f-4f62-913c-fe73ad123c1c.png)](https://postimg.cc/CB7k5pP5)
 
 ## Important after fresh installation. (if this has already have folder, please ignore)
 
@@ -81,8 +84,6 @@ use App\Models\User;
 ### Step to reset database (Careful resetting all db data)
 
 -   php artisan migrate:fresh
-
-
 
 ### booking Status
 
