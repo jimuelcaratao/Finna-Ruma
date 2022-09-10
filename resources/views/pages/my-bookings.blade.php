@@ -111,97 +111,80 @@
                         <!-- Row -->
                         <div class="w-full flex-1 md:flex gap-10">
 
-                            @forelse ($bookings as $booking)
-                                <!-- Cards -->
-                                <div class="flex-initial  w-full md:w-3/6 lg:w-2/6 ">
-                                    <div class=" mb-4 p-6 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
+                            <div class="grid grid-cols-3 gap-10">
+                                @forelse ($bookings as $booking)
+                                    <!-- Cards -->
+                                    <div class="flex-initial  w-full ">
+                                        <div class=" mb-4 p-6 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
 
 
 
-                                        <div class="inline-flex ">
-                                            <a href="{{ route('single-list', [$booking->listing->slug]) }}"> <img
-                                                    src="{{ asset('storage/media/listing/cover_' . $booking->listing->listing_id . '_' . $booking->listing->default_photo) }}"
-                                                    class="w-58 h-36 rounded-md">
-                                            </a>
-                                            <div class="pl-4">
-                                                <span
-                                                    class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
-
-                                                    {{ $booking->booking_status }}
-                                                </span>
-
-                                                <a href="{{ route('single-list', [$booking->listing->slug]) }}"
-                                                    class="font-bold text-sm block">
-                                                    {{ $booking->listing->listing_title }}
-
+                                            <div class="inline-flex ">
+                                                <a href="{{ route('single-list', [$booking->listing->slug]) }}"> <img
+                                                        src="{{ asset('storage/media/listing/cover_' . $booking->listing->listing_id . '_' . $booking->listing->default_photo) }}"
+                                                        class="w-58 h-36 rounded-md">
                                                 </a>
-                                                <a class="text-xs font-medium text-gray-700 underline">
-                                                    {{ $booking->listing->location }}</a>
-                                                <p class="text-xs text-gray-700">{{ $booking->listing->max_guest }}
-                                                    guests•{{ $booking->listing->bedrooms }}
-                                                    bedrooms•{{ $booking->listing->beds }}
-                                                    beds•{{ $booking->listing->bathrooms }}
-                                                    baths</p>
+                                                <div class="pl-4">
+                                                    <span
+                                                        class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+
+                                                        {{ $booking->booking_status }}
+                                                    </span>
+
+                                                    <a href="{{ route('single-list', [$booking->listing->slug]) }}"
+                                                        class="font-bold text-sm block">
+                                                        {{ $booking->listing->listing_title }}
+
+                                                    </a>
+                                                    <a class="text-xs font-medium text-gray-700 underline">
+                                                        {{ $booking->listing->location }}</a>
+                                                    <p class="text-xs text-gray-700">{{ $booking->listing->max_guest }}
+                                                        guests•{{ $booking->listing->bedrooms }}
+                                                        bedrooms•{{ $booking->listing->beds }}
+                                                        beds•{{ $booking->listing->bathrooms }}
+                                                        baths</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="border-b-2 border-gray-30 my-5"></div>
+
+                                            <div class="mt-8">
+                                                <h5 class="text-lg font-bold mb-2">Your Trip</h5>
+
+                                                <h3 class=" font-bold">Dates <span
+                                                        class="text-sm text-gray-400 font-normal">({{ $booking->days }}
+                                                        days)</span></h3>
+                                                <span class="text-sm">{{ $booking->check_in }} -
+                                                    {{ $booking->checkout }}</span>
+
+                                                <h3 class=" font-bold mt-2">Guests</h3>
+                                                <span class="text-sm">{{ $booking->adults }} Adults,
+                                                    {{ $booking->children }} Children, {{ $booking->infants }}
+                                                    Infants, {{ $booking->pets }} Pets </span>
+
+                                                <h3 class=" font-bold mt-2">Payment Status</h3>
+                                                <span class="text-sm">{{ $booking->payment_status }}</span>
                                             </div>
 
-                                        </div>
-                                        <div class="border-b-2 border-gray-30 my-5"></div>
 
-                                        <div class="mt-8">
-                                            <h5 class="text-lg font-bold mb-2">Your Trip</h5>
+                                            <div class="border-b-2 border-gray-30 my-5"></div>
+                                            <div class="text-right">
 
-                                            <h3 class=" font-bold">Dates <span
-                                                    class="text-sm text-gray-400 font-normal">({{ $booking->days }}
-                                                    days)</span></h3>
-                                            <span class="text-sm">{{ $booking->check_in }} -
-                                                {{ $booking->checkout }}</span>
-
-                                            <h3 class=" font-bold mt-2">Guests</h3>
-                                            <span class="text-sm">{{ $booking->adults }} Adults,
-                                                {{ $booking->children }} Children, {{ $booking->infants }}
-                                                Infants, {{ $booking->pets }} Pets </span>
-
-                                            <h3 class=" font-bold mt-2">Payment Status</h3>
-                                            <span class="text-sm">{{ $booking->payment_status }}</span>
-                                        </div>
-
-
-                                        <div class="border-b-2 border-gray-30 my-5"></div>
-                                        <div class="text-right">
-
-                                            @if ($booking->booking_status == 'Pending Confirmation')
-                                                <a
-                                                    href="{{ route('confirm-booking', [$booking->listing->slug, $booking->booking_id]) }}">
-                                                    <button type="button"
-                                                        class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
-                                                        Confirm
-                                                    </button>
-                                                </a>
-                                            @endif
-
-                                            @if ($booking->booking_status == 'Confirmed Reservation')
-                                                <a href="{{ route('booking', [$booking->booking_id]) }}">
-                                                    <button type="button"
-                                                        class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
-                                                        View
-                                                    </button>
-                                                </a>
-                                            @endif
-
-                                            @if ($booking->booking_status == 'Complete')
-                                                @if ($booking->reviewed_at == null)
-                                                    <a
-                                                        href="{{ route('write_review', [$booking->booking_id, $booking->listing->listing_id]) }}">
+                                                @if ($booking->booking_status == 'Waiting for payment approval')
+                                                    <a href="{{ route('booking', [$booking->booking_id]) }}">
                                                         <button type="button"
                                                             class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
-                                                            Review
+                                                            View
                                                         </button>
                                                     </a>
-                                                @else
-                                                    <a href="{{ route('single-list', [$booking->listing->slug]) }}">
+                                                @endif
+
+                                                @if ($booking->booking_status == 'Waiting for payment proof')
+                                                    <a
+                                                        href="{{ route('submit_receipt', [$booking->booking_id, $booking->listing->listing_id]) }}">
                                                         <button type="button"
                                                             class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
-                                                            Book Again
+                                                            Submit receipt
                                                         </button>
                                                     </a>
 
@@ -212,25 +195,86 @@
                                                         </button>
                                                     </a>
                                                 @endif
-                                            @endif
 
+
+                                                @if ($booking->booking_status == 'Pending Confirmation')
+                                                    <div class="inline-flex">
+                                                        <a
+                                                            href="{{ route('confirm-booking', [$booking->listing->slug, $booking->booking_id]) }}">
+                                                            <button type="button"
+                                                                class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                                Confirm
+                                                            </button>
+                                                        </a>
+
+                                                        <form class="delete-listing ml-2"
+                                                            action="{{ route('cancel.booking', [$booking->booking_id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a type="submit">
+                                                                <button type="button"
+                                                                    class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                                    Cancel
+                                                                </button>
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                @endif
+
+                                                @if ($booking->booking_status == 'Confirmed Reservation')
+                                                    <a href="{{ route('booking', [$booking->booking_id]) }}">
+                                                        <button type="button"
+                                                            class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                            View
+                                                        </button>
+                                                    </a>
+                                                @endif
+
+                                                @if ($booking->booking_status == 'Complete')
+                                                    @if ($booking->reviewed_at == null)
+                                                        <a
+                                                            href="{{ route('write_review', [$booking->booking_id, $booking->listing->listing_id]) }}">
+                                                            <button type="button"
+                                                                class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                                Review
+                                                            </button>
+                                                        </a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('single-list', [$booking->listing->slug]) }}">
+                                                            <button type="button"
+                                                                class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                                Book Again
+                                                            </button>
+                                                        </a>
+
+                                                        <a href="{{ route('booking', [$booking->booking_id]) }}">
+                                                            <button type="button"
+                                                                class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                                View
+                                                            </button>
+                                                        </a>
+                                                    @endif
+                                                @endif
+
+
+
+                                            </div>
 
 
                                         </div>
-
-
                                     </div>
-                                </div>
-                            @empty
-                                <div class="flex flex-col md:flex-row mx-auto">
-                                    <div class="px-4 w-full flex flex-col justify-around ">
-                                        <img src="{{ asset('img/wishlist.svg') }}" alt="No wish"
-                                            class="block h-2/4 w-2/4  mx-auto">
-                                        <p class="font-bold block mx-auto">No Bookings. Explore more.</p>
+                                @empty
+                                    <div class="flex flex-col md:flex-row mx-auto">
+                                        <div class="px-4 w-full flex flex-col justify-around ">
+                                            <img src="{{ asset('img/wishlist.svg') }}" alt="No wish"
+                                                class="block h-2/4 w-2/4  mx-auto">
+                                            <p class="font-bold block mx-auto">No Bookings. Explore more.</p>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforelse
-
+                                @endforelse
+                            </div>
 
 
 
@@ -249,5 +293,27 @@
 
 
     @push('scripts')
+        <script>
+            //delete
+            $(".delete-listing").click(function(e) {
+                e.preventDefault();
+                swal({
+                        title: "Are you sure to cancel?",
+                        text: "Once you cancelled, theres no turning back!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $(e.target)
+                                .closest("form")
+                                .submit(); // Post the surrounding form
+                        } else {
+                            return false;
+                        }
+                    });
+            });
+        </script>
     @endpush
 </x-global-layout>

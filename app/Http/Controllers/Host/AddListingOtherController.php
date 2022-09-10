@@ -38,6 +38,28 @@ class AddListingOtherController extends Controller
             }
         }
 
+        if ($request->hasFile('gcash_qr') != null) {
+            if ($request->file('gcash_qr')->isValid()) {
+                // create images
+                $image       = $request->file('gcash_qr');
+                $filename    = $image->getClientOriginalName();
+                $listing_id =  $listing->listing_id;
+
+                $image_resize = Image::make($image);
+                $image_resize->resize(1000, 800);
+
+                $image_resize->save(public_path('storage/media/listing/gcash_'
+                    . $listing_id . '_' . $filename));
+
+                // insert path to db 
+                $char = strval($filename);
+                Listing::where('listing_id', $listing_id)
+                    ->update([
+                        'gcash_qr' => $char,
+                    ]);
+            }
+        }
+
 
         if ($request->hasFile('photo_1') != null) {
             if ($request->file('photo_1')->isValid()) {

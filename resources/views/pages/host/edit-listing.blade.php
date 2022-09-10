@@ -58,8 +58,24 @@
 
                                             <div class="col-span-6 sm:col-span-4">
                                                 <label for="contact"
-                                                    class="block text-sm font-medium text-gray-700">Contact <span
-                                                        class="text-red-600">*</span></label>
+                                                    class="flex text-sm font-medium text-gray-700">Contact
+                                                    <span class="text-red-600">*</span>
+                                                    {{-- Tooltip --}}
+                                                    <div id="tooltip-contact" role="tooltip"
+                                                        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                        Fill this first in your profile.
+                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                    </div>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
+                                                        data-tooltip-target="tooltip-contact"
+                                                        data-tooltip-placement="right" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </label>
                                                 <input type="text" name="contact" id="contact"
                                                     value="{{ Auth::user()->contact }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -67,8 +83,26 @@
 
                                             <div class="col-span-6 sm:col-span-4">
                                                 <label for="messenger_url"
-                                                    class="block text-sm font-medium text-gray-700">Social Media
-                                                    Link</label>
+                                                    class="flex text-sm font-medium text-gray-700">Social media message
+                                                    link
+
+                                                    {{-- Tooltip --}}
+                                                    <div id="tooltip-link" role="tooltip"
+                                                        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                        Social media link for messages ex.
+                                                        (https://www.messenger.com/t/100002390070945)
+                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                    </div>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
+                                                        data-tooltip-target="tooltip-link"
+                                                        data-tooltip-placement="right" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </label>
                                                 <input type="text" name="messenger_url" id="messenger_url"
                                                     value="{{ $listing->messenger_url }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -108,8 +142,8 @@
                                                 <label for="listing_title"
                                                     class="block text-sm font-medium text-gray-700">Listing
                                                     Title <span class="text-red-600">*</span></label>
-                                                <input type="text" name="listing_title" id="listing_title" required
-                                                    value="{{ $listing->listing_title }}"
+                                                <input type="text" name="listing_title" id="listing_title"
+                                                    required value="{{ $listing->listing_title }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -271,10 +305,18 @@
                                                     <option>6</option>
                                                     <option>7</option>
                                                     <option>8</option>
-                                                    <option>10 - 12</option>
-                                                    <option>13 - 16</option>
-                                                    <option>17 - 20</option>
-                                                    <option>20+</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                    <option>13</option>
+                                                    <option>14</option>
+                                                    <option>15</option>
+                                                    <option>16</option>
+                                                    <option>17</option>
+                                                    <option>18</option>
+                                                    <option>19</option>
+                                                    <option>20</option>
                                                 </select>
                                             </div>
 
@@ -310,7 +352,29 @@
                                                 </select>
                                             </div>
 
-                                            <div class="col-span-6 sm:col-span-2">
+                                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                                <label for="property_size"
+                                                    class="flex text-sm font-medium text-gray-700">Property Size
+                                                    <span class="text-red-600">*</span>
+                                                    {{-- Tooltip --}}
+                                                    <div id="tooltip-size" role="tooltip"
+                                                        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                        Square Meters
+                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                    </div>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
+                                                        data-tooltip-target="tooltip-size"
+                                                        data-tooltip-placement="right" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </label>
+                                                <input type="text" name="property_size" id="property_size"
+                                                    required value="{{ $listing->property_size }}"
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
                                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
@@ -343,13 +407,24 @@
 
                                             <div class="col-span-6 sm:col-span-4">
                                                 <label for="bed_detials"
-                                                    class="flex text-sm font-medium text-gray-700">Bed type <svg
-                                                        xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
-                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                    class="flex text-sm font-medium text-gray-700">Bed type
+
+                                                    {{-- Tooltip --}}
+                                                    <div id="tooltip-bedtype" role="tooltip"
+                                                        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                        King Bed, Queen Bed, Full etc.
+                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                    </div>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
+                                                        data-tooltip-target="tooltip-bedtype"
+                                                        data-tooltip-placement="right" viewBox="0 0 20 20"
+                                                        fill="currentColor">
                                                         <path fill-rule="evenodd"
                                                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                                                             clip-rule="evenodd" />
-                                                    </svg></label>
+                                                    </svg>
+                                                </label>
                                                 <input type="text" name="bed_detials" id="bed_detials"
                                                     value="{{ $listing->bed_detials }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -526,6 +601,60 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hidden sm:block" aria-hidden="true">
+                        <div class="py-5">
+                            <div class="border-t border-gray-200"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 sm:mt-0">
+                        <div class="md:grid md:grid-cols-3 md:gap-6">
+                            <div class="md:col-span-1">
+                                <div class="px-4 sm:px-0">
+                                    <h3 class="text-lg font-medium leading-6 text-gray-900">Payment Methods</h3>
+                                    <p class="mt-1 text-sm text-gray-600">Payment gateway for renters.</p>
+                                </div>
+                            </div>
+                            <div class="mt-5 md:mt-0 md:col-span-2">
+                                <div class="shadow-sm sm:rounded-md sm:overflow-hidden">
+                                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">
+                                                Gcash QR code (Optional)
+                                            </label>
+                                            <div
+                                                class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
+                                                <div class="space-y-1 text-center">
+
+                                                    <img id="output_gcash_qr" class="cursor-pointer mb-4"
+                                                        src="{{ asset('storage/media/listing/gcash_' . $listing->listing_id . '_' . $listing->gcash_qr) }}"
+                                                        style="width:600px;height:600px;">
+
+                                                    <div class="flex text-sm text-gray-600 ">
+                                                        <label for="gcash_qr"
+                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                            <span class="">Upload a
+                                                                file</span>
+                                                            <input id="gcash_qr" name="gcash_qr" type="file"
+                                                                class="sr-only" accept=".jpg,.gif,.png,.jpeg">
+                                                        </label>
+                                                        {{-- <p class="pl-1">or drag and drop</p> --}}
+                                                    </div>
+                                                    <p class="text-xs text-gray-500">
+                                                        PNG, JPG, GIF up to 5MB
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -752,6 +881,15 @@
 
             $(document).on("change", "#default_photo", function() {
                 document.getElementById('output_default_photo').src = window.URL.createObjectURL(this.files[
+                    0])
+            });
+
+            $('#output_gcash_qr').click(function() {
+                $('#gcash_qr').trigger('click');
+            });
+
+            $(document).on("change", "#gcash_qr", function() {
+                document.getElementById('output_gcash_qr').src = window.URL.createObjectURL(this.files[
                     0])
             });
 

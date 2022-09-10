@@ -147,18 +147,24 @@
                             <th scope="col" class="px-6 py-3">
                                 Listing name
                             </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Status
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Category
                             </th>
-                            {{-- <th scope="col" class="px-6 py-3">
-                                Description
-                            </th> --}}
+
+                            <th scope="col" class="px-6 py-3">
+                                Location
+                            </th>
 
                             <th scope="col" class="px-6 py-3">
                                 Price Per Night
+                            </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Property Size
                             </th>
 
                             <th scope="col" class="px-6 py-3">
@@ -175,10 +181,9 @@
                             <tr class="bg-white border-b  ">
                                 <th scope="row" class="px-6 py-3 font-medium text-gray-900  whitespace-nowrap">
                                     {{ \Illuminate\Support\Str::limit($listing->listing_title, 50) }}
-
                                 </th>
-                                <td class="px-6 py-3">
 
+                                <td class="px-6 py-3">
 
                                     @if ($listing->listing_status == 'Denied')
                                         <span
@@ -197,18 +202,26 @@
                                         </span>
                                     @endif
                                 </td>
+
+
                                 <td class="px-6 py-3">
                                     {{ $listing->category->category_name }}
 
                                 </td>
-                                {{-- <td class="px-6 py-3">
-                                    {{ \Illuminate\Support\Str::limit($listing->description, 50) }}
 
-                                </td> --}}
+                                <td class="px-6 py-3">
+                                    {{ \Illuminate\Support\Str::limit($listing->location, 40) }}
+                                </td>
+
                                 <td class="px-6 py-3 ">
                                     ₱ @convert($listing->price_per_night)
                                 </td>
-                                <td class="px-6 py-3 text-center">
+
+                                <td class="px-6 py-3 ">
+                                    {{ $listing->property_size }} sq. m
+                                </td>
+
+                                <td class="px-6 py-3 ">
                                     {{ $listing->max_guest }}
                                 </td>
 

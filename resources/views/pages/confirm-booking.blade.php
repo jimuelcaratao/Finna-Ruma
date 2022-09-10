@@ -267,8 +267,22 @@
                                                 <h3 class="text-base text-gray-900 font-bold">Total</h3>
                                             </div>
                                             <div class="mt-2">
-                                                <h3 class=" mb-4 text-xl font-semibold">₱
+                                                <h3 class=" mb-2 text-xl font-semibold ">₱
                                                     @convert($booking->total)</h3>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="flex items-center justify-between w-full md:w-2/4">
+                                            <div>
+                                                <h3 class="text-base text-gray-900 font-bold">To pay:</h3>
+                                            </div>
+                                            <div class="mt-2">
+                                                <h3 class=" mb-4 text-lg font-semibold to-pay">₱
+                                                    @convert($booking->total)</h3>
+
                                             </div>
                                         </div>
                                     </div>
@@ -279,20 +293,27 @@
                                         method="POST" id="payment">
                                         @csrf
 
+                                        <input type="text" class="hidden" name="payment_method" id="payment_method">
 
-                                        <div class="grid grid-cols-1 md:grid-cols-2  gap-2 items-center justify-center mb-4"
+                                        <input type="text" class="hidden" name="booking_status" id="booking_status"
+                                            value="Confirmed Reservation">
+
+                                        <input type="text" class="hidden" name="total_paid" id="total_paid"
+                                            value="{{ $booking->total }}">
+
+                                        <div class="grid grid-cols-1   gap-2 items-center justify-center mb-4"
                                             id="rd-btn">
-                                            <div>
+                                            <div class="rd-btns">
                                                 <input class="hidden" type="radio" name="payment_status"
                                                     id="radio_1" value="Fully Paid" checked>
                                                 <label
-                                                    class="flex flex-col p-4 border shadow rounded-lg border-gray-200 cursor-pointer"
+                                                    class="flex flex-col p-4 border  rounded-lg border-gray-200 cursor-pointer"
                                                     for="radio_1">
-                                                    <span class="text-md font-bold text-center" for="radio_1">Fully
-                                                        Paid</span>
+                                                    <span class="text-md font-bold text-center" for="radio_1">Full
+                                                        payment</span>
                                                 </label>
                                             </div>
-                                            <div>
+                                            {{-- <div class="rd-btns">
                                                 <input class="hidden" type="radio" name="payment_status"
                                                     id="radio_2" value="Half Paid">
                                                 <label
@@ -301,11 +322,28 @@
                                                     <span class="text-md font-bold text-center " for="radio_2">Half
                                                         Payment</span>
                                                 </label>
-                                            </div>
+                                            </div> --}}
                                         </div>
+
+
+                                        {{-- gcash --}}
+
+                                        @if ($listing->gcash_qr != null)
+                                            <button type="button" data-modal-toggle="popup-modal"
+                                                class="w-full  text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center  mr-2 mb-3">
+
+                                                <span class="mx-auto inline-flex">
+                                                    <img width="80px" height="70px"
+                                                        src="{{ asset('img/global/gcash.png') }}" alt="Gcash">
+                                                    <span class="ml-4"> Pay with Gcash</span>
+                                                </span>
+                                            </button>
+                                        @endif
+
+
                                     </form>
 
-                                    <div id="paypal-button-container"></div>
+                                    <div style="z-index: 500;" id="paypal-button-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -320,6 +358,55 @@
     </div>
 
 
+    <div id="popup-modal" tabindex="-1" style="z-index: 1000;"
+        class="hidden overflow-y-auto overflow-x-hidden bg-gray-100 fixed top-0 right-0 left-0 md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-md h-full md:h-auto " style="">
+            <div class="relative bg-white rounded-lg shadow">
+                <button type="button"
+                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
+                    data-modal-toggle="popup-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-6 text-center">
+
+                    <img class="my-6"
+                        src="{{ asset('storage/media/listing/gcash_' . $listing->listing_id . '_' . $listing->gcash_qr) }}"
+                        alt="gcash" style="width:600px;height:350px;">
+
+                    <div class="mt-4">
+                        <div class="flex items-center justify-between w-full md:w-2/4">
+                            <div>
+                                <h3 class="text-base text-gray-900 font-bold">Total</h3>
+                            </div>
+                            <div class="mt-2">
+                                <h3 class=" mb-4 text-xl font-semibold to-pay">₱
+                                    @convert($booking->total)</h3>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 ">Important note: Press proceed if you paid your
+                        payment, and
+                        keep the receipt for payment proof.</h3>
+
+                    <button data-modal-toggle="popup-modal" type="button" id="proceed"
+                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        Proceed
+                    </button>
+                    <button data-modal-toggle="popup-modal" type="button"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">No,
+                        cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
@@ -338,8 +425,31 @@
                 total = '{{ $booking->total }}';
                 total_half = total / 2;
 
+                $("#proceed").click(function() {
 
+                    $("#payment_method").val('Gcash Payment');
 
+                    $("#booking_status").val('Waiting for payment proof');
+
+                    $('form#payment').submit();
+
+                });
+
+                $(".rd-btns").click(function() {
+                    if ($('#radio_1').is(':checked')) {
+                        final_payment = total;
+
+                        // $(".to-pay").text('₱ ' + final_payment);
+                        $("#total_paid").val(total);
+                    }
+
+                    if ($('#radio_2').is(':checked')) {
+                        final_payment = total_half;
+                        // $(".to-pay").text('₱ ' + final_payment);
+                        $("#total_paid").val(total_half);
+
+                    }
+                });
 
 
                 paypal.Buttons({
@@ -373,6 +483,7 @@
                             alert('Transaction ' + transaction.status + ': ' + transaction.id +
                                 '\n\nSee console for all available details');
 
+                            $("#payment_method").val('Paypal Payment');
                             $('form#payment').submit();
                         });
                     }

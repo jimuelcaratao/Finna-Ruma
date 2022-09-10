@@ -22,6 +22,9 @@ class Booking extends Model
         'payment_method',
         'payment_status',
 
+        'payment_proof',
+        'payment_approved_at',
+
         'check_in',
         'checkout',
         'days',

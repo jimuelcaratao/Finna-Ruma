@@ -72,6 +72,8 @@ class AddListingController extends Controller
             'max_guest' => $request->input('max_guest'),
             'max_pet' => $request->input('max_pet'),
 
+            'property_size' => $request->input('property_size'),
+
             'location' => $request->input('location'),
             'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
@@ -140,6 +142,8 @@ class AddListingController extends Controller
 
             'max_guest' => $request->input('max_guest'),
             'max_pet' => $request->input('max_pet'),
+
+            'property_size' => $request->input('property_size'),
 
             'location' => $request->input('location'),
             'map_pin' => Str::replace(' ', '%20', $request->input('location')),

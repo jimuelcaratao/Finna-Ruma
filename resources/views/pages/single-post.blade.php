@@ -232,6 +232,19 @@
                                                             </span>
                                                         </div>
                                                     </li>
+
+                                                    <li aria-current="page">
+                                                        <div class="flex items-center">
+                                                            <span class="mx-1">
+                                                                •
+                                                            </span>
+
+                                                            <span
+                                                                class="ml-1 text-sm font-medium text-gray-700 md:ml-2">{{ $listing->property_size }}
+                                                                sq. m
+                                                            </span>
+                                                        </div>
+                                                    </li>
                                                 </ol>
                                             </nav>
 
@@ -390,8 +403,9 @@
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                                                                         <input class="adults " min="1"
-                                                                            max="5" name="adults"
-                                                                            value="1" type="number">
+                                                                            max="{{ $listing->max_guest }}"
+                                                                            name="adults" value="1"
+                                                                            type="number">
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                                             class="plus"></button>
@@ -420,8 +434,9 @@
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                                                                         <input class="children " min="0"
-                                                                            max="5" name="children"
-                                                                            value="0" type="number">
+                                                                            max="{{ $listing->max_guest }}"
+                                                                            name="children" value="0"
+                                                                            type="number">
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                                             class="plus"></button>
@@ -450,8 +465,9 @@
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                                                                         <input class="infants " min="0"
-                                                                            max="5" name="infants"
-                                                                            value="0" type="number">
+                                                                            max="{{ $listing->max_guest }}"
+                                                                            name="infants" value="0"
+                                                                            type="number">
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                                             class="plus"></button>
@@ -482,8 +498,9 @@
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                                                                         <input class="pets " min="0"
-                                                                            max="5" name="pets"
-                                                                            value="0" type="number">
+                                                                            max="{{ $listing->max_guest }}"
+                                                                            name="pets" value="0"
+                                                                            type="number">
                                                                         <button type="button"
                                                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                                             class="plus"></button>
@@ -637,8 +654,8 @@
                                 {{-- <a href="#"
                                     class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">Add
                                     friend</a> --}}
-                                <a href="#"
-                                    class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 ">Message</a>
+                                {{-- <a href="#"
+                                    class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 ">Message</a> --}}
                             </div>
                         </div>
                     </div>

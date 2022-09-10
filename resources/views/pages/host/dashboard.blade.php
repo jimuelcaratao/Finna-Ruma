@@ -24,7 +24,7 @@
 
         </div>
 
-        <div class="project-boxes jsGridView overflow-hidden">
+        <div class="project-boxes jsGridView overflow-hidden h-80">
 
             <div class="project-box-wrapper">
                 <div class="project-box" style="background-color: #fee4cb;">

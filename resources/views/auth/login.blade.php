@@ -224,7 +224,7 @@
 
                     <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                         <span>Don't have an account?</span>
-                        <a href="{{ route('host.register') }}"
+                        <a href="{{ route('register') }}"
                             class="text-[#7F4C1C] hover:text-[#E7CC9A] no-underline hover:underline cursor-pointer transition ease-in duration-300">Sign
                             up</a>
                     </p>

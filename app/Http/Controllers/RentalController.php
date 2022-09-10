@@ -11,10 +11,16 @@ class RentalController extends Controller
 {
     public function index(Request $request)
     {
-        $listings = Listing::with('Booking')->where('listing_status', 'Approved')
+        // dd($request->all());
+        $listings = Listing::with('Booking', 'category')->where('listing_status', 'Approved')
             ->destinationfilter()
             ->datefilter()
             ->guestfilter()
+            ->budgetfilter()
+            ->propertyfilter()
+            ->categoryfilter()
+            ->sizefilter()
+            ->bedroomfilter()
             ->get();
 
         $categories = Category::get();
