@@ -31,6 +31,7 @@
 
 -   Close the Git bash.
 -   After clone open the project folder in vscode.
+-   reference video: https://www.youtube.com/watch?v=mnkCBLYogD0
 
 ### Database config
 -   create db in phpmyadmin
@@ -60,6 +61,7 @@
 
 [![263192852-592055095224144-8509161078534158323-n.png](https://i.postimg.cc/7ZS5xF9D/263192852-592055095224144-8509161078534158323-n.png)](https://postimg.cc/TKYd0HBH)
 
+
 ### AttemptToAuth (Add this for banning user)
 
 -   vendor/laravel/fortify/src/action/AttemptToAuth.php
@@ -78,6 +80,8 @@ namespace Laravel\Fortify\Actions;
 use App\Models\User;
 
 [![1.jpg](https://i.postimg.cc/BbmCJ2dg/1.jpg)](https://postimg.cc/QKW7bKN9)
+
+[![2.jpg](https://i.postimg.cc/sfPW7PHH/2.jpg)](https://postimg.cc/4ndnTcgp)
 
 ### Step to reset database (Careful resetting all db data)
 
