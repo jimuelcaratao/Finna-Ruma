@@ -4,6 +4,20 @@
 
 ## A beginner's guide to clone from github.
 
+### Need to Install
+
+-   xampp
+-   https://getcomposer.org/download/
+-   https://git-scm.com/download/win
+-   https://nodejs.org/en/download/
+
+
+## Step to run
+
+### Locally
+
+-   git clone
+
 -   go to `This PC -> Local Disk (C:) -> xampp -> htdocs` folder.
 
 ![Screenshot 2020-10-30 215333](https://user-images.githubusercontent.com/61103022/97713413-c12c8a80-1afa-11eb-8ad6-de787fb453d0.png)
@@ -16,27 +30,28 @@
 ![Screenshot 2020-10-30 220837](https://user-images.githubusercontent.com/61103022/97714835-9ba08080-1afc-11eb-8377-32dc40f40eb0.png)
 
 -   Close the Git bash.
+-   After clone open the project folder in vscode.
+-   reference video: https://www.youtube.com/watch?v=mnkCBLYogD0
 
--   right click the `eCommerce-laravel` (Finna Ruma) and click `Git bash here`
-
-![Screenshot 2020-10-30 221236](https://user-images.githubusercontent.com/61103022/97715215-17023200-1afd-11eb-9d8e-6e2d5e6beef1.png)
-
-## Step to run
-
-### Locally
-
--   git clone
+### Database config
 -   create db in phpmyadmin
--   composer install
 -   finna_ruma_db (dbname note: create on phpmyadmin and import given sql file)
+-   reference: https://www.youtube.com/watch?v=jW5lrS6EUPM
+
+
+### Type this in terminal to install dependencies
+-   composer install
 -   npm install
 -   npm run dev
 -   php artisan storage:link
 -   php artisan route:cache
 -   php artisan config:cache
 -   php artisan serve (start)
+-   then go to link
 
-## Important after fresh installation.
+[![047b8918-525f-4f62-913c-fe73ad123c1c.png](https://i.postimg.cc/zvZjdJTC/047b8918-525f-4f62-913c-fe73ad123c1c.png)](https://postimg.cc/CB7k5pP5)
+
+## Important after fresh installation. (if this has already have folder, please ignore)
 
 -   Go to public > storage
 -   then add 'media' folder (same spelling as this)
@@ -46,7 +61,8 @@
 
 [![263192852-592055095224144-8509161078534158323-n.png](https://i.postimg.cc/7ZS5xF9D/263192852-592055095224144-8509161078534158323-n.png)](https://postimg.cc/TKYd0HBH)
 
-### AttemptToAuth
+
+### AttemptToAuth (Add this for banning user)
 
 -   vendor/laravel/fortify/src/action/AttemptToAuth.php
 -   add this code in top of handles function
@@ -63,17 +79,13 @@ namespace Laravel\Fortify\Actions;
 
 use App\Models\User;
 
-### Step to reset database
+[![1.jpg](https://i.postimg.cc/BbmCJ2dg/1.jpg)](https://postimg.cc/QKW7bKN9)
+
+[![2.jpg](https://i.postimg.cc/sfPW7PHH/2.jpg)](https://postimg.cc/4ndnTcgp)
+
+### Step to reset database (Careful resetting all db data)
 
 -   php artisan migrate:fresh
--   php artisan db:seed --class=UsersTableSeeder (Default accounts)
-
-### Need to Install
-
--   xampp
--   https://getcomposer.org/download/
--   https://git-scm.com/download/win
--   https://nodejs.org/en/download/
 
 ### booking Status
 
