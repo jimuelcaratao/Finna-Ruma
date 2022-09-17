@@ -87,7 +87,7 @@ use App\Models\User;
 
 -   php artisan migrate:fresh
 
-### booking Status
+### Booking Status
 
 -   Pending Confirmation
 -   Confirmed Reservation
@@ -95,6 +95,14 @@ use App\Models\User;
 -   Waiting for payment approval
 -   Canceled
 -   Complete
+
+
+### Listing Status
+
+-   Pending Approval
+-   Denied
+-   Approved
+
 
 ### User Roles and Accounts
 

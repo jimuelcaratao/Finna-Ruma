@@ -1,0 +1,42 @@
+MVC structure
+
+Front-end
+    host
+        - resources > views > pages > host
+        
+    admin 
+        - resources > views > pages > admin
+
+    layout
+        - resources > views > layouts 
+        - global-layout.blade.php (for global end)
+        - host-layout.blade.php (for host end)
+        - app.blade.php (for admin end)
+        - guest.php (for auth end ex. login, register, privacy policy etc)
+
+Backend
+    Controllers (main queries)
+    - app > Http > Controllers
+
+    Models 
+    - app > Models
+
+Assets
+    Styles
+    - publc > css
+
+    scripts
+    - publc > js
+
+    Images
+    - publc > img
+
+    Dynamic assets (for listing and booking assets ex. listing photo, receipt)
+    - publc > storage
+
+(note: they are 2 separated folder for admin and host and all the file outside are global file)
+
+Routes
+    - routes > web.php
+
+

@@ -1291,8 +1291,8 @@ select {
 .-mt-5 {
   margin-top: -1.25rem;
 }
-.ml-48 {
-  margin-left: 12rem;
+.ml-60 {
+  margin-left: 15rem;
 }
 .block {
   display: block;
@@ -1375,6 +1375,9 @@ select {
 .h-24 {
   height: 6rem;
 }
+.h-80 {
+  height: 20rem;
+}
 .h-11 {
   height: 2.75rem;
 }
@@ -1395,12 +1398,6 @@ select {
 }
 .h-px {
   height: 1px;
-}
-.h-40 {
-  height: 10rem;
-}
-.h-80 {
-  height: 20rem;
 }
 .max-h-72 {
   max-height: 18rem;
@@ -1610,17 +1607,14 @@ select {
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-.grid-cols-5 {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -3482,10 +3476,6 @@ select {
     height: auto;
   }
 
-  .md\:w-3\/6 {
-    width: 50%;
-  }
-
   .md\:w-3\/5 {
     width: 60%;
   }
@@ -3687,10 +3677,6 @@ select {
 
   .lg\:w-1\/2 {
     width: 50%;
-  }
-
-  .lg\:w-2\/6 {
-    width: 33.333333%;
   }
 
   .lg\:w-3\/5 {
