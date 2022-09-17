@@ -31,7 +31,7 @@
                     <div class="project-box-header">
                         <span></span>
                         <div class="more-wrapper">
-                            <a href="http://localhost:8000/host/bookings?search_status=Pending+Confirmation&search=">
+                            <a href="{{ route('host.bookings') }}?search_status=Pending+Confirmation&search=">
                                 <button class="project-btn-more">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -57,7 +57,7 @@
                     <div class="project-box-header">
                         <span></span>
                         <div class="more-wrapper">
-                            <a href="http://localhost:8000/host/bookings?search_status=Confirmed+Reservation&search=">
+                            <a href="{{ route('host.bookings') }}?search_status=Waiting+for+payment+approval&search=">
 
                                 <button class="project-btn-more">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"
@@ -72,7 +72,7 @@
                     </div>
                     <div class="project-box-content-header">
                         <p class="box-content-header">{{ $half }}</p>
-                        <p class="box-content-subheader">Half paid bookings</p>
+                        <p class="box-content-subheader">Waiting for approval</p>
                     </div>
 
                 </div>
@@ -83,7 +83,7 @@
                     <div class="project-box-header">
                         <span></span>
                         <div class="more-wrapper">
-                            <a href="http://localhost:8000/host/bookings?search_status=Confirmed+Reservation&search=">
+                            <a href="{{ route('host.bookings') }}?search_status=Confirmed+Reservation&search=">
 
                                 <button class="project-btn-more">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"

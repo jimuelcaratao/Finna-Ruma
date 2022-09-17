@@ -79,6 +79,7 @@
                                         All</option>
                                     <option value="Pending Approval">
                                         Pending Approval</option>
+
                                     <option value="Approved">
                                         Approved</option>
                                     <option value="Denied">

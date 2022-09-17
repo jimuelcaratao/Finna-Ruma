@@ -1,0 +1,25 @@
+
+Google
+finnaruma@gmail.com
+qweqwe134
+
+Paypal
+https://developer.paypal.com/developer/accounts?event=createSuccess
+Sandbox acc
+finnaruma@gmail.com
+Qweqwe1!
+
+
+https://www.sandbox.paypal.com/us/signin
+
+Merchant
+sb-pvhf118074053@business.example.com
+Qweqwe1!
+
+sb-jdg9v19563244@business.example.com
+Qweqwe1!
+
+
+Personal
+sb-ovw47r19569637@personal.example.com
+Qweqwe1!

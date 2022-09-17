@@ -48,6 +48,10 @@
                                         Pending Confirmation</option>
                                     <option value="Confirmed Reservation">
                                         Confirmed Reservation</option>
+                                    <option value="Waiting for payment proof">
+                                        Waiting for payment proof</option>
+                                    <option value="Waiting for payment approval">
+                                        Waiting for payment approval</option>
                                     <option value="Complete">
                                         Complete</option>
                                     <option value="Canceled">
@@ -55,7 +59,7 @@
                                 </select>
                             </div>
 
-                            <input id="search_inp" class="ml-48 search-input outline-offset-4" type="search"
+                            <input id="search_inp" class="ml-60 search-input outline-offset-4" type="search"
                                 name="search" placeholder="Search" value="{{ request()->search }}"
                                 style="outline: none;">
                         </div>
@@ -296,8 +300,8 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <form action="{{ route('host.bookings.approve_receipt', [$booking->booking_id]) }}"
-                            method="POST" id="confirm-form">
+                        <form action="{{ route('host.bookings.approve_receipt') }}" method="POST"
+                            id="confirm-form">
                             @csrf
                             @method('PUT')
                             <div class=" sm:mt-0">
