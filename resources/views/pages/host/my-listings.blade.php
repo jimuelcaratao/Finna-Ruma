@@ -161,7 +161,7 @@
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                Price Per Night
+                                Price
                             </th>
 
                             <th scope="col" class="px-6 py-3">

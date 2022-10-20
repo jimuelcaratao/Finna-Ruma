@@ -219,7 +219,7 @@
                                             <div class=" col-span-6 sm:col-span-4">
                                                 <div>
                                                     <label for="price_per_night"
-                                                        class="block text-sm font-medium text-gray-700">Price Per Night
+                                                        class="block text-sm font-medium text-gray-700">Price per night/1500 per month
                                                         <span class="text-red-600">*</span></label>
                                                     <div class="mt-1 relative rounded-md shadow-sm">
                                                         <div
