@@ -2,12 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
+use App\Models\Visit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('pages.home');
+        // create visit
+        Visit::Create([
+            'ip_address' => FacadesRequest::ip(),
+            'visit_date' => Carbon::now(),
+        ]);
+
+        $listings = Listing::where('listing_status', 'Approved')
+            ->limit(6)
+            ->get();
+
+        return view('pages.home', [
+            'listings' => $listings,
+        ]);
     }
 }

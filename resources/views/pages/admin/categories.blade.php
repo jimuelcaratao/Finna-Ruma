@@ -1,7 +1,7 @@
 <x-app-layout>
 
     {{-- search bar --}}
-    <x-slot name="searchbar">
+    {{-- <x-slot name="searchbar">
         <div class="search-wrapper ml-4">
             <input class="search-input" type="text" placeholder="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
@@ -12,7 +12,7 @@
                 <path d="M21 21l-4.35-4.35"></path>
             </svg>
         </div>
-    </x-slot>
+    </x-slot> --}}
 
 
     {{-- Contents --}}
@@ -70,6 +70,10 @@
                             <th scope="col" class="px-6 py-3">
                                 Category Name
                             </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
                             <th scope="col" class="px-6 py-3">
                                 Date Created
                             </th>
@@ -88,6 +92,9 @@
                                     {{ $category->category_name }}
                                 </td>
                                 <td class="px-6 py-3">
+                                    {{ $category->status }}
+                                </td>
+                                <td class="px-6 py-3">
                                     {{ $category->created_at }}
                                 </td>
                                 <td class="px-6 py-3 text-right flex justify-end">
@@ -96,18 +103,47 @@
                                         data-community="{{ json_encode($category) }}"
                                         data-item-category_name="{{ $category->category_name }}"
                                         data-item-category_id="{{ $category->category_id }}" id="edit-item-category"
-                                        class="font-medium text-purple-600  hover:text-purple-900  hover:underline no-underline">Edit</a>
+                                        class="font-medium text-purple-600  hover:text-purple-900  hover:underline no-underline mt-2"><svg
+                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg></a>
+
+
+                                    @if ($category->deleted_at !== null)
+                                        <form class="restore-category mt-2 ml-2"
+                                            action="{{ route('categories.restore', [$category->category_id]) }}"
+                                            method="POST">
+                                            @method('PUT')
+                                            @csrf
+                                            <a type="submit"
+                                                class="font-medium text-green-600 no-underline hover:text-green-900"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z"
+                                                        clip-rule="evenodd" />
+                                                </svg></a>
+                                        </form>
+                                    @else
+                                        <form class="delete-category mt-2 ml-2"
+                                            action="{{ route('categories.destroy', [$category->category_id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a type="submit"
+                                                class="font-medium text-red-600 no-underline hover:text-red-900"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg></a>
+                                        </form>
+                                    @endif
 
 
 
-                                    <form class="delete-category ml-4"
-                                        action="{{ route('categories.destroy', [$category->category_id]) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a type="submit"
-                                            class="font-medium text-red-600 no-underline hover:text-red-900">Delete</a>
-                                    </form>
 
                                 </td>
 
@@ -150,11 +186,32 @@
     @push('scripts')
         <script>
             //delete
+            $(".restore-category").click(function(e) {
+                e.preventDefault();
+                swal({
+                        title: "Are you sure to restore?",
+                        text: "Once you restore, nice then!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $(e.target)
+                                .closest("form")
+                                .submit(); // Post the surrounding form
+                        } else {
+                            return false;
+                        }
+                    });
+            });
+
+            //delete
             $(".delete-category").click(function(e) {
                 e.preventDefault();
                 swal({
                         title: "Are you sure to Delete?",
-                        text: "Once you Deleted, theres no turning back!",
+                        text: "Once you Deleted, you can always bring it back!",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,

@@ -215,15 +215,27 @@
                             </div>
                         </div>
 
+                        <input id="is_admin" type="text" class="hidden" name="is_admin" value="">
+
                         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                             <div class="flex justify-between items-center mt-4">
                                 <label for="terms" class="flex items-center">
                                     <x-jet-checkbox id="terms" name="terms" />
                                     <span class="ml-2 text-sm text-gray-600">
                                         {!! __('I agree to the :terms_of_service and :privacy_policy', [
-    'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline text-sm text-gray-600 hover:text-gray-900">' . __('Terms of Service') . '</a>',
-    'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline text-sm text-gray-600 hover:text-gray-900">' . __('Privacy Policy') . '</a>',
-]) !!}
+                                            'terms_of_service' =>
+                                                '<a target="_blank" href="' .
+                                                route('terms.show') .
+                                                '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
+                                                __('Terms of Service') .
+                                                '</a>',
+                                            'privacy_policy' =>
+                                                '<a target="_blank" href="' .
+                                                route('policy.show') .
+                                                '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
+                                                __('Privacy Policy') .
+                                                '</a>',
+                                        ]) !!}
                                     </span>
                                 </label>
 
@@ -240,7 +252,7 @@
 
                     <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                         <span>Already have an account?</span>
-                        <a href="{{ route('host.login') }}"
+                        <a href="{{ route('login') }}"
                             class="text-[#7F4C1C] hover:text-[#E7CC9A] no-underline hover:underline cursor-pointer transition ease-in duration-300">Sign
                             in</a>
                     </p>

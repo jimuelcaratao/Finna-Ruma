@@ -34,6 +34,26 @@
             font-family: 'Poppins', sans-serif;
             /* font-family: 'Inter', sans-serif; */
         }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+            border-radius: 40px;
+
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+            background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 40px;
+            background-color: rgb(179, 179, 179);
+
+
+        }
     </style>
 
     <!-- Scripts -->
@@ -118,8 +138,7 @@
                                 <button
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
-                                        src="{{ Auth::user()->profile_photo_url }}"
-                                        alt="{{ Auth::user()->name }}" />
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
@@ -212,7 +231,7 @@
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 
-                <a href="{{ route('admin.bookings') }}" data-tooltip-target="tooltip-bookings"
+                {{-- <a href="{{ route('admin.bookings') }}" data-tooltip-target="tooltip-bookings"
                     data-tooltip-placement="right"
                     class="app-sidebar-link {{ request()->is('admin/bookings') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -224,7 +243,7 @@
                         <line x1="8" y1="2" x2="8" y2="6" />
                         <line x1="3" y1="10" x2="21" y2="10" />
                     </svg>
-                </a>
+                </a> --}}
 
 
                 {{-- Tooltip --}}
@@ -255,7 +274,7 @@
                 {{-- Tooltip --}}
                 <div id="tooltip-rentals" role="tooltip"
                     class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Rentals
+                    Listings
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 

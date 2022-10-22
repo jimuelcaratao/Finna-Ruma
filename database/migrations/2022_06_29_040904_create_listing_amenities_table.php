@@ -18,29 +18,33 @@ return new class extends Migration
             $table->foreignId('listing_id');
 
             //essentials
-            $table->string('wifi')->nullable();
-            $table->string('washer')->nullable();
-            $table->string('air_conditioning')->nullable();
-            $table->string('heating')->nullable();
-            $table->string('tv')->nullable();
-            $table->string('iron')->nullable();
-            $table->string('kitchen')->nullable();
-            $table->string('dryer')->nullable();
-            $table->string('dedicated_workspace')->nullable();
-            $table->string('hair_dryer')->nullable();
+            $table->string('wifi')->nullable()->default(0);
+            $table->string('washer')->nullable()->default(0);
+            $table->string('air_conditioning')->nullable()->default(0);
+            $table->string('heating')->nullable()->default(0);
+            $table->string('tv')->nullable()->default(0);
+            $table->string('iron')->nullable()->default(0);
+            $table->string('kitchen')->nullable()->default(0);
+            $table->string('dryer')->nullable()->default(0);
+            $table->string('dedicated_workspace')->nullable()->default(0);
+            $table->string('hair_dryer')->nullable()->default(0);
 
             //features
-            $table->string('pool')->nullable();
-            $table->string('free_parking')->nullable();
-            $table->string('crib')->nullable();
-            $table->string('grill')->nullable();
-            $table->string('gym')->nullable();
-            $table->string('smoking_allowed')->nullable();
-            $table->string('breakfast')->nullable();
+            $table->string('pool')->nullable()->default(0);
+            $table->string('free_parking')->nullable()->default(0);
+            $table->string('crib')->nullable()->default(0);
+            $table->string('grill')->nullable()->default(0);
+            $table->string('gym')->nullable()->default(0);
+            $table->string('smoking_allowed')->nullable()->default(0);
+            $table->string('breakfast')->nullable()->default(0);
 
             //safety
-            $table->string('smoke_alarm')->nullable();
-            $table->string('carbon_monoxide_alarm')->nullable();
+            $table->string('smoke_alarm')->nullable()->default(0);
+            $table->string('carbon_monoxide_alarm')->nullable()->default(0);
+
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+
 
             $table->foreign('listing_id')->references('listing_id')->on('listings');
         });

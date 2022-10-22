@@ -1,7 +1,7 @@
 <x-app-layout>
 
     {{-- search bar --}}
-    <x-slot name="searchbar">
+    {{-- <x-slot name="searchbar">
         <div class="search-wrapper ml-4">
             <input class="search-input" type="text" placeholder="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
@@ -12,7 +12,7 @@
                 <path d="M21 21l-4.35-4.35"></path>
             </svg>
         </div>
-    </x-slot>
+    </x-slot> --}}
 
 
     {{-- Contents --}}
@@ -162,16 +162,15 @@
                                     {{ $user->email }}
                                 </td>
                                 <td class="px-6 py-3">
-                                    @if ($user->external_provider == 'Facebook')
-                                        <span class="badge badge-sm bg-gradient-info">
-                                            {{ $user->external_provider }}
-                                        </span>
-                                    @elseif ($user->external_provider == 'Google')
-                                        <span class="badge badge-sm bg-gradient-danger">
+
+                                    @if ($user->external_provider == 'Google')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
                                             {{ $user->external_provider }}
                                         </span>
                                     @else
-                                        <span class="badge badge-sm bg-gradient-secondary">
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-gray-500  to-gray-600">
                                             None
                                         </span>
                                     @endif
@@ -261,7 +260,7 @@
                                                     class="block text-sm font-medium text-gray-700">Role <span
                                                         class="text-red-600">*</span></label>
                                                 <select id="is_admin" name="is_admin" required
-                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                     <option selected disabled value="">Choose...</option>
                                                     <option value="0">User</option>
                                                     <option value="2">Host</option>
@@ -275,7 +274,7 @@
                                                     class="block text-sm font-medium text-gray-700">Full name
                                                     <span class="text-red-600">*</span></label>
                                                 <input type="text" name="name" id="name" required
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
                                             <div class=" col-span-6 sm:col-span-4">
@@ -283,7 +282,7 @@
                                                     class="block text-sm font-medium text-gray-700">Email
                                                     <span class="text-red-600">*</span></label>
                                                 <input type="text" name="email" id="email" required
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
 
@@ -292,7 +291,7 @@
                                                     class="block text-sm font-medium text-gray-700">Password
                                                     <span class="text-red-600">*</span></label>
                                                 <input type="text" name="password" id="password" required
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md">
                                             </div>
                                         </div>
                                     </div>

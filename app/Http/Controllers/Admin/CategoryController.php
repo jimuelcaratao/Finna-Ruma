@@ -16,7 +16,7 @@ class CategoryController extends Controller
         $tableCategories = Category::all();
 
         if ($tableCategories->isEmpty()) {
-            $categories = Category::paginate();
+            $categories = Category::withTrashed()->paginate();
         }
 
         if ($tableCategories->isNotEmpty()) {
@@ -36,6 +36,7 @@ class CategoryController extends Controller
                 // default returning
                 $categories = Category::Where('category_name', 'like', '%' . request()->search . '%')
                     ->latest()
+                    ->withTrashed()
                     ->paginate(10);
             }
         }
@@ -59,6 +60,7 @@ class CategoryController extends Controller
 
         DB::table('categories')->insert([
             'category_name' => $request->input('category_name'),
+            'status' => 'Active',
         ]);
 
         return Redirect::route('admin.categories')->withSuccess('Category :' . $request->input('category_name') . '. Created Successfully!');
@@ -86,17 +88,39 @@ class CategoryController extends Controller
         return Redirect::route('admin.categories')->withSuccess('Category :' . $request->input('category_name') . '. Updated Successfully!');
     }
 
+    public function restore($category_id)
+    {
+        if (is_null($category_id)) {
+            return Redirect::route('admin.categories')->withInfo('Something went wrong.');
+        }
+
+        // fetching info
+        $category_fetch = Category::where('category_id', $category_id)->restore();
+
+        Category::where('category_id', $category_id)->update([
+            'status' => 'Active',
+        ]);
+
+
+        return Redirect::route('admin.categories')->withSuccess('Restored Successfully!');
+    }
+
     public function destroy($category_id)
     {
         if (is_null($category_id)) {
-            return Redirect::route('admin.categories')->withInfo('Yawa!');
+            return Redirect::route('admin.categories')->withInfo('Something went wrong.');
         }
 
         // fetching info
         $category_fetch = Category::where('category_id', $category_id)->first();
+
+        $category_fetch->update([
+            'status' => 'Deactivated',
+        ]);
+
         // Softdeletes
         Category::find($category_id)->delete();
 
-        return Redirect::route('admin.categories')->withSuccess('Category (Category Name: ' . $category_fetch->category_name . '). Deleted Successfully!');
+        return Redirect::route('admin.categories')->withSuccess('Category (Category Name: ' . $category_fetch->category_name . '). Trashed Successfully!');
     }
 }

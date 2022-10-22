@@ -14,7 +14,13 @@ class ListingGallery extends Model
 
     protected $fillable = [
         'listing_id',
-        'photo',
+        'photo_1',
+        'photo_2',
+        'photo_3',
+        'photo_4',
+        'photo_5',
+        'photo_6',
+
     ];
 
     public function listing()
