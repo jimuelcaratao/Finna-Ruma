@@ -77,7 +77,7 @@
             <!--Left Col-->
             <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                 <h1 class="my-4 text-5xl font-bold leading-tight">
-                    Main Hero Message to sell yourself!
+                    ano ilalaag ta?
                 </h1>
                 <p class="leading-normal text-2xl mb-8">
                     Sub-hero message, not too long and not too short. Make it just right!
