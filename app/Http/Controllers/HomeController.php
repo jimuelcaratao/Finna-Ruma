@@ -19,6 +19,7 @@ class HomeController extends Controller
         ]);
 
         $listings = Listing::where('listing_status', 'Approved')
+            ->Orwhere('listing_status', 'Unavailable')
             ->limit(6)
             ->get();
 

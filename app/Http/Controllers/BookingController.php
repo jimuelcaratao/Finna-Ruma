@@ -70,6 +70,11 @@ class BookingController extends Controller
                 ->with('toast_error', 'Sorry only ' . $listing->max_guest . ' guests are allowed.');
         }
 
+        if ($listing->listing_status == 'Unavailable') {
+            return Redirect::back()
+                ->with('toast_error', 'Sorry listing unavailable right now.');
+        }
+
         $booking =  Booking::create([
             'user_id' => Auth::user()->id,
             'host_id' => $listing->user->id,

@@ -38,6 +38,8 @@
 
 
 
+
+
                                             <div class="col-span-6 sm:col-span-4">
                                                 <label for="name"
                                                     class="block text-sm font-medium text-gray-700">Host Full
@@ -138,6 +140,23 @@
                                     <div class="px-4 py-5 bg-white sm:p-6">
                                         <div class="grid grid-cols-6 gap-6">
 
+                                            <div class="col-span-6 sm:col-span-4">
+                                                <label for="listing_status"
+                                                    class="block text-sm font-medium text-gray-700">Listing Status
+                                                    <span class="text-red-600">*</span></label>
+                                                <select id="listing_status" name="listing_status" required
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->listing_status }}">
+                                                        {{ $listing->listing_status }}
+                                                    </option>
+                                                    <option value="Approved">
+                                                        Approved</option>
+                                                    <option value="Unavailable">
+                                                        Unavailable</option>
+                                                </select>
+                                            </div>
+
                                             <div class="col-span-6">
                                                 <label for="listing_title"
                                                     class="block text-sm font-medium text-gray-700">Listing
@@ -219,7 +238,8 @@
                                             <div class=" col-span-6 sm:col-span-4">
                                                 <div>
                                                     <label for="price_per_night"
-                                                        class="block text-sm font-medium text-gray-700">Price per night/1500 per month
+                                                        class="block text-sm font-medium text-gray-700">Price per
+                                                        night/1500 per month
                                                         <span class="text-red-600">*</span></label>
                                                     <div class="mt-1 relative rounded-md shadow-sm">
                                                         <div

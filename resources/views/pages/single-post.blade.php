@@ -184,6 +184,12 @@
 
                                     <div class="flex justify-between gap-10">
                                         <div>
+                                            @if ($listing->listing_status == 'Unavailable')
+                                                <span
+                                                    class=" bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                                    Unavailable
+                                                </span>
+                                            @endif
                                             <h3 class="pt-4 mb-2 text-4xl font-semibold">{{ $listing->listing_title }}
                                             </h3>
                                             <a class="text-sm font-medium text-gray-700 underline">
@@ -449,7 +455,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mt-4">
+                                        <div class="mt-4 hidden">
                                             <div class="flex items-center justify-between w-full md:w-3/5">
                                                 <div>
                                                     <h3 class="text-base text-gray-900 font-bold">Infants</h3>
@@ -480,7 +486,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mt-4">
+                                        <div class="mt-4 hidden">
                                             <div class="flex items-center justify-between w-full md:w-3/5">
                                                 <div class="mr-2">
                                                     <h3 class="text-base text-gray-900 font-bold">Pets</h3>

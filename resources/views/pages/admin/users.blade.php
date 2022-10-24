@@ -71,7 +71,7 @@
                     </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                         stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        class="search_btn feather feather-search" viewBox="0 0 24 24">
+                        class="search_btn feather feather-search cursor-pointer" viewBox="0 0 24 24">
                         <defs></defs>
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="M21 21l-4.35-4.35"></path>
@@ -454,6 +454,10 @@
             // });
 
             $(".search_btn").click(function() {
+                $("#search_tbl").submit();
+            });
+
+            $('#search_col').on('change', function() {
                 $("#search_tbl").submit();
             });
         });
