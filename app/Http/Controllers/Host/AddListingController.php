@@ -135,6 +135,8 @@ class AddListingController extends Controller
             'category_id' => $request->input('category_id'),
             'slug' => Str::of($request->input('listing_title'))->slug('-'),
 
+            'listing_status' => $request->input('listing_status'),
+
             'listing_title' => $request->input('listing_title'),
             'description' => $request->input('description'),
             'price_per_night' => $request->input('price_per_night'),

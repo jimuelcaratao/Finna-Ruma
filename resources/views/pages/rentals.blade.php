@@ -76,10 +76,10 @@
                             <option value="" selected>Open</option>
                         @endif
                         <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
 
                     </select>
                 </li>
@@ -201,7 +201,7 @@
 
                 <div class="border-b border-gray-200 py-2"></div>
 
-            
+
 
 
                 <div class="border-b border-gray-200 py-2"></div>
@@ -230,7 +230,7 @@
                     </div>
                 </li>
 
-               
+
 
                 <div class="border-b border-gray-200 py-2"></div>
 
@@ -267,7 +267,7 @@
                     </div>
                 </li>
 
-              
+
 
             </form>
         </x-slot>
@@ -285,7 +285,19 @@
                                 src="{{ asset('storage/media/listing/cover_' . $listing->listing_id . '_' . $listing->default_photo) }}" />
                             <!-- text information -->
                             <div class="p-4">
+
+
                                 <small class="text-blue-400 text-xs">{{ $listing->category->category_name }}</small>
+
+                                @if ($listing->listing_status == 'Unavailable')
+                                    <span
+                                        class="mb-2 bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                        Unavailable
+                                    </span>
+                                @endif
+
+
+
                                 <h1 class="text-xl font-medium text-slate-600 pb-2">
                                     {{ $listing->listing_title }}</h1>
 

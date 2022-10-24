@@ -79,7 +79,8 @@
                                         All</option>
                                     <option value="Pending Approval">
                                         Pending Approval</option>
-
+                                    <option value="Unavailable">
+                                        Unavailable</option>
                                     <option value="Approved">
                                         Approved</option>
                                     <option value="Denied">
@@ -112,7 +113,7 @@
                     </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                         stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        class="search_btn feather feather-search" viewBox="0 0 24 24">
+                        class="search_btn feather feather-search cursor-pointer" viewBox="0 0 24 24">
                         <defs></defs>
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="M21 21l-4.35-4.35"></path>
@@ -186,7 +187,12 @@
 
                                 <td class="px-6 py-3">
 
-                                    @if ($listing->listing_status == 'Denied')
+                                    @if ($listing->listing_status == 'Unavailable')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-purple-500  to-purple-600">
+                                            {{ $listing->listing_status }}
+                                        </span>
+                                    @elseif ($listing->listing_status == 'Denied')
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
                                             {{ $listing->listing_status }}
@@ -341,6 +347,10 @@
             $(document).ready(function() {
 
                 $(".search_btn").click(function() {
+                    $("#search_tbl").submit();
+                });
+
+                $('#search_status').on('change', function() {
                     $("#search_tbl").submit();
                 });
             });

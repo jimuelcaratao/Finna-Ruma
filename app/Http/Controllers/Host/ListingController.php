@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Models\ListingAmenity;
@@ -96,6 +97,12 @@ class ListingController extends Controller
 
         if ($list_reviews != null) {
             $list_reviews->delete();
+        }
+
+        $booking = Booking::where('listing_id', $listing_id)->first();
+
+        if ($booking != null) {
+            return Redirect::route('host.listing')->withInfo('You cannot delete this while you have booking in this listing.');
         }
 
         // Softdeletes

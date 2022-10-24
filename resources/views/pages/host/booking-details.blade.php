@@ -93,8 +93,7 @@
 
                                                 <h3 class="text-base font-bold mt-2">Guests</h3>
                                                 <span class="text-sm">{{ $booking->adults }} Adults,
-                                                    {{ $booking->children }} Children, {{ $booking->infants }}
-                                                    Infants, {{ $booking->pets }} Pets </span>
+                                                    {{ $booking->children }} Children</span>
 
 
                                             </div>

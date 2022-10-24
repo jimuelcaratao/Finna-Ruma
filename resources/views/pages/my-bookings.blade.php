@@ -159,8 +159,7 @@
 
                                                 <h3 class=" font-bold mt-2">Guests</h3>
                                                 <span class="text-sm">{{ $booking->adults }} Adults,
-                                                    {{ $booking->children }} Children, {{ $booking->infants }}
-                                                    Infants, {{ $booking->pets }} Pets </span>
+                                                    {{ $booking->children }} Children</span>
 
                                                 <h3 class=" font-bold mt-2">Payment Status</h3>
                                                 <span class="text-sm">{{ $booking->payment_status }}</span>
