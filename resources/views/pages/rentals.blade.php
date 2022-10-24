@@ -29,7 +29,7 @@
                         </div>
                         <input type="text" id="destination" name="destination" value="{{ request()->destination }}"
                             class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  "
-                            placeholder="Destination/Property Name">
+                            placeholder="Place/Property Name">
                     </div>
                 </li>
 
@@ -67,7 +67,7 @@
                 </li>
 
                 <li>
-                    <label for="guests" class="block mt-2 mb-2 text-xs font-semibold text-gray-900 ">GUESTS</label>
+                    <label for="guests" class="block mt-2 mb-2 text-xs font-semibold text-gray-900 ">OCCUPANTS</label>
                     <select id="guests" name="guests"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                         @if (!empty(request()->guests))
@@ -75,15 +75,11 @@
                         @else
                             <option value="" selected>Open</option>
                         @endif
-                        <option value="1">1 guest</option>
-                        <option value="2">2 guests</option>
-                        <option value="3">3 guests</option>
-                        <option value="4">4 guests</option>
-                        <option value="5">5 guests</option>
-                        <option value="6">6 guests</option>
-                        <option value="7">7 guests</option>
-                        <option value="8">8 guests</option>
-                        <option value="9">9 guests</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
 
                     </select>
                 </li>
@@ -110,7 +106,7 @@
                 <div class="border-b border-gray-200 py-4"></div>
 
                 {{-- Budget Filter --}}
-                <h3 class="pt-4 pb-4">Your budget</h3>
+                <h3 class="pt-4 pb-4">Price</h3>
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="budget_1" name="budget_1" type="checkbox" value="1"
@@ -205,34 +201,7 @@
 
                 <div class="border-b border-gray-200 py-2"></div>
 
-                {{-- Category Filter --}}
-                <div class="justify-between flex">
-                    <h3 class="pt-4 pb-4">Category</h3>
 
-                    {{-- <div class="mt-3 text-gray-500 hover:text-gray-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6 x_cat">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div> --}}
-                </div>
-
-                @forelse ($categories as $category)
-                    <li>
-                        <div class="flex items-center mb-2">
-                            <input name="search_cat" type="radio" value="{{ $category->category_name }}"
-                                class="search_cat_class w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-                                onChange="this.form.submit()">
-                            <label
-                                class="ml-2 text-sm font-medium text-gray-900 ">{{ $category->category_name }}</label>
-                        </div>
-                    </li>
-                @empty
-                    <li>
-                        No category available.
-                    </li>
-                @endforelse
 
 
                 <div class="border-b border-gray-200 py-2"></div>
@@ -243,20 +212,10 @@
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="property_type_1" type="radio" value="House" name="property_type"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-                            onChange="this.form.submit()">
-                        <label for="property_type_1" class="ml-2 text-sm font-medium text-gray-900 ">House
-                        </label>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="flex items-center mb-2">
                         <input id="property_type_2" type="radio" value="Guest House" name="property_type"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Guest House
+                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Boarding House
                         </label>
                     </div>
                 </li>
@@ -266,25 +225,17 @@
                         <input id="property_type_2" type="radio" value="Apartment" name="property_type"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Apartment
+                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Dormitory
                         </label>
                     </div>
                 </li>
 
-                <li>
-                    <div class="flex items-center mb-2">
-                        <input id="property_type_2" type="radio" value="Hotel" name="property_type"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-                            onChange="this.form.submit()">
-                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Hotel
-                        </label>
-                    </div>
-                </li>
+
 
                 <div class="border-b border-gray-200 py-2"></div>
 
                 {{-- Property Size --}}
-                <h3 class="pt-4 pb-4">No. of Bedrooms</h3>
+                <h3 class="pt-4 pb-4">No. of Beds</h3>
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="bedroom_1" name="bedroom_1" type="checkbox" value="1"
@@ -316,14 +267,7 @@
                     </div>
                 </li>
 
-                <li>
-                    <div class="flex items-center mb-2">
-                        <input id="bedroom_4" name="bedroom_4" type="checkbox" value="1"
-                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
-                            onChange="this.form.submit()">
-                        <label for="bedroom_4" class="ml-2 text-sm font-medium text-gray-900 "> 7+</label>
-                    </div>
-                </li>
+
 
             </form>
         </x-slot>
@@ -341,7 +285,19 @@
                                 src="{{ asset('storage/media/listing/cover_' . $listing->listing_id . '_' . $listing->default_photo) }}" />
                             <!-- text information -->
                             <div class="p-4">
+
+
                                 <small class="text-blue-400 text-xs">{{ $listing->category->category_name }}</small>
+
+                                @if ($listing->listing_status == 'Unavailable')
+                                    <span
+                                        class="mb-2 bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                        Unavailable
+                                    </span>
+                                @endif
+
+
+
                                 <h1 class="text-xl font-medium text-slate-600 pb-2">
                                     {{ $listing->listing_title }}</h1>
 

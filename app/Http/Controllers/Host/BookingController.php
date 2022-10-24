@@ -48,16 +48,16 @@ class BookingController extends Controller
                     ->latest()
                     ->paginate(10);
             }
-
-            return view('pages.host.bookings', [
-                'bookings' => $bookings,
-                'pending' => $pending,
-                'confirmed' => $confirmed,
-                'canceled' => $canceled,
-                'complete' => $complete,
-
-            ]);
         }
+
+        return view('pages.host.bookings', [
+            'bookings' => $bookings,
+            'pending' => $pending,
+            'confirmed' => $confirmed,
+            'canceled' => $canceled,
+            'complete' => $complete,
+
+        ]);
     }
 
 
@@ -70,7 +70,7 @@ class BookingController extends Controller
         ]);
     }
 
-    public function approve_receipt(Request $request, $booking_id)
+    public function approve_receipt(Request $request)
     {
         // dd($request->all());
         $user = User::where('email', Auth::user()->email)->first();

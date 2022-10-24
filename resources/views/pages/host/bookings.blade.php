@@ -3,7 +3,7 @@
     {{-- Contents --}}
     <div class="projects-section">
         <div class="projects-section-header">
-            <p>My Listing</p>
+            <p>Bookings</p>
             {{-- <p class="time">December, 12</p> --}}
         </div>
 
@@ -48,6 +48,10 @@
                                         Pending Confirmation</option>
                                     <option value="Confirmed Reservation">
                                         Confirmed Reservation</option>
+                                    <option value="Waiting for payment proof">
+                                        Waiting for payment proof</option>
+                                    <option value="Waiting for payment approval">
+                                        Waiting for payment approval</option>
                                     <option value="Complete">
                                         Complete</option>
                                     <option value="Canceled">
@@ -55,14 +59,14 @@
                                 </select>
                             </div>
 
-                            <input id="search_inp" class="ml-48 search-input outline-offset-4" type="search"
+                            <input id="search_inp" class="ml-60 search-input outline-offset-4" type="search"
                                 name="search" placeholder="Search" value="{{ request()->search }}"
                                 style="outline: none;">
                         </div>
                     </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                         stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        class="search_btn feather feather-search" viewBox="0 0 24 24">
+                        class="search_btn feather feather-search cursor-pointer" viewBox="0 0 24 24">
                         <defs></defs>
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="M21 21l-4.35-4.35"></path>
@@ -296,8 +300,8 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <form action="{{ route('host.bookings.approve_receipt', [$booking->booking_id]) }}"
-                            method="POST" id="confirm-form">
+                        <form action="{{ route('host.bookings.approve_receipt') }}" method="POST"
+                            id="confirm-form">
                             @csrf
                             @method('PUT')
                             <div class=" sm:mt-0">
@@ -471,6 +475,10 @@
             $(document).ready(function() {
 
                 $(".search_btn").click(function() {
+                    $("#search_tbl").submit();
+                });
+
+                $('#search_status').on('change', function() {
                     $("#search_tbl").submit();
                 });
             });

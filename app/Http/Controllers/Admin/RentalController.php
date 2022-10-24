@@ -45,7 +45,7 @@ class RentalController extends Controller
                 ->first();
 
             if ($search === null) {
-                return Redirect::route('host.listing')->with('info', 'No data found in the database.');
+                return Redirect::route('admin.rentals')->with('info', 'No data found in the database.');
             }
 
             if ($search != null) {

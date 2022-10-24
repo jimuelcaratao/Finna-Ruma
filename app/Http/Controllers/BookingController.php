@@ -47,10 +47,15 @@ class BookingController extends Controller
 
         $get_booking = Booking::where('listing_id', $listing_id)
             ->whereBetween('check_in', [$request->input('check-in'), $request->input('checkout')])
-            ->orWhereBetween('checkout', [$request->input('check-in'), $request->input('checkout')])
             ->first();
 
-        if ($get_booking != null) {
+        $get_booking_1 = Booking::where('listing_id', $listing_id)
+            ->whereBetween('checkout', [$request->input('check-in'), $request->input('checkout')])
+            ->first();
+
+        // dd($get_booking, $get_booking_1);
+
+        if ($get_booking != null || $get_booking_1 != null) {
             return Redirect::back()
                 ->with('toast_error', 'Sorry Date between ' . $request->input('check-in') . ' and ' . $request->input('checkout') . 'are occupied.');
         }
@@ -63,6 +68,11 @@ class BookingController extends Controller
         if ($add_guest > $listing->max_guest) {
             return Redirect::back()
                 ->with('toast_error', 'Sorry only ' . $listing->max_guest . ' guests are allowed.');
+        }
+
+        if ($listing->listing_status == 'Unavailable') {
+            return Redirect::back()
+                ->with('toast_error', 'Sorry listing unavailable right now.');
         }
 
         $booking =  Booking::create([

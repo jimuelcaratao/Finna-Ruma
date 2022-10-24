@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Listing;
+use App\Models\User;
+use App\Models\Visit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -51,6 +55,12 @@ class DashboardController extends Controller
 
         $listings = Listing::latest()->limit(6)->get();
 
+        $new_users = User::where('is_admin', '0')
+            ->whereMonth('created_at', '=', Carbon::now()->month)
+            ->count();
+
+        $page_visits = Visit::where('visit_date', '>=', Carbon::now()->subWeeks(1))
+            ->count();
 
         return view('pages.admin.dashboard', [
             'dayTerm' => $dayTerm,
@@ -58,6 +68,10 @@ class DashboardController extends Controller
             'listing_approved' => $listing_approved,
             'listing_pending' => $listing_pending,
             'listings' => $listings,
+
+            'new_users' => $new_users,
+
+            'page_visits' => $page_visits,
 
             'pending' => $pending,
             'half' => $half,
