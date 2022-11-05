@@ -120,13 +120,13 @@
                     </svg>
                 </div>
 
-                <button data-bs-toggle="modal" data-bs-target="#searchFilter">
+                {{-- <button data-bs-toggle="modal" data-bs-target="#searchFilter">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                     </svg>
-                </button>
+                </button> --}}
 
 
 
@@ -148,6 +148,11 @@
                             <th scope="col" class="px-6 py-3">
                                 Status
                             </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Availability
+                            </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Category
                             </th>
@@ -186,12 +191,8 @@
                                 </td>
                                 <td class="px-6 py-3">
 
-                                    @if ($listing->listing_status == 'Unavailable')
-                                        <span
-                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-purple-500  to-purple-600">
-                                            {{ $listing->listing_status }}
-                                        </span>
-                                    @elseif ($listing->listing_status == 'Denied')
+
+                                    @if ($listing->listing_status == 'Denied')
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
                                             {{ $listing->listing_status }}
@@ -208,6 +209,21 @@
                                         </span>
                                     @endif
                                 </td>
+
+                                <td class="px-6 py-3">
+                                    @if ($listing->availability == 'Unavailable')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-purple-500  to-purple-600">
+                                            {{ $listing->availability }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-green-500  to-green-600">
+                                            {{ $listing->availability }}
+                                        </span>
+                                    @endif
+                                </td>
+
                                 <td class="px-6 py-3">
                                     {{ $listing->category->category_name }}
 
@@ -233,7 +249,7 @@
                                     {{-- Tooltip --}}
                                     <div id="tooltip-edit" role="tooltip"
                                         class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                        Edit Listing
+                                        Edit status
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
 
@@ -241,9 +257,22 @@
                                     {{-- Tooltip --}}
                                     <div id="tooltip-delete" role="tooltip"
                                         class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                        Delete
+                                        View details
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
+
+                                    <a href="{{ route('admin.view.listing', [$listing->slug]) }}"
+                                        data-tooltip-target="tooltip-delete" data-tooltip-placement="top"
+                                        class="font-medium text-purple-600  hover:text-purple-900  hover:underline no-underline mr-2"><svg
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+
+                                    </a>
 
                                     <a href="" data-tooltip-target="tooltip-edit" data-tooltip-placement="top"
                                         id="edit-item-status" data-bs-toggle="modal"
@@ -259,6 +288,8 @@
                                                 d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                 clip-rule="evenodd" />
                                         </svg></a>
+
+
 
 
                                     {{-- <form class="delete-listing ml-2"
@@ -333,6 +364,22 @@
                                 <option disabled selected></option>
                                 <option value="Approved">Approved</option>
                                 <option value="Denied">Denied</option>
+                            </select>
+                            <div id="emailHelp" class="form-text">Confirm this action.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="facility_score" class="block text-sm font-medium text-gray-700">Facility
+                                score</label>
+                            <select id="facility_score" name="facility_score" class="form-select"
+                                aria-label="Default select example">
+                                <option disabled selected></option>
+                                <option value="1">1 facility score (highest)</option>
+                                <option value="2">2 facility score</option>
+                                <option value="3">3 facility score</option>
+                                <option value="4">4 facility score</option>
+                                <option value="5">5 facility score</option>
+
                             </select>
                             <div id="emailHelp" class="form-text">Confirm this action.</div>
                         </div>

@@ -1,6 +1,13 @@
 <x-global-layout>
 
     @push('styles')
+        <!-- Styles -->
+        <style>
+            input:checked+label {
+                border-color: #160e06;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+        </style>
         <style>
             .mapouter {
                 position: relative;
@@ -184,13 +191,20 @@
 
                                     <div class="flex justify-between gap-10">
                                         <div>
-                                            @if ($listing->listing_status == 'Unavailable')
+                                            <span
+                                                class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                                {{ $listing->property_type }}
+                                            </span>
+
+                                            @if ($listing->location_score == 1)
                                                 <span
-                                                    class=" bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
-                                                    Unavailable
+                                                    class="mb-2 bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                                    Close to school
                                                 </span>
                                             @endif
-                                            <h3 class="pt-4 mb-2 text-4xl font-semibold">{{ $listing->listing_title }}
+
+
+                                            <h3 class="pt-2 mb-2 text-4xl font-semibold">{{ $listing->listing_title }}
                                             </h3>
                                             <a class="text-sm font-medium text-gray-700 underline">
                                                 {{ $listing->location }}</a>
@@ -344,17 +358,72 @@
                             <!-- Payment Section -->
                             <div class="flex-initial  w-full lg:w-2/5 ">
                                 <div class=" mb-4 p-6 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
+                                    @if ($listing->availability == 'Unavailable')
+                                        <span
+                                            class=" bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mb-2">
+                                            Unavailable
+                                        </span>
+                                    @endif
                                     <h3 class=" mb-4 text-3xl font-semibold">₱ @convert($listing->price_per_night) <span
                                             class="text-sm text-gray-400 font-normal">night</span></h3>
 
                                     <div class="border-b-2 border-gray-30 my-6"></div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-center justify-center mb-4"
+                                        id="rd-btn">
+                                        <div>
+                                            <input class="hidden" type="radio" name="payment_method"
+                                                id="radio_1" value="Cash on Delivery" checked>
+                                            <label
+                                                class="flex flex-col p-4 border shadow rounded-lg border-gray-200 cursor-pointer"
+                                                for="radio_1">
+                                                <span class="text-md font-bold text-center" for="radio_1">Per
+                                                    night</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input class="hidden" type="radio" name="payment_method"
+                                                id="radio_2" value="Pick Up">
+                                            <label
+                                                class="flex flex-col p-4 border shadow rounded-lg border-gray-200 cursor-pointer"
+                                                for="radio_2">
+                                                <span class="text-md font-bold text-center"
+                                                    for="radio_2">Monthly</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
 
                                     {{-- Datepicker --}}
 
                                     <form action="{{ route('global.booking', [$listing->listing_id]) }}"
                                         method="POST">
                                         @csrf
-                                        <div date-rangepicker="" class="flex items-center">
+
+                                        <div id="monthly_date">
+                                            <div class="relative mb-4">
+                                                <div
+                                                    class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                    <svg aria-hidden="true"
+                                                        class="w-5 h-5 mt-5 text-gray-500 dark:text-gray-400"
+                                                        fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </div>
+                                                <label for="check-in-monthly"
+                                                    class="text-xs font-semibold">CHECK-IN</label>
+
+                                                <input datepicker name="check-in-monthly" id="check-in-monthly"
+                                                    type="text"
+                                                    class="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  "
+                                                    placeholder="Select date">
+                                            </div>
+                                        </div>
+
+                                        <div id="per_night_date" date-rangepicker="" class="flex items-center">
                                             <div class="relative">
                                                 <div
                                                     class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -615,10 +684,6 @@
                         </div>
                     @endif
 
-
-
-
-
                 </div>
 
             </div>
@@ -678,7 +743,7 @@
     @push('scripts')
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
         <script>
             function textAreaAdjust(element) {
                 element.style.height = "1px";
@@ -693,6 +758,18 @@
                 var price_night = $('#price_night').val();
                 var service_fee = $('#service_fee').val();
 
+                $('#monthly_date').hide();
+                $('#per_night_date').show();
+
+                $("#radio_1").on("click", function() {
+                    $('#monthly_date').hide();
+                    $('#per_night_date').show();
+                })
+
+                $("#radio_2").on("click", function() {
+                    $('#monthly_date').show();
+                    $('#per_night_date').hide();
+                })
 
                 function treatAsUTC(date) {
                     var result = new Date(date);
@@ -704,6 +781,38 @@
                     var millisecondsPerDay = 24 * 60 * 60 * 1000;
                     return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
                 }
+
+
+                // monthly
+                $('#check-in-monthly').focusout(function() {
+                    var monthly = $('#check-in-monthly').val();
+
+                    // var today = new Date(monthly);
+                    // var priorDate = new Date(new Date().setDate(today.getDate() + 30));
+
+                    const priorDate = moment(monthly, "MM/DD/YYYY").add(30, 'days').format('L');
+                    console.log(priorDate)
+
+                    console.log(priorDate);
+
+
+                    $('#check-in').val(monthly);
+                    $('#checkout').val(priorDate);
+
+                    var days = daysBetween(monthly, priorDate);
+
+                    $('#total-days').text(days);
+
+                    $('#days').val(days);
+                    $('#pending-total').val((price_night * days).toLocaleString());
+
+                    var service = parseInt(service_fee);
+                    var get_total = (price_night * days) + service;
+                    $('#total').val(get_total);
+                    $('#total-fee').show();
+                });
+
+
 
 
                 $('#check-in').focusout(function() {

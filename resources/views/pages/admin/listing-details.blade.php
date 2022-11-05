@@ -1,25 +1,25 @@
-<x-host-layout>
-
+<x-app-layout>
 
 
 
     {{-- Contents --}}
     <div class="projects-section">
         <div class="projects-section-header">
-            <p>Add Listing</p>
-            <a href="{{ route('host.listing') }}" class="bg-gray-800 text-white p-1 rounded-full" title="Add New Project">
+            <p>View: {{ $listing->listing_title }}</p>
+            <a href="{{ route('admin.rentals') }}" class="bg-gray-800 text-white p-1 rounded-full" title="Add New Project">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                         clip-rule="evenodd" />
                 </svg>
             </a>
+
         </div>
 
         <div class="overflow-y-auto">
             <div class="relative shadow-sm pr-0 md:pr-3">
-                <form action="{{ route('host.store.listing') }}" method="POST" id="add-form"
-                    enctype="multipart/form-data">
+                <form action="#" method="POST" id="add-form" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div>
                         <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -34,14 +34,12 @@
                                     <div class="px-4 py-5 bg-white sm:p-6">
                                         <div class="grid grid-cols-6 gap-6">
 
-
-
                                             <div class="col-span-6 sm:col-span-4">
                                                 <label for="name"
                                                     class="block text-sm font-medium text-gray-700">Host Full
                                                     name <span class="text-red-600">*</span></label>
                                                 <input type="text" name="name" id="name"
-                                                    value="{{ Auth::user()->name }}" readonly
+                                                    value="{{ $listing->user->name }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -50,7 +48,7 @@
                                                     class="block text-sm font-medium text-gray-700">Host Email
                                                     address <span class="text-red-600">*</span></label>
                                                 <input type="text" name="email" id="email" autocomplete="email"
-                                                    value="{{ Auth::user()->email }}" readonly
+                                                    value="{{ $listing->user->email }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -75,7 +73,7 @@
                                                     </svg>
                                                 </label>
                                                 <input type="text" name="contact" id="contact"
-                                                    value="{{ Auth::user()->contact }}"
+                                                    value="{{ $listing->user->contact }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -102,6 +100,7 @@
                                                     </svg>
                                                 </label>
                                                 <input type="text" name="messenger_url" id="messenger_url"
+                                                    value="{{ $listing->messenger_url }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -135,12 +134,25 @@
                                     <div class="px-4 py-5 bg-white sm:p-6">
                                         <div class="grid grid-cols-6 gap-6">
 
+                                            <div class="col-span-6 sm:col-span-4">
+                                                <label for="availability"
+                                                    class="block text-sm font-medium text-gray-700">Listing Status
+                                                    <span class="text-red-600">*</span></label>
+                                                <select id="availability" name="availability" required
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->availability }}">
+                                                        {{ $listing->availability }}
+                                                    </option>
+                                                </select>
+                                            </div>
+
                                             <div class="col-span-6">
                                                 <label for="listing_title"
                                                     class="block text-sm font-medium text-gray-700">Listing
                                                     Title <span class="text-red-600">*</span></label>
                                                 <input type="text" name="listing_title" id="listing_title"
-                                                    required
+                                                    required value="{{ $listing->listing_title }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -150,8 +162,8 @@
                                                     Brief description
                                                 </label>
                                                 <div class="mt-1">
-                                                    <textarea id="description" name="description" rows="5"
-                                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
+                                                    <textarea id="description" name="description" rows="5" readonly
+                                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md">{{ $listing->description }}</textarea>
                                                 </div>
                                                 <p class="mt-2 text-sm text-gray-500">Brief description for your
                                                     place.</p>
@@ -162,14 +174,13 @@
                                                     class="block text-sm font-medium text-gray-700">Category <span
                                                         class="text-red-600">*</span></label>
                                                 <select id="category_id" name="category_id" required
+                                                    value="{{ $listing->category_id }}"
                                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    @forelse ($categories as $category)
-                                                        <option value="{{ $category->category_id }}">
-                                                            {{ $category->category_name }}</option>
-                                                    @empty
-                                                        <option>
-                                                            No category available.</option>
-                                                    @endforelse
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->category->category_id }}">
+                                                        {{ $listing->category->category_name }}
+                                                    </option>
+
 
                                                 </select>
                                             </div>
@@ -179,35 +190,15 @@
                                                     class="block text-sm font-medium text-gray-700">Location
                                                     address</label>
                                                 <input type="text" name="location" id="location" required
+                                                    value="{{ $listing->location }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
-
-                                            {{-- <div class="col-span-6 sm:col-span-4">
-                                                <label for="map_pin"
-                                                    class="flex text-sm font-medium text-gray-700">Google Map
-                                                    Pin <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
-                                                        viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd"
-                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                            clip-rule="evenodd" />
-                                                    </svg></label>
-                                                <input type="text" name="map_pin" id="map_pin" required
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div> --}}
-                                            {{-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                                <label for="city"
-                                                    class="block text-sm font-medium text-gray-700">City</label>
-                                                <input type="text" name="city" id="city" required
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div> --}}
-
-
-
 
                                             <div class=" col-span-6 sm:col-span-4">
                                                 <div>
                                                     <label for="price_per_night"
-                                                        class="block text-sm font-medium text-gray-700">Price Per Night
+                                                        class="block text-sm font-medium text-gray-700">Price per
+                                                        night/1500 per month
                                                         <span class="text-red-600">*</span></label>
                                                     <div class="mt-1 relative rounded-md shadow-sm">
                                                         <div
@@ -218,6 +209,7 @@
                                                         </div>
                                                         <input type="number" min="0" step="0.01"
                                                             name="price_per_night" id="price_per_night" required
+                                                            value="{{ $listing->price_per_night }}" readonly
                                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md"
                                                             placeholder="0.00">
@@ -240,6 +232,7 @@
                                                         </div>
                                                         <input type="number" min="0" step="0.01"
                                                             name="service_fee" id="service_fee" required
+                                                            value="{{ $listing->service_fee }}" readonly
                                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md"
                                                             placeholder="0.00">
@@ -282,26 +275,10 @@
                                                         class="text-red-600">*</span></label>
                                                 <select id="max_guest" name="max_guest"
                                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
-                                                    <option>13</option>
-                                                    <option>14</option>
-                                                    <option>15</option>
-                                                    <option>16</option>
-                                                    <option>17</option>
-                                                    <option>18</option>
-                                                    <option>19</option>
-                                                    <option>20</option>
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->max_guest }}">
+                                                        {{ $listing->max_guest }}</option>
+
                                                 </select>
                                             </div>
 
@@ -311,10 +288,10 @@
                                                     Allowed <span class="text-red-600">*</span></label>
                                                 <select id="max_pet" name="max_pet" required
                                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
+                                                    <option class="bg-gray-50" selected
+                                                        value="{{ $listing->max_pet }}">
+                                                        {{ $listing->max_pet }}</option>
+
                                                 </select>
                                             </div>
 
@@ -324,8 +301,10 @@
                                                     Type <span class="text-red-600">*</span></label>
                                                 <select id="property_type" name="property_type" required
                                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option>Boarding House</option>
-                                                    <option>Dormitory</option>
+                                                    <option class="bg-gray-50" selected
+                                                        value="{{ $listing->property_type }}">
+                                                        {{ $listing->property_type }}</option>
+
                                                 </select>
                                             </div>
 
@@ -350,17 +329,17 @@
                                                     </svg>
                                                 </label>
                                                 <input type="text" name="property_size" id="property_size"
-                                                    required
                                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                    required value="{{ $listing->property_size }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
-
 
                                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                 <label for="bedrooms"
                                                     class="block text-sm font-medium text-gray-700">No. of
                                                     Bedrooms <span class="text-red-600">*</span></label>
                                                 <input type="text" name="bedrooms" id="bedrooms" required
+                                                    value="{{ $listing->bedrooms }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -369,6 +348,7 @@
                                                     class="block text-sm font-medium text-gray-700">No. of
                                                     Bed <span class="text-red-600">*</span></label>
                                                 <input type="text" name="beds" id="beds" required
+                                                    value="{{ $listing->beds }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -378,6 +358,7 @@
                                                     class="block text-sm font-medium text-gray-700">No. of
                                                     Bathrooms <span class="text-red-600">*</span></label>
                                                 <input type="text" name="bathrooms" id="bathrooms" required
+                                                    value="{{ $listing->bathrooms }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -402,18 +383,8 @@
                                                     </svg>
                                                 </label>
                                                 <input type="text" name="bed_detials" id="bed_detials"
+                                                    value="{{ $listing->bed_detials }}" readonly
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div>
-
-                                            <div class="col-span-6 sm:col-span-4 mt-2">
-                                                <label for="location_score"
-                                                    class="block text-sm font-medium text-gray-700">Target
-                                                    Location</label>
-                                                <select id="location_score" name="location_score" required
-                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option value="0">None</option>
-                                                    <option value="1">Close to school</option>
-                                                </select>
                                             </div>
 
 
@@ -454,24 +425,17 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_default_photo" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->default_photo == null)
+                                                        <img id="output_default_photo" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_default_photo" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/cover_' . $listing->listing_id . '_' . $listing->default_photo) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
-                                                    <div class="flex text-sm text-gray-600 ">
-                                                        <label for="default_photo"
-                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                            <span class="">Upload a
-                                                                file</span>
-                                                            <input id="default_photo" name="default_photo"
-                                                                type="file" required class="sr-only"
-                                                                accept=".jpg,.gif,.png,.jpeg">
-                                                        </label>
-                                                        {{-- <p class="pl-1">or drag and drop</p> --}}
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">
-                                                        PNG, JPG, GIF up to 5MB
-                                                    </p>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -484,24 +448,18 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_photo_1" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->listing_gallery->photo_1 == null)
+                                                        <img id="output_photo_1" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_photo_1" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/photo_1_' . $listing->listing_id . '_' . $listing->listing_gallery->photo_1) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
-                                                    <div class="flex text-sm text-gray-600 ">
-                                                        <label for="photo_1"
-                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                            <span class="">Upload a
-                                                                file</span>
-                                                            <input id="photo_1" name="photo_1" type="file"
-                                                                required class="sr-only"
-                                                                accept=".jpg,.gif,.png,.jpeg">
-                                                        </label>
-                                                        {{-- <p class="pl-1">or drag and drop</p> --}}
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">
-                                                        PNG, JPG, GIF up to 5MB
-                                                    </p>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -514,24 +472,17 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_photo_2" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->listing_gallery->photo_2 == null)
+                                                        <img id="output_photo_2" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_photo_2" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/photo_2_' . $listing->listing_id . '_' . $listing->listing_gallery->photo_2) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
-                                                    <div class="flex text-sm text-gray-600 ">
-                                                        <label for="photo_2"
-                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                            <span class="">Upload a
-                                                                file</span>
-                                                            <input id="photo_2" name="photo_2" type="file"
-                                                                required class="sr-only"
-                                                                accept=".jpg,.gif,.png,.jpeg">
-                                                        </label>
-                                                        {{-- <p class="pl-1">or drag and drop</p> --}}
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">
-                                                        PNG, JPG, GIF up to 5MB
-                                                    </p>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -544,24 +495,17 @@
                                                 class="mt-1 flex justify-center px-6 py-2 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div class="space-y-1 text-center">
 
-                                                    <img id="output_photo_3" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
-                                                        style="width:600px;height:300px;">
+                                                    @if ($listing->listing_gallery->photo_3 == null)
+                                                        <img id="output_photo_3" class="cursor-pointer mb-4"
+                                                            src="{{ asset('img/global/cover-img.svg') }}"
+                                                            style="width:600px;height:300px;">
+                                                    @else
+                                                        <img id="output_photo_3" class="cursor-pointer mb-4"
+                                                            src="{{ asset('storage/media/listing/photo_3_' . $listing->listing_id . '_' . $listing->listing_gallery->photo_3) }}"
+                                                            style="width:600px;height:300px;">
+                                                    @endif
 
-                                                    <div class="flex text-sm text-gray-600 ">
-                                                        <label for="photo_3"
-                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                            <span class="">Upload a
-                                                                file</span>
-                                                            <input id="photo_3" name="photo_3" type="file"
-                                                                required class="sr-only"
-                                                                accept=".jpg,.gif,.png,.jpeg">
-                                                        </label>
-                                                        {{-- <p class="pl-1">or drag and drop</p> --}}
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">
-                                                        PNG, JPG, GIF up to 5MB
-                                                    </p>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -598,22 +542,10 @@
                                                 <div class="space-y-1 text-center">
 
                                                     <img id="output_gcash_qr" class="cursor-pointer mb-4"
-                                                        src="{{ asset('img/global/cover-img.svg') }}"
+                                                        src="{{ asset('storage/media/listing/gcash_' . $listing->listing_id . '_' . $listing->gcash_qr) }}"
                                                         style="width:600px;height:600px;">
 
-                                                    <div class="flex text-sm text-gray-600 ">
-                                                        <label for="gcash_qr"
-                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                            <span class="">Upload a
-                                                                file</span>
-                                                            <input id="gcash_qr" name="gcash_qr" type="file"
-                                                                class="sr-only" accept=".jpg,.gif,.png,.jpeg">
-                                                        </label>
-                                                        {{-- <p class="pl-1">or drag and drop</p> --}}
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">
-                                                        PNG, JPG, GIF up to 5MB
-                                                    </p>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -624,6 +556,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <div class="hidden sm:block" aria-hidden="true">
                         <div class="py-5">
@@ -670,7 +603,9 @@
                                                 </label>
                                                 <div class="mt-1">
                                                     <textarea id="additional_notes" name="additional_notes" rows="6"
-                                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
+                                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md">
+                                                         {{ $listing->additional_notes }}
+                                                    </textarea>
                                                 </div>
                                                 <p class="mt-2 text-sm text-gray-500">Brief description for your
                                                     listing.</p>
@@ -685,11 +620,13 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="refundable" name="refundable" type="checkbox"
+                                                            @checked($listing->listing_rule->refundable)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
                                                         <label for="refundable"
-                                                            class="font-medium text-gray-700">Refundable</label>
+                                                            class="font-medium text-gray-700">Refundable
+                                                        </label>
                                                     </div>
                                                 </div>
 
@@ -697,6 +634,7 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="claygo" name="claygo" type="checkbox"
+                                                            @checked($listing->listing_rule->claygo)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
@@ -709,6 +647,7 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="no_smoking" name="no_smoking" type="checkbox"
+                                                            @checked($listing->listing_rule->no_smoking)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
@@ -721,6 +660,7 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="no_drinking" name="no_drinking" type="checkbox"
+                                                            @checked($listing->listing_rule->no_drinking)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
@@ -733,6 +673,7 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="no_events" name="no_events" type="checkbox"
+                                                            @checked($listing->listing_rule->no_events)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
@@ -745,6 +686,7 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="no_pets" name="no_pets" type="checkbox"
+                                                            @checked($listing->listing_rule->no_pets)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
@@ -760,12 +702,14 @@
                                                     class="block text-sm font-medium text-gray-700">Check In Time
                                                 </label>
                                                 <input type="text" name="check_in" id="check_in"
+                                                    value="{{ $listing->listing_rule->check_in }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 
                                                 <label for="check_out"
                                                     class="block text-sm font-medium text-gray-700 mt-4">Check Out Time
                                                 </label>
                                                 <input type="text" name="check_out" id="check_out"
+                                                    value="{{ $listing->listing_rule->check_out }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
@@ -777,10 +721,31 @@
                                                 </label>
                                                 <div class="mt-1">
                                                     <textarea id="additional_rules" name="additional_rules" rows="6"
-                                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
+                                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md">
+                                                        {{ $listing->listing_rule->additional_rules }}</textarea>
                                                 </div>
                                                 <p class="mt-2 text-sm text-gray-500">Brief description for your
                                                     Rule.</p>
+                                            </div>
+
+
+                                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                                <label for="location_score"
+                                                    class="block text-sm font-medium text-gray-700">Target
+                                                    Location</label>
+                                                <select id="location_score" name="location_score" required
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->location_score }}">
+                                                        @if ($listing->location_score == 0)
+                                                            None
+                                                        @elseif($listing->location_score == 1)
+                                                            Close to school
+                                                        @endif
+                                                    </option>
+                                                    <option value="0">None</option>
+                                                    <option value="1">Close to school</option>
+                                                </select>
                                             </div>
 
 
@@ -789,16 +754,18 @@
 
                                     </div>
                                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                        <button type="submit"
-                                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+                                        <a href="{{ route('admin.rentals') }}">
+                                            <button type="button"
+                                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Go
+                                                back
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-
-
 
 
                 </form>
@@ -826,52 +793,7 @@
                 .then(editor => {
                     thisEditor = editor
                 });
-            // edit_is_customizable
-            $('#output_default_photo').click(function() {
-                $('#default_photo').trigger('click');
-            });
-
-            $(document).on("change", "#default_photo", function() {
-                document.getElementById('output_default_photo').src = window.URL.createObjectURL(this.files[
-                    0])
-            });
-
-            $('#output_gcash_qr').click(function() {
-                $('#gcash_qr').trigger('click');
-            });
-
-            $(document).on("change", "#gcash_qr", function() {
-                document.getElementById('output_gcash_qr').src = window.URL.createObjectURL(this.files[
-                    0])
-            });
-
-            $('#output_photo_1').click(function() {
-                $('#photo_1').trigger('click');
-            });
-
-            $(document).on("change", "#photo_1", function() {
-                document.getElementById('output_photo_1').src = window.URL.createObjectURL(this.files[
-                    0])
-            });
-
-            $('#output_photo_2').click(function() {
-                $('#photo_2').trigger('click');
-            });
-
-            $(document).on("change", "#photo_2", function() {
-                document.getElementById('output_photo_2').src = window.URL.createObjectURL(this.files[
-                    0])
-            });
-
-            $('#output_photo_3').click(function() {
-                $('#photo_3').trigger('click');
-            });
-
-            $(document).on("change", "#photo_3", function() {
-                document.getElementById('output_photo_3').src = window.URL.createObjectURL(this.files[
-                    0])
-            });
         </script>
     @endpush
 
-</x-host-layout>
+</x-app-layout>

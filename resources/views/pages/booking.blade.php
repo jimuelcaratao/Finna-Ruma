@@ -344,6 +344,16 @@
                                             </a>
                                         @endif
 
+                                        @if ($booking->booking_status == 'Waiting for payment approval')
+                                            <a href="{{ route('my-bookings') }}">
+                                                <button type="button"
+                                                    class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                    Go to my bookings
+                                                </button>
+                                            </a>
+                                        @endif
+
+
                                         @if ($booking->booking_status == 'Pending Confirmation')
                                             <a
                                                 href="{{ route('confirm-booking', [$booking->listing->slug, $booking->booking_id]) }}">

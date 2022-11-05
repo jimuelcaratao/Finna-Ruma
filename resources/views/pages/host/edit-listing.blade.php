@@ -141,17 +141,17 @@
                                         <div class="grid grid-cols-6 gap-6">
 
                                             <div class="col-span-6 sm:col-span-4">
-                                                <label for="listing_status"
+                                                <label for="availability"
                                                     class="block text-sm font-medium text-gray-700">Listing Status
                                                     <span class="text-red-600">*</span></label>
-                                                <select id="listing_status" name="listing_status" required
+                                                <select id="availability" name="availability" required
                                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                     <option class="bg-gray-50" selected
-                                                        value=" {{ $listing->listing_status }}">
-                                                        {{ $listing->listing_status }}
+                                                        value=" {{ $listing->availability }}">
+                                                        {{ $listing->availability }}
                                                     </option>
-                                                    <option value="Approved">
-                                                        Approved</option>
+                                                    <option value="Available">
+                                                        Available</option>
                                                     <option value="Unavailable">
                                                         Unavailable</option>
                                                 </select>
@@ -251,6 +251,7 @@
                                                         <input type="number" min="0" step="0.01"
                                                             name="price_per_night" id="price_per_night" required
                                                             value="{{ $listing->price_per_night }}"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md"
                                                             placeholder="0.00">
 
@@ -273,6 +274,7 @@
                                                         <input type="number" min="0" step="0.01"
                                                             name="service_fee" id="service_fee" required
                                                             value="{{ $listing->service_fee }}"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md"
                                                             placeholder="0.00">
 
@@ -365,10 +367,8 @@
                                                     <option class="bg-gray-50" selected
                                                         value="{{ $listing->property_type }}">
                                                         {{ $listing->property_type }}</option>
-                                                    <option>House</option>
-                                                    <option>Guest House</option>
-                                                    <option>Apartment</option>
-                                                    <option>Hotel</option>
+                                                    <option>Boarding House</option>
+                                                    <option>Dormitory</option>
                                                 </select>
                                             </div>
 
@@ -393,6 +393,7 @@
                                                     </svg>
                                                 </label>
                                                 <input type="text" name="property_size" id="property_size"
+                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                     required value="{{ $listing->property_size }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
@@ -448,6 +449,25 @@
                                                 <input type="text" name="bed_detials" id="bed_detials"
                                                     value="{{ $listing->bed_detials }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </div>
+
+                                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                                <label for="location_score"
+                                                    class="block text-sm font-medium text-gray-700">Target
+                                                    Location</label>
+                                                <select id="location_score" name="location_score" required
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->location_score }}">
+                                                        @if ($listing->location_score == 0)
+                                                            None
+                                                        @elseif($listing->location_score == 1)
+                                                            Close to school
+                                                        @endif
+                                                    </option>
+                                                    <option value="0">None</option>
+                                                    <option value="1">Close to school</option>
+                                                </select>
                                             </div>
 
 
@@ -851,6 +871,11 @@
                                                 <p class="mt-2 text-sm text-gray-500">Brief description for your
                                                     Rule.</p>
                                             </div>
+
+
+
+
+
 
                                         </div>
 

@@ -53,6 +53,7 @@ Route::get('/host/register', function () {
 })->name('host.register');
 
 // Global routes APIs
+
 //Rentals APIs
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/rentals', [RentalController::class, 'index'])->name('rentals');
@@ -74,6 +75,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
+    Route::get('/fetch_user', [RentalController::class, 'get_user_preference']);
+    Route::post('/add-user-pref', [RentalController::class, 'add_user_preference'])->name('user_pref.store');
 
     //Wishlists APIs
     Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
@@ -118,9 +122,10 @@ Route::middleware([
 
         Route::get('/rentals', [AdminRentalController::class, 'index'])->name('admin.rentals');
         Route::post('/rentals/store', [AdminRentalController::class, 'edit_status'])->name('admin.rentals.status');
+        Route::get('/listing/view/{slug}', [AdminRentalController::class, 'show'])->name('admin.view.listing');
 
         Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings');
-
+        Route::get('/booking/{booking_id}', [BookingController::class, 'view_details'])->name('admin.bookings.view_details');
         // user APIs
         Route::get('/users', [UserController::class, 'index'])->name('admin.users');
         Route::post('/users', [UserController::class, 'store'])->name('users.store');

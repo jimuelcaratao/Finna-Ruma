@@ -1,7 +1,7 @@
 <x-global-layout>
 
 
-    <div class="lg:pb-12 lg:pt-6">
+    <div class="lg:pb-12 lg:pt-6 ">
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-24">
 
             {{-- Pick your choice section --}}
@@ -74,7 +74,7 @@
                             <!-- card -->
 
                             @forelse ($listings as $listing)
-                                <a href="{{ route('single-list', [$listing->slug]) }}">
+                                <a href="{{ route('single-list', [$listing->slug]) }}" class="no-underline">
                                     <div
                                         class=" flex w-96 flex-col justify-center bg-white rounded-2xl shadow-md transition duration-500 ease-in-out transform hover:translate-y-5">
                                         <!-- img -->

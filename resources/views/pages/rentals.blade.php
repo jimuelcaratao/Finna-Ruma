@@ -1,16 +1,35 @@
 <x-global-layout>
 
+    @push('styles')
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    @endpush
 
 
     <x-catalog.catalog-layout>
         <x-slot name="head">
-            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">
-                Properties
-            </h1>
+            <div class="inline-flex">
+                <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">
+                    Properties
+                </h1>
+
+                @if (Auth::check() == true)
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#user-prefer-modal"
+                        style="margin-top:-7px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 ml-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+                        </svg>
+                    </button>
+                @endif
+
+
+            </div>
         </x-slot>
         <x-slot name="categoryList">
             <form action="" id="filter-form">
-
 
                 {{-- Search --}}
 
@@ -37,7 +56,7 @@
                     <div date-rangepicker="" class=" items-center">
                         <div class="relative mb-2">
                             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-5" fill="none"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-4" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -51,7 +70,7 @@
                         </div>
                         <div class="relative ">
                             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-5" fill="none"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-4" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -163,7 +182,8 @@
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="size_2" name="size_2" type="checkbox" value="1"
-                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 ">
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
                         <label for="size_2" class="ml-2 text-sm font-medium text-gray-900 "> 10 sq. m
                             - 20 sq. m</label>
                     </div>
@@ -201,28 +221,22 @@
 
                 <div class="border-b border-gray-200 py-2"></div>
 
-
-
-
-                <div class="border-b border-gray-200 py-2"></div>
-
-
                 {{-- Property Filter --}}
                 <h3 class="pt-4 pb-4">Property Type</h3>
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="property_type_2" type="radio" value="Guest House" name="property_type"
+                        <input id="property_type_1" type="radio" value="Boarding House" name="property_type"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Boarding House
+                        <label for="property_type_1" class="ml-2 text-sm font-medium text-gray-900 ">Boarding House
                         </label>
                     </div>
                 </li>
 
                 <li>
                     <div class="flex items-center mb-2">
-                        <input id="property_type_2" type="radio" value="Apartment" name="property_type"
+                        <input id="property_type_2" type="radio" value="Dormitory" name="property_type"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
                         <label for="property_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Dormitory
@@ -277,7 +291,7 @@
 
                 <!-- card -->
                 @forelse ($listings as $listing)
-                    <a href="{{ route('single-list', [$listing->slug]) }}">
+                    <a href="{{ route('single-list', [$listing->slug]) }}" class="no-underline text-decoration-none">
                         <div
                             class=" flex w-96 flex-col justify-center bg-white rounded-2xl shadow-md transition duration-500 ease-in-out transform hover:translate-y-1">
                             <!-- img -->
@@ -287,25 +301,40 @@
                             <div class="p-4">
 
 
-                                <small class="text-blue-400 text-xs">{{ $listing->category->category_name }}</small>
-
-                                @if ($listing->listing_status == 'Unavailable')
-                                    <span
-                                        class="mb-2 bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
-                                        Unavailable
-                                    </span>
-                                @endif
+                                <small class="text-blue-400 text-xs">{{ $listing->property_type }}</small>
 
 
 
                                 <h1 class="text-xl font-medium text-slate-600 pb-2">
                                     {{ $listing->listing_title }}</h1>
 
-
-
                                 <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
                                     {{ $listing->location }}
                                 </p>
+
+                                <span
+                                    class="mb-2 bg-purple-100 text-purple-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                    {{ $listing->facility_score }} facility score
+                                </span>
+
+                                <span
+                                    class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                    {{ $listing->property_size }} sq m
+                                </span>
+
+                                @if ($listing->location_score == 1)
+                                    <span
+                                        class="mb-2 bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                        Close to school
+                                    </span>
+                                @endif
+
+                                @if ($listing->availability == 'Unavailable')
+                                    <span
+                                        class="mb-2 bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                        Unavailable
+                                    </span>
+                                @endif
 
                                 <div class="flex justify-between pt-4">
                                     <div class="text-right text-2xl font-medium text-black pb-2 pt-4">
@@ -330,9 +359,175 @@
     </x-catalog.catalog-layout>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="user-prefer-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('user_pref.store') }}" method="POST">
+                        @csrf
+
+                        <fieldset class="form__options hide-print">
+                            <h2 class="text-3xl font-bold  text-gray-600 mb-4">RECOMMENDATIONS</h2>
+                            {{-- <div id="check_box_form">
+                            </div> --}}
+
+                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                <label for="cost_score" class="block text-sm font-medium text-gray-700">Property price
+                                    Type (per night)</label>
+                                <select id="cost_score" name="cost_score" required
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                    @if ($user_pref != null)
+                                        <option class="bg-gray-50" selected value=" {{ $user_pref->cost_score }}">
+                                            @if ($user_pref->cost_score == 0)
+                                                None
+                                            @elseif($user_pref->cost_score == 1)
+                                                ₱15,000+
+                                            @elseif($user_pref->cost_score == 2)
+                                                ₱13,000 to ₱14,999
+                                            @elseif($user_pref->cost_score == 3)
+                                                ₱10,000 to ₱12,999
+                                            @elseif($user_pref->cost_score == 4)
+                                                ₱7,000 to ₱9,999
+                                            @elseif($user_pref->cost_score == 5)
+                                                ₱4,999 to ₱6,999
+                                            @elseif($user_pref->cost_score == 6)
+                                                less than ₱3,999
+                                            @else
+                                                All
+                                            @endif
+                                        </option>
+                                    @endif
+                                    <option>All</option>
+                                    <option value="1">₱15,000+</option>
+                                    <option value="2">₱13,000 - ₱14,999</option>
+                                    <option value="3">₱10,000 - ₱12,999</option>
+                                    <option value="4">₱7,000 - ₱9,999</option>
+                                    <option value="5">₱4,999 - ₱6,999</option>
+                                    <option value="6">less than ₱3,999</option>
+
+                                </select>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                <label for="room_size_score" class="block text-sm font-medium text-gray-700">Room size
+                                    Type </label>
+                                <select id="room_size_score" name="room_size_score" required
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    @if ($user_pref != null)
+                                        <option class="bg-gray-50" selected
+                                            value=" {{ $user_pref->room_size_score }}">
+                                            @if ($user_pref->room_size_score == 0)
+                                                None
+                                            @elseif($user_pref->room_size_score == 1)
+                                                50+ sq. m
+                                            @elseif($user_pref->room_size_score == 2)
+                                                30 sq m to 49 sq m
+                                            @elseif($user_pref->room_size_score == 3)
+                                                20 sq m to 29
+                                                sq m
+                                            @elseif($user_pref->room_size_score == 4)
+                                                10 sq m to 19 sq m
+                                            @elseif($user_pref->room_size_score == 5)
+                                                less than 9 sq m
+                                            @else
+                                                All
+                                            @endif
+                                        </option>
+                                    @endif
+
+                                    <option>All</option>
+                                    <option value="1">50+ sq. m</option>
+                                    <option value="2">30 sq. m - 49 sq m</option>
+                                    <option value="3">20 sq m - 29 sq m</option>
+                                    <option value="4">10 sq m - 19 sq m</option>
+                                    <option value="5">less than 9 sq m</option>
+
+                                </select>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                <label for="location_score" class="block text-sm font-medium text-gray-700">Target
+                                    Location</label>
+                                <select id="location_score" name="location_score" required
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    @if ($user_pref != null)
+                                        <option class="bg-gray-50" selected
+                                            value=" {{ $user_pref->location_score }}">
+                                            @if ($user_pref->location_score == 0)
+                                                None
+                                            @elseif($user_pref->location_score == 1)
+                                                Close to school
+                                            @else
+                                                All
+                                            @endif
+                                        </option>
+                                    @endif
+                                    <option>All</option>
+                                    <option value="1">Close to school</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                <label for="facility_score" class="block text-sm font-medium text-gray-700">Facility
+                                    score</label>
+                                <select id="facility_score" name="facility_score" required
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                    @if ($user_pref != null)
+                                        <option class="bg-gray-50" selected
+                                            value=" {{ $user_pref->facility_score }}">
+                                            @if ($user_pref->facility_score == 0)
+                                                None
+                                            @elseif($user_pref->facility_score == 1)
+                                                1 facilty score (highest)
+                                            @elseif($user_pref->facility_score == 2)
+                                                2 facilty score
+                                            @elseif($user_pref->facility_score == 3)
+                                                3 facilty score
+                                            @elseif($user_pref->facility_score == 4)
+                                                4 facilty score
+                                            @elseif($user_pref->facility_score == 5)
+                                                5 facilty score
+                                            @else
+                                                All
+                                            @endif
+                                        </option>
+                                    @endif
+                                    <option>All</option>
+                                    <option value="1">1 facilty score (highest)</option>
+                                    <option value="2">2 facilty score</option>
+                                    <option value="3">3 facilty score</option>
+                                    <option value="4">4 facilty score</option>
+                                    <option value="5">5 facilty score</option>
+                                </select>
+                            </div>
+
+
+                        </fieldset>
+
+                        <button class="form__button float-right btn btn-primary mt-5" type="submit">Submit your
+                            info</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     @push('scripts')
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
 
         <script>
             // $(document).ready(function() {
@@ -428,6 +623,52 @@
             //     $("#filter-form").submit();
 
             // });
+        </script>
+
+
+        <script>
+            window.onload = function() {
+                // console.log('qweqweqw');
+                $.ajax({
+                    type: "GET",
+                    url: `/fetch_user`,
+                    success: function(response) {
+
+                        console.log(response.user_prefs);
+                        var user_pref = response.user_prefs;
+
+                        if (!user_pref) {
+                            $('#user-prefer-modal').modal('show');
+
+                            let htmls = "";
+                            x = null;
+                            num = 0;
+                            $("#check_box_form").html(null);
+
+                            response.categories.map(x => {
+                                num += 1;
+
+                                var category_name = x.category_name;
+                                // console.log(photo_id);
+                                $("#check_box_form").append(
+                                    `<p class="form__answer">` +
+                                    `<input class="form_input" type="radio" name="category_name" id="mood_${num}"` +
+                                    `value="${category_name}">` +
+                                    `<label class="form_recom" for="mood_${num}">` +
+                                    `${category_name}` +
+                                    `</label>` +
+                                    `</p>`
+                                );
+                            });
+                        }
+
+                    },
+                    error: function() {
+                        // console.log(textStatus, errorThrown);
+                        console.log('salad');
+                    }
+                });
+            }
         </script>
     @endpush
 </x-global-layout>

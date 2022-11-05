@@ -45,6 +45,12 @@ class Listing extends Model
         'bathrooms',
         'property_type',
         'listing_status',
+        'availability',
+
+        'cost_score',
+        'location_score',
+        'facility_score',
+        'room_size_score',
 
         'messenger_url',
 
