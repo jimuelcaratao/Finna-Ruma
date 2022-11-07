@@ -80,7 +80,7 @@
                     Open your door to hosting.
                 </h1>
                 <p class="leading-normal text-2xl mb-8">
-                You can host anything, anywhere.               
+                Find out what you could earn as a Host.             
              </p>
                 <a href="{{ route('host.register') }}">
                     <button
@@ -124,7 +124,7 @@
             <div class="flex flex-wrap">
                 <div class="w-5/6 sm:w-1/2 p-6">
                     <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                        Lorem ipsum dolor sit amet
+                    You can host anytime, anywhere.  
                     </h3>
                     <p class="text-gray-600 mb-8">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo
@@ -132,9 +132,7 @@
                         <br />
                         <br />
 
-                        Images from:
 
-                        <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
                     </p>
                 </div>
                 <div class="w-full sm:w-1/2 p-6">
