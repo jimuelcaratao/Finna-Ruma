@@ -67,12 +67,12 @@
                     <a href="{{ route('home') }}">
                         <img class="block lg:hidden h-10 w-auto" src={{ asset('img/logo/icon-logo.png') }}
                             alt="Main Logo">
-                        <img class="hidden lg:block h-10 w-auto" src={{ asset('img/logo/main-logo.png') }}
+                        <img class="hidden lg:block  h-12 w-auto" src={{ asset('img/logo/main-logo-v2.png') }}
                             alt="Main Logo">
                     </a>
                 </div>
 
-                <div class="hidden sm:block sm:ml-6">
+                <div class="hidden sm:block sm:ml-6 mt-1">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <a href="{{ route('home') }}"

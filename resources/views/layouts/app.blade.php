@@ -79,7 +79,7 @@
     <div class="app-container">
         <div class="app-header">
             <div class="app-header-left">
-                <span> <img src="{{ asset('img/logo/main-logo.png') }}" class="mr-4" width="80px"
+                <span> <img src="{{ asset('img/logo/main-logo-v2.png') }}" class="mr-4" width="80px"
                         alt="App Logo"></span>
                 {{-- <p class="app-name">Portfolio</p> --}}
 
