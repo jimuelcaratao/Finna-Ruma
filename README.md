@@ -47,6 +47,7 @@
 -   php artisan route:cache
 -   php artisan config:cache
 -   php artisan serve (start)
+-   php artisan db:seed --class=UserTableSeeder
 -   then go to link
 
 [![047b8918-525f-4f62-913c-fe73ad123c1c.png](https://i.postimg.cc/zvZjdJTC/047b8918-525f-4f62-913c-fe73ad123c1c.png)](https://postimg.cc/CB7k5pP5)
@@ -100,6 +101,12 @@ use App\Models\User;
 -   Pending Approval
 -   Denied
 -   Approved
+
+### Host booking status
+
+-   Confirmed by Host
+-   Denied by Host
+-   Waiting for Host
 
 ### User Roles and Accounts
 

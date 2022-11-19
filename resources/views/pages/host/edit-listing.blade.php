@@ -1,5 +1,13 @@
 <x-host-layout>
 
+    @push('styles')
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+    @endpush
 
 
 
@@ -78,9 +86,14 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </label>
-                                                <input type="text" name="contact" id="contact"
-                                                    value="{{ Auth::user()->contact }}" readonly
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
+                                                <div class="inline-flex w-full">
+                                                    <span class="text-xs text-gray-600 mt-3 mr-2">+63 </span>
+                                                    <input type="text" name="contact" id="contact"
+                                                        value="{{ Auth::user()->contact }}" readonly
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+
                                             </div>
 
                                             <div class="col-span-6 sm:col-span-4">
@@ -210,27 +223,35 @@
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
-                                            {{-- <div class="col-span-6 sm:col-span-4">
-                                                <label for="map_pin"
-                                                    class="flex text-sm font-medium text-gray-700">Google Map
-                                                    Pin <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
-                                                        viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd"
-                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                            clip-rule="evenodd" />
-                                                    </svg></label>
-                                                <input type="text" name="map_pin" id="map_pin" required
-                                                    value="{{ $listing->map_pin }}"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div> --}}
+                                            <div class=" col-span-6 sm:col-span-3">
+                                                <div>
+                                                    <label for="latitude"
+                                                        class="block text-sm font-medium text-gray-700">Latitude
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="latitude" id="latitude" required
+                                                        readonly value="{{ $listing->latitude }}"
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
 
-                                            {{-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                                <label for="city"
-                                                    class="block text-sm font-medium text-gray-700">City</label>
-                                                <input type="text" name="city" id="city" required
-                                                    value="{{ $listing->city }}"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div> --}}
+                                            <div class=" col-span-6 sm:col-span-3">
+                                                <div>
+                                                    <label for="longitude"
+                                                        class="block text-sm font-medium text-gray-700">Longitude
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="longitude" id="longitude" required
+                                                        readonly value="{{ $listing->longitude }}"
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-span-6 sm:col-span-6">
+                                                <div>
+                                                    <strong>Map Preview:</strong>
+                                                    <div id="map">
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
 
@@ -900,6 +921,10 @@
     </div>
 
     @push('scripts')
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_KEY') }}&libraries=places&callback=initMap">
+        </script>
+        <script src="{{ asset('js/map.js') }}"></script>
         <script src="{{ asset('js/ckeditor.js') }}"></script>
 
         <script>

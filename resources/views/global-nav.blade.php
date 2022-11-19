@@ -152,7 +152,7 @@
                                         In</a>
 
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="ml-1 text-sm text-black">Register</a>
+                                        <a href="{{ route('register') }}" class="ml-2 text-sm text-black">Register</a>
                                     @endif
                                 </div>
                             @endif

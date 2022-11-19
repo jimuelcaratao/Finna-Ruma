@@ -16,12 +16,8 @@ return new class extends Migration
         Schema::create('user_informations', function (Blueprint $table) {
             $table->id('user_information_id');
             $table->foreignId('user_id');
-
-            $table->string('mobile_no');
-            $table->string('house');
-            $table->string('city');
-            $table->string('province');
-            $table->string('barangay');
+            $table->string('student_id');
+            $table->string('address');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

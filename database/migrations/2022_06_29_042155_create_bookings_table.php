@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->foreignId('listing_id');
 
+            $table->string('host_status')->nullable(); // Waiting for host, Accepted, declined
             $table->string('booking_status')->nullable(); //cancelled, paid, complete, ongoing
             $table->string('payment_method')->nullable();
             $table->string('payment_status')->nullable(); // halfed, unpaid, fully paid

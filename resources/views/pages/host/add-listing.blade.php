@@ -1,6 +1,13 @@
 <x-host-layout>
 
-
+    @push('styles')
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+    @endpush
 
 
     {{-- Contents --}}
@@ -74,9 +81,14 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </label>
-                                                <input type="text" name="contact" id="contact"
-                                                    value="{{ Auth::user()->contact }}"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
+                                                <div class="inline-flex w-full">
+                                                    <span class="text-xs text-gray-600 mt-3 mr-2">+63 </span>
+                                                    <input type="text" name="contact" id="contact"
+                                                        value="{{ Auth::user()->contact }}"
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+
                                             </div>
 
                                             <div class="col-span-6 sm:col-span-4">
@@ -179,7 +191,39 @@
                                                     class="block text-sm font-medium text-gray-700">Location
                                                     address</label>
                                                 <input type="text" name="location" id="location" required
+                                                    autocomplete="off"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </div>
+
+
+                                            <div class=" col-span-6 sm:col-span-3">
+                                                <div>
+                                                    <label for="latitude"
+                                                        class="block text-sm font-medium text-gray-700">Latitude
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="latitude" id="latitude" required
+                                                        readonly
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
+
+                                            <div class=" col-span-6 sm:col-span-3">
+                                                <div>
+                                                    <label for="longitude"
+                                                        class="block text-sm font-medium text-gray-700">Longitude
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="longitude" id="longitude" required
+                                                        readonly
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-span-6 sm:col-span-6">
+                                                <div>
+                                                    <strong>Map Preview:</strong>
+                                                    <div id="map">
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             {{-- <div class="col-span-6 sm:col-span-4">
@@ -783,8 +827,6 @@
                                                     Rule.</p>
                                             </div>
 
-
-
                                         </div>
 
                                     </div>
@@ -809,6 +851,10 @@
     </div>
 
     @push('scripts')
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_KEY') }}&libraries=places&callback=initMap">
+        </script>
+        <script src="{{ asset('js/map.js') }}"></script>
         <script src="{{ asset('js/ckeditor.js') }}"></script>
 
         <script>

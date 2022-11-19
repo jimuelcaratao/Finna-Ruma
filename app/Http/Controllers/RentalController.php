@@ -24,21 +24,23 @@ class RentalController extends Controller
             ->guestfilter()
             ->budgetfilter()
             ->propertyfilter()
+            ->facilityscorefilter()
+            ->targetlocationfilter()
             ->categoryfilter()
             ->sizefilter()
             ->bedroomfilter();
 
-        if (Auth::check() == true) {
-            $user_pref = UserPreference::where('user_id', Auth::user()->id)->first();
-            if ($user_pref != null) {
-                $orderByClause  = "CASE WHEN facility_score = '" . $user_pref->facility_score . "' THEN 0 ELSE 1 END,";
-                $orderByClause .= "CASE WHEN cost_score = '" . $user_pref->cost_score . "' THEN 0 ELSE 1 END,";
-                $orderByClause .= "CASE WHEN location_score = '" . $user_pref->location_score . "' THEN 0 ELSE 1 END,";
-                $orderByClause .= "CASE WHEN room_size_score = '" . $user_pref->room_size_score . "' THEN 0 ELSE 1 END";
-                $listings = $listings
-                    ->orderByRaw($orderByClause);
-            }
-        }
+        // if (Auth::check() == true) {
+        //     $user_pref = UserPreference::where('user_id', Auth::user()->id)->first();
+        //     if ($user_pref != null) {
+        //         $orderByClause  = "CASE WHEN facility_score = '" . $user_pref->facility_score . "' THEN 0 ELSE 1 END,";
+        //         $orderByClause .= "CASE WHEN cost_score = '" . $user_pref->cost_score . "' THEN 0 ELSE 1 END,";
+        //         $orderByClause .= "CASE WHEN location_score = '" . $user_pref->location_score . "' THEN 0 ELSE 1 END,";
+        //         $orderByClause .= "CASE WHEN room_size_score = '" . $user_pref->room_size_score . "' THEN 0 ELSE 1 END";
+        //         $listings = $listings
+        //             ->orderByRaw($orderByClause);
+        //     }
+        // }
 
         $categories = Category::get();
 

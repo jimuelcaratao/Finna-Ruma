@@ -184,6 +184,22 @@
 
                         <div class="mt-4">
                             <div class="input-field">
+                                <input id="address" type="text" class="validate" name="address"
+                                    :value="old('address')" required>
+                                <label for="address">{{ __('Address') }}</label>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="input-field">
+                                <input id="contact" type="text" class="validate" name="contact"
+                                    :value="old('contact')" required>
+                                <label for="contact">{{ __('Contact') }}</label>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="input-field">
                                 <input id="password" type="password" class="validate" name="password" required
                                     autocomplete="new-password">
                                 <label for="password">{{ __('Password') }}</label>

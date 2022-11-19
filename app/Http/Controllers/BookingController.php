@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Listing;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -45,11 +46,11 @@ class BookingController extends Controller
                 ->withInput();
         }
 
-        $get_booking = Booking::where('listing_id', $listing_id)
+        $get_booking = Booking::where('listing_id', $listing_id)->where('host_status', 'Confirmed by Host')
             ->whereBetween('check_in', [$request->input('check-in'), $request->input('checkout')])
             ->first();
 
-        $get_booking_1 = Booking::where('listing_id', $listing_id)
+        $get_booking_1 = Booking::where('listing_id', $listing_id)->where('host_status', 'Confirmed by Host')
             ->whereBetween('checkout', [$request->input('check-in'), $request->input('checkout')])
             ->first();
 
@@ -75,6 +76,12 @@ class BookingController extends Controller
                 ->with('toast_error', 'Sorry listing unavailable right now.');
         }
 
+
+        // if ($request->input('check-in') < Carbon::now()) {
+        //     return Redirect::back()
+        //         ->with('toast_error', 'You cannot reserve on past date.');
+        // }
+
         $booking =  Booking::create([
             'user_id' => Auth::user()->id,
             'host_id' => $listing->user->id,
@@ -95,9 +102,10 @@ class BookingController extends Controller
             'total' => $request->input('total'),
 
             'booking_status' => 'Pending Confirmation',
+            'host_status' => 'Waiting for Host',
         ]);
 
         return Redirect::route('confirm-booking', [$listing->slug, $booking->booking_id])
-            ->with('toast_success', 'Confirm reservation.');
+            ->with('toast_success', 'Pending reservation.');
     }
 }

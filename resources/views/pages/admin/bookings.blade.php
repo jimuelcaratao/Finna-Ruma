@@ -91,6 +91,9 @@
                                 Status
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Host Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Tenant
                             </th>
 
@@ -158,6 +161,25 @@
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-gray-500  to-gray-600">
                                             {{ $booking->booking_status }}
+                                        </span>
+                                    @endif
+                                </td>
+
+                                <td class="px-6 py-3">
+                                    @if ($booking->host_status == 'Denied by Host')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
+                                            {{ $booking->host_status }}
+                                        </span>
+                                    @elseif($booking->host_status == 'Confirmed by Host')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-blue-500  to-blue-600">
+                                            {{ $booking->host_status }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-gray-500  to-gray-600">
+                                            {{ $booking->host_status }}
                                         </span>
                                     @endif
                                 </td>

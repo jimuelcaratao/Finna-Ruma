@@ -18,6 +18,7 @@ class Booking extends Model
 
         'listing_id',
 
+        'host_status',
         'booking_status',
         'payment_method',
         'payment_status',

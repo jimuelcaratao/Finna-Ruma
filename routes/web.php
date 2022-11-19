@@ -168,5 +168,6 @@ Route::middleware([
         Route::put('/booking/payment/{booking_id}', [HostBookingController::class, 'update_payment'])->name('host.bookings.update_payment');
         Route::post('/booking/archive/{booking_id}', [HostBookingController::class, 'archive'])->name('host.bookings.archive');
         Route::post('/booking/complete/{booking_id}', [HostBookingController::class, 'complete_booking'])->name('host.bookings.complete');
+        Route::put('/booking/host_status', [HostBookingController::class, 'host_status'])->name('host.bookings.host_status');
     });
 });

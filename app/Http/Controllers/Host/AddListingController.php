@@ -51,6 +51,9 @@ class AddListingController extends Controller
             'service_fee' => 'required',
             'location' => 'required',
 
+            'latitude' => 'required',
+            'longitude' => 'required',
+
         ]);
 
         if ($validator->fails()) {
@@ -78,6 +81,8 @@ class AddListingController extends Controller
             'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
             'country' => $request->input('country'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
 
             'bedrooms' => $request->input('bedrooms'),
             'beds' => $request->input('beds'),
@@ -168,6 +173,9 @@ class AddListingController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'listing_title' => 'required',
+
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -199,6 +207,8 @@ class AddListingController extends Controller
             'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
             'country' => $request->input('country'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
 
             'bedrooms' => $request->input('bedrooms'),
             'beds' => $request->input('beds'),
@@ -211,7 +221,6 @@ class AddListingController extends Controller
 
             'messenger_url' => $request->input('messenger_url'),
             'additional_notes' => $request->input('additional_notes'),
-            'viewers' => 0,
         ]);
 
         $this->add_listing_others->AddAmenities($request, $listing);

@@ -35,6 +35,9 @@ return new class extends Migration
 
             $table->string('location')->nullable();
             $table->string('map_pin')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+
             $table->string('city')->nullable();
             $table->string('country')->nullable();
 

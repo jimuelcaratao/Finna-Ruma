@@ -38,6 +38,8 @@ class Listing extends Model
         'map_pin',
         'city',
         'country',
+        'latitude',
+        'longitude',
 
         'bedrooms',
         'beds',
@@ -159,25 +161,30 @@ class Listing extends Model
             !empty(request()->budget_1) ||
             !empty(request()->budget_2) ||
             !empty(request()->budget_3) ||
-            !empty(request()->budget_4)
+            !empty(request()->budget_4) ||
+            !empty(request()->budget_5)
         ) {
             $q->whereBetween('price_per_night', [0, 0]);
         }
 
         if (!empty(request()->budget_1)) {
-            $q->OrwhereBetween('price_per_night', [0, 2000]);
+            $q->OrwhereBetween('price_per_night', [0, 499]);
         }
 
         if (!empty(request()->budget_2)) {
-            $q->OrwhereBetween('price_per_night', [2000, 4000]);
+            $q->OrwhereBetween('price_per_night', [500, 999]);
         }
 
         if (!empty(request()->budget_3)) {
-            $q->OrwhereBetween('price_per_night', [4000, 6000]);
+            $q->OrwhereBetween('price_per_night', [1000, 1599]);
         }
 
         if (!empty(request()->budget_4)) {
-            $q->Orwhere('price_per_night', '>', 6000);
+            $q->OrwhereBetween('price_per_night', [1600, 1999]);
+        }
+
+        if (!empty(request()->budget_5)) {
+            $q->Orwhere('price_per_night', '>', 2000);
         }
         return $q;
     }
@@ -188,6 +195,14 @@ class Listing extends Model
             $q->Where('property_type', request()->property_type);
         }
 
+        return $q;
+    }
+
+    public function scopeTargetLocationFilter($q)
+    {
+        if (!empty(request()->target_type)) {
+            $q->Where('location_score', request()->target_type);
+        }
         return $q;
     }
 
@@ -205,22 +220,55 @@ class Listing extends Model
         }
 
         if (!empty(request()->size_1)) {
-            $q->OrwhereBetween('property_size', [0, 10]);
+            $q->OrwhereBetween('property_size', [0, 19]);
         }
 
         if (!empty(request()->size_2)) {
-            $q->OrwhereBetween('property_size', [10, 20]);
+            $q->OrwhereBetween('property_size', [20, 29]);
         }
         if (!empty(request()->size_3)) {
-            $q->OrwhereBetween('property_size', [20, 30]);
+            $q->OrwhereBetween('property_size', [30, 39]);
         }
 
         if (!empty(request()->size_4)) {
-            $q->OrwhereBetween('property_size', [30, 40]);
+            $q->OrwhereBetween('property_size', [40, 49]);
         }
 
         if (!empty(request()->size_5)) {
             $q->Orwhere('property_size', '>', 50);
+        }
+        return $q;
+    }
+
+    public function scopeFacilityScoreFilter($q)
+    {
+        if (
+            !empty(request()->facility_1) ||
+            !empty(request()->facility_2) ||
+            !empty(request()->facility_3) ||
+            !empty(request()->facility_4) ||
+            !empty(request()->facility_5)
+        ) {
+            $q->where('facility_score', 0);
+        }
+
+        if (!empty(request()->facility_1)) {
+            $q->Orwhere('facility_score', 1);
+        }
+
+        if (!empty(request()->facility_2)) {
+            $q->Orwhere('facility_score', 2);
+        }
+        if (!empty(request()->facility_3)) {
+            $q->Orwhere('facility_score', 3);
+        }
+
+        if (!empty(request()->facility_4)) {
+            $q->Orwhere('facility_score', 4);
+        }
+
+        if (!empty(request()->facility_5)) {
+            $q->Orwhere('facility_score', 5);
         }
         return $q;
     }
@@ -241,10 +289,10 @@ class Listing extends Model
         }
 
         if (!empty(request()->bedroom_2)) {
-            $q->OrwhereBetween('bedrooms', [2, 4]);
+            $q->OrwhereBetween('bedrooms', [3, 4]);
         }
         if (!empty(request()->bedroom_3)) {
-            $q->OrwhereBetween('bedrooms', [4, 6]);
+            $q->OrwhereBetween('bedrooms', [5, 6]);
         }
 
         if (!empty(request()->bedroom_4)) {

@@ -65,7 +65,8 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
 
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && !$this->user->hasVerifiedEmail())
+            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) &&
+                !$this->user->hasVerifiedEmail())
                 <p class="text-sm mt-2">
                     {{ __('Your email address is unverified.') }}
 
@@ -86,10 +87,31 @@
         <!-- Contact -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="contact" value="{{ __('Contact') }}" />
-            <x-jet-input id="contact" type="text" class="mt-1 block w-full" wire:model.defer="state.contact"
-                autocomplete="contact" />
-            <x-jet-input-error for="contact" class="mt-2" />
+            <div class="inline-flex w-full">
+                <span class="text-sm text-gray-600 mt-4 mr-2">+63 </span>
+                <x-jet-input id="contact" type="text" class="mt-1 block w-full" wire:model.defer="state.contact"
+                    autocomplete="contact" />
+                <x-jet-input-error for="contact" class="mt-2" />
+            </div>
+
         </div>
+
+        <!-- Address -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address" value="{{ __('Address') }}" />
+            <x-jet-input id="address" type="text" class="mt-1 block w-full" wire:model.defer="state.address" />
+            <x-jet-input-error for="address" class="mt-2" />
+        </div>
+
+        @if ($this->user->is_admin == '0')
+            <!-- Address -->
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="student_id" value="{{ __('Student ID') }}" />
+                <x-jet-input id="student_id" type="text" class="mt-1 block w-full"
+                    wire:model.defer="state.student_id" />
+                <x-jet-input-error for="student_id" class="mt-2" />
+            </div>
+        @endif
     </x-slot>
 
     <x-slot name="actions">

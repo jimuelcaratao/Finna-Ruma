@@ -21,27 +21,45 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'is_host' => ['string'],
             'status' => ['string'],
+            'address' => ['required', 'string'],
+            'contact' => ['required', 'integer', 'digits:10'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        if ($input['is_admin'] !== null) {
+        // host
+        if ($input['is_admin'] === null) {
+
+            Validator::make($input, [
+                'student_id' => ['required', 'string', 'max:255'],
+            ])->validate();
+
+            // tenant
             return User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
-                'status' => "Pending Approval",
-                'is_admin' => '2',
+                'student_id' => $input['student_id'],
+                'address' => $input['address'],
+                'contact' => $input['contact'],
                 'password' => Hash::make($input['password']),
             ]);
         }
+
+
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'address' => $input['address'],
+            'contact' => $input['contact'],
+            'status' => "Pending Approval",
+            'is_admin' => '2',
             'password' => Hash::make($input['password']),
         ]);
     }

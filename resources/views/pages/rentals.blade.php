@@ -2,8 +2,8 @@
 
     @push('styles')
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     @endpush
 
 
@@ -14,7 +14,7 @@
                     Properties
                 </h1>
 
-                @if (Auth::check() == true)
+                {{-- @if (Auth::check() == true)
                     <button type="button" data-bs-toggle="modal" data-bs-target="#user-prefer-modal"
                         style="margin-top:-7px;">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -23,7 +23,7 @@
                                 d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
                         </svg>
                     </button>
-                @endif
+                @endif --}}
 
 
             </div>
@@ -113,6 +113,7 @@
                     !empty(request()->checkout) ||
                     !empty(request()->guests) ||
                     !empty(request()->search_cat) ||
+                    !empty(request()->target_type) ||
                     !empty(request()->property_type))
                     <a href="{{ route('rentals') }}"><button type="button"
                             class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full py-2.5 mr-2 mt-4 ">
@@ -132,7 +133,7 @@
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
                         <label for="budget_1" class="ml-2 text-sm font-medium text-gray-900 ">₱ 0
-                            - ₱ 2000</label>
+                            - ₱ 499</label>
                     </div>
                 </li>
 
@@ -141,8 +142,8 @@
                         <input id="budget_2" name="budget_2" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 2000
-                            - ₱ 4000</label>
+                        <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 500
+                            - ₱ 999</label>
                     </div>
                 </li>
 
@@ -151,8 +152,8 @@
                         <input id="budget_3" name="budget_3" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 4000
-                            - ₱ 6000</label>
+                        <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1000
+                            - ₱ 1599</label>
                     </div>
                 </li>
 
@@ -161,7 +162,17 @@
                         <input id="budget_4" name="budget_4" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 6000+</label>
+                        <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1600
+                            - ₱ 1999</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="budget_5" name="budget_5" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="budget_5" class="ml-2 text-sm font-medium text-gray-900 ">₱ 2000+</label>
                     </div>
                 </li>
 
@@ -175,7 +186,7 @@
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
                         <label for="size_1" class="ml-2 text-sm font-medium text-gray-900 ">0
-                            - 10 sq. m</label>
+                            - 19 sq. m</label>
                     </div>
                 </li>
 
@@ -184,8 +195,8 @@
                         <input id="size_2" name="size_2" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_2" class="ml-2 text-sm font-medium text-gray-900 "> 10 sq. m
-                            - 20 sq. m</label>
+                        <label for="size_2" class="ml-2 text-sm font-medium text-gray-900 "> 20 sq. m
+                            - 29 sq. m</label>
                     </div>
                 </li>
 
@@ -194,8 +205,8 @@
                         <input id="size_3" name="size_3" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_3" class="ml-2 text-sm font-medium text-gray-900 "> 20 sq. m
-                            - 30 sq. m</label>
+                        <label for="size_3" class="ml-2 text-sm font-medium text-gray-900 "> 30 sq. m
+                            - 39 sq. m</label>
                     </div>
                 </li>
 
@@ -205,8 +216,8 @@
                         <input id="size_4" name="size_4" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_4" class="ml-2 text-sm font-medium text-gray-900 "> 30 sq. m
-                            - 40 sq. m</label>
+                        <label for="size_4" class="ml-2 text-sm font-medium text-gray-900 "> 40 sq. m
+                            - 49 sq. m</label>
                     </div>
                 </li>
 
@@ -218,6 +229,84 @@
                         <label for="size_5" class="ml-2 text-sm font-medium text-gray-900 "> 50+ sq. m</label>
                     </div>
                 </li>
+
+                <div class="border-b border-gray-200 py-2"></div>
+
+
+                {{-- Facility score --}}
+                <h3 class="pt-4 pb-4">Facility score</h3>
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="facility_1" name="facility_1" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="facility_1" class="ml-2 text-sm font-medium text-gray-900 "> 1 score
+                            (highest)</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="facility_2" name="facility_2" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="facility_2" class="ml-2 text-sm font-medium text-gray-900 "> 2 score</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="facility_3" name="facility_3" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="facility_3" class="ml-2 text-sm font-medium text-gray-900 "> 3 score</label>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="facility_4" name="facility_4" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="facility_4" class="ml-2 text-sm font-medium text-gray-900 "> 4 score</label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="facility_5" name="facility_5" type="checkbox" value="1"
+                            class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="facility_5" class="ml-2 text-sm font-medium text-gray-900 "> 5 score</label>
+                    </div>
+                </li>
+
+                <div class="border-b border-gray-200 py-2"></div>
+
+                {{-- Location target --}}
+                <h3 class="pt-4 pb-4">Location Target</h3>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="target_type_1" type="radio" value="" name="target_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="target_type_1" class="ml-2 text-sm font-medium text-gray-900 ">All
+                        </label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="target_type_2" type="radio" value="1" name="target_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="target_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Close to school
+                        </label>
+                    </div>
+                </li>
+
 
                 <div class="border-b border-gray-200 py-2"></div>
 
@@ -245,7 +334,6 @@
                 </li>
 
 
-
                 <div class="border-b border-gray-200 py-2"></div>
 
                 {{-- Property Size --}}
@@ -265,23 +353,20 @@
                         <input id="bedroom_2" name="bedroom_2" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="bedroom_2" class="ml-2 text-sm font-medium text-gray-900 "> 2
+                        <label for="bedroom_2" class="ml-2 text-sm font-medium text-gray-900 "> 3
                             - 4</label>
                     </div>
                 </li>
-
 
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="bedroom_3" name="bedroom_3" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="bedroom_3" class="ml-2 text-sm font-medium text-gray-900 "> 4
+                        <label for="bedroom_3" class="ml-2 text-sm font-medium text-gray-900 "> 5
                             - 6</label>
                     </div>
                 </li>
-
-
 
             </form>
         </x-slot>
@@ -360,7 +445,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="user-prefer-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+    {{-- <div class="modal fade" id="user-prefer-modal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -373,9 +458,7 @@
 
                         <fieldset class="form__options hide-print">
                             <h2 class="text-3xl font-bold  text-gray-600 mb-4">RECOMMENDATIONS</h2>
-                            {{-- <div id="check_box_form">
-                            </div> --}}
-
+                        
                             <div class="col-span-6 sm:col-span-4 mt-2">
                                 <label for="cost_score" class="block text-sm font-medium text-gray-700">Property price
                                     Type (per night)</label>
@@ -518,16 +601,16 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     @push('scripts')
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
         <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+        </script> --}}
 
         <script>
             // $(document).ready(function() {
@@ -559,10 +642,38 @@
                     $('input[name="budget_4"]').prop("checked", true);
                 }
 
+                // facility score
+                if ('{{ request()->facility_1 }}' != '') {
+                    $('input[name="facility_1"]').prop("checked", true);
+                }
+
+                if ('{{ request()->facility_2 }}' != '') {
+                    $('input[name="facility_2"]').prop("checked", true);
+                }
+
+                if ('{{ request()->facility_3 }}' != '') {
+                    $('input[name="facility_3"]').prop("checked", true);
+                }
+
+                if ('{{ request()->facility_4 }}' != '') {
+                    $('input[name="facility_4"]').prop("checked", true);
+                }
+
+                if ('{{ request()->facility_5 }}' != '') {
+                    $('input[name="facility_5"]').prop("checked", true);
+                }
+
                 // property type
 
                 if ('{{ request()->property_type }}' != '') {
                     $('input[name="property_type"][value="{{ request()->property_type }}"]')
+                        .prop("checked", true);
+                }
+
+                // target location
+
+                if ('{{ request()->target_type }}' != '') {
+                    $('input[name="target_type"][value="{{ request()->target_type }}"]')
                         .prop("checked", true);
                 }
 

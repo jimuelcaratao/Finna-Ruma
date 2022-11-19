@@ -14,11 +14,8 @@ class UserInformation extends Model
 
     protected $fillable = [
         'user_id',
-        'mobile_no',
-        'house',
-        'city',
-        'province',
-        'barangay',
+        'student_id',
+        'address',
     ];
 
     public function user()

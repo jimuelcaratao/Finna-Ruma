@@ -279,6 +279,7 @@
                                         data-bs-target="#edit-modal-status"
                                         data-item-listing_id="{{ $listing->listing_id }}"
                                         data-item-listing_status="{{ $listing->listing_status }}"
+                                        data-item-facility_score="{{ $listing->facility_score }}"
                                         class="font-medium text-purple-600  hover:text-purple-900  hover:underline no-underline"><svg
                                             xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
@@ -448,10 +449,14 @@
                     // get the data
                     var listing_id = el.data("item-listing_id");
                     var listing_status = el.data("item-listing_status");
+                    var facility_score = el.data("item-facility_score");
+
 
 
                     $("#listing_id").val(listing_id);
                     $("#listing_status").val(listing_status);
+                    $("#facility_score").val(facility_score);
+
 
                     // alert(category_name);
 

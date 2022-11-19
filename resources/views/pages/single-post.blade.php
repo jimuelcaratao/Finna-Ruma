@@ -1,8 +1,40 @@
 <x-global-layout>
 
     @push('styles')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+            integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    timeZone: 'Asia/Manila',
+                    events: [
+
+                        @foreach ($listing->Booking as $item)
+                            @if ($item->host_status === 'Confirmed by Host')
+                                {
+                                    title: "Occupied",
+                                    start: "{{ date('Y-m-d', strtotime($item->check_in)) }}",
+                                    end: "{{ date('Y-m-d', strtotime($item->checkout)) }}T12:00:00"
+                                },
+                            @endif
+                        @endforeach
+
+                    ]
+                });
+                calendar.render();
+            });
+        </script>
+
         <!-- Styles -->
         <style>
+            #calendar {
+                max-width: 100%;
+                height: 500px;
+                margin: 40px 0px;
+            }
+
             input:checked+label {
                 border-color: #160e06;
                 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -100,7 +132,6 @@
     @endpush
     <div class="lg:pb-12 lg:pt-6">
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-24">
-
 
             <div id="indicators-carousel" class="relative" data-carousel="slide">
 
@@ -346,6 +377,8 @@
                                     <div class="mb-4">
                                         <span class="text-sm text-gray-700"> {!! $listing->description !!}</span>
                                     </div>
+
+
 
 
                                 </div>
@@ -647,15 +680,20 @@
                 </div>
             </div>
 
+            {{-- Calendar --}}
+            <div id='calendar'></div>
+
             {{-- Maps --}}
             <div>
                 <div class="mapouter">
-                    <div class="gmap_canvas  lg:rounded-lg py-8"><iframe width="100%" height="400"
-                            id="gmap_canvas"
-                            src="https://maps.google.com/maps?q={{ $listing->map_pin }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 
+                    <div id="map" style="width: 100%; height:400px;">
                     </div>
+                    <input type="text" name="latitude" id="latitude" readonly value="{{ $listing->latitude }}"
+                        class="hidden">
+
+                    <input type="text" name="longitude" id="longitude" readonly
+                        value="{{ $listing->longitude }}" class="hidden">
                 </div>
             </div>
 
@@ -739,11 +777,16 @@
     </div>
 
 
-
     @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"
+            integrity="sha256-7PzqE1MyWa/IV5vZumk1CVO6OQbaJE4ns7vmxuUP/7g=" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_KEY') }}&libraries=places&callback=initMap">
+        </script>
+        <script src="{{ asset('js/map.js') }}"></script>
         <script>
             function textAreaAdjust(element) {
                 element.style.height = "1px";
