@@ -54,7 +54,11 @@ class BookingController extends Controller
             ->whereBetween('checkout', [$request->input('check-in'), $request->input('checkout')])
             ->first();
 
-        // dd($get_booking, $get_booking_1);
+
+        if ($request->input('check-in') < Carbon::now()->format('m/d/Y')) {
+            return Redirect::back()
+                ->with('toast_error', 'You cannot reserve on past date.');
+        }
 
         if ($get_booking != null || $get_booking_1 != null) {
             return Redirect::back()
@@ -66,6 +70,7 @@ class BookingController extends Controller
             $request->input('infants') +
             $request->input('pets');
 
+
         if ($add_guest > $listing->max_guest) {
             return Redirect::back()
                 ->with('toast_error', 'Sorry only ' . $listing->max_guest . ' guests are allowed.');
@@ -75,12 +80,6 @@ class BookingController extends Controller
             return Redirect::back()
                 ->with('toast_error', 'Sorry listing unavailable right now.');
         }
-
-
-        // if ($request->input('check-in') < Carbon::now()) {
-        //     return Redirect::back()
-        //         ->with('toast_error', 'You cannot reserve on past date.');
-        // }
 
         $booking =  Booking::create([
             'user_id' => Auth::user()->id,

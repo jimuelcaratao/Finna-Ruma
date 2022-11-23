@@ -725,15 +725,16 @@
                                                 Rules</h4>
 
                                             <div class="col-span-6 sm:col-span-2 space-y-3">
-                                                {{-- refund --}}
+                                                {{-- garbage --}}
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
-                                                        <input id="refundable" name="refundable" type="checkbox"
+                                                        <input id="garbage_disposal" name="garbage_disposal"
+                                                            type="checkbox"
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="refundable"
-                                                            class="font-medium text-gray-700">Refundable</label>
+                                                        <label for="garbage_disposal"
+                                                            class="font-medium text-gray-700">Garbage Disposal</label>
                                                     </div>
                                                 </div>
 
@@ -800,17 +801,13 @@
 
 
                                             <div class="col-span-6 sm:col-span-2 space-y-3">
-                                                <label for="check_in"
-                                                    class="block text-sm font-medium text-gray-700">Check In Time
+                                                <label for="curfew"
+                                                    class="block text-sm font-medium text-gray-700">Curfew Time
                                                 </label>
-                                                <input type="text" name="check_in" id="check_in"
+                                                <input type="text" name="curfew" id="curfew"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 
-                                                <label for="check_out"
-                                                    class="block text-sm font-medium text-gray-700 mt-4">Check Out Time
-                                                </label>
-                                                <input type="text" name="check_out" id="check_out"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
                                             </div>
 
                                             {{-- Additional Notes --}}

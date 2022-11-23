@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id('listing_rule_id');
             $table->foreignId('listing_id');
 
-            $table->text('refundable')->nullable();
-            $table->text('check_in')->nullable();
-            $table->text('check_out')->nullable();
+            $table->text('garbage_disposal')->nullable();
+            $table->text('curfew')->nullable();
             $table->text('claygo')->nullable();
             $table->text('no_smoking')->nullable();
             $table->text('no_drinking')->nullable();
