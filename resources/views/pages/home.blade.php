@@ -5,7 +5,7 @@
 
             <div class="hero-section pt-6">
                 <div class="bg-cover bg-no-repeat shadow-md sm:rounded-lg  bg-right "
-                    style="background-image: url({{ asset('img/hotel-img.jpg') }}); ">
+                    style="background-image: url({{ asset('img/global/gg.jpg') }}); ">
                     <div class="sm:rounded-lg bg-gradient-to-r from-slate-300  to-transparent h-96 p-6 lg:p-12">
 
                         <div class="">
@@ -116,7 +116,7 @@
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
-                                  
+
 
                                 </select>
                             </div>
@@ -199,7 +199,7 @@
 
 
             {{-- Explore Exciting --}}
-           
+
         </div>
 
         @push('scripts')
