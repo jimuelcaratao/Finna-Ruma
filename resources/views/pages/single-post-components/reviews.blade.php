@@ -1,6 +1,6 @@
 @php
-$list_ave_reviews = App\Models\ListingReview::where('listing_id', $listing->listing_id)->avg('stars');
-$list_count_reviews = App\Models\ListingReview::where('listing_id', $listing->listing_id)->count();
+    $list_ave_reviews = App\Models\ListingReview::where('listing_id', $listing->listing_id)->avg('stars');
+    $list_count_reviews = App\Models\ListingReview::where('listing_id', $listing->listing_id)->count();
 @endphp
 
 @if (!empty($list_count_reviews))

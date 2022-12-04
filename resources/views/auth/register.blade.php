@@ -187,7 +187,15 @@
                             <div class="input-field">
                                 <input id="name" type="text" class="validate" name="name"
                                     :value="old('name')" required autofocus autocomplete="name">
-                                <label for="name">{{ __('Full Name') }}</label>
+                                <label for="name">{{ __('First Name') }}</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-field">
+                                <input id="lastname" type="text" class="validate" name="lastname"
+                                    :value="old('lastname')" required>
+                                <label for="lastname">{{ __('Last Name') }}</label>
                             </div>
                         </div>
 

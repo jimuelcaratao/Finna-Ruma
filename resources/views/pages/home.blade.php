@@ -38,7 +38,7 @@
                 <div class="max-w-7xl mx-auto  lg:mx-12 border-2 border-gray-300  bg-white search-section center overflow-hidden shadow-md sm:rounded-lg z-20"
                     style="margin-top: -40px;">
 
-                    <form action="{{ route('rentals') }}" method="GET">
+                    <form action="{{ route('rentals') }}" method="GET" id="search-form">
                         <div class="h-48 py-6 px-12 grid grid-cols-5 gap-4">
 
 
@@ -63,40 +63,49 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <div date-rangepicker="" class=" items-center">
-                                    <div class="relative mb-2">
-                                        <div
-                                            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <label for="check_in" class="text-xs font-semibold  ">START DATE</label>
+                            <div class=" items-center">
 
-                                        <input name="check_in" id="check_in" type="text"
-                                            value="{{ request()->check_in }}"
-                                            class="w-full bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5  datepicker-input"
-                                            placeholder="Select date start">
-                                    </div>
-                                    <div class="relative ">
-                                        <div
-                                            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <label for="checkout" class="text-xs font-semibold mb-2">END DATE</label>
-
-                                        <input name="checkout" id="checkout" type="text"
-                                            value="{{ request()->checkout }}"
-                                            class="w-full bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5  datepicker-input"
-                                            placeholder="Select date end">
-                                    </div>
+                                <div>
+                                    <input type="text" id="budget_" class="hidden " value="1">
+                                </div>
+                                <div>
+                                    <label for="budget"
+                                        class="block  mb-2 text-xs font-semibold text-gray-900 ">PRICE</label>
+                                    <select id="budget" name="budget"
+                                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                        @if (!empty(request()->budget_))
+                                            <option value="{{ request()->budget }}" selected>{{ request()->budget }}
+                                                budget
+                                            </option>
+                                        @else
+                                            <option value="" selected>Open</option>
+                                        @endif
+                                        <option value="1">₱ 0
+                                            - ₱ 499</option>
+                                        <option value="2">₱ 500
+                                            - ₱ 999</option>
+                                        <option value="3">₱ 1000
+                                            - ₱ 1599</option>
+                                        <option value="4">₱ 1600
+                                            - ₱ 1999</option>
+                                        <option value="5">₱ 2000+</option>
+                                    </select>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="target_type"
+                                        class="block  mb-2 text-xs font-semibold text-gray-900 ">TARGET LOCATION</label>
+                                    <select id="target_type" name="target_type"
+                                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                        @if (!empty(request()->target_type))
+                                            <option value="{{ request()->target_type }}" selected>
+                                                {{ request()->target_type }}
+                                                Close to school
+                                            </option>
+                                        @else
+                                            <option value="" selected>Open</option>
+                                        @endif
+                                        <option value="1">Close to school</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -121,7 +130,7 @@
                                 </select>
                             </div>
 
-                            <button type="submit"
+                            <button type="button" id="submit-form"
                                 class="h-11 mt-6  text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center  mr-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-4" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -205,6 +214,16 @@
         @push('scripts')
             <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
             <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
+            <script>
+                $("#submit-form").click(function() {
+
+                    var conceptName = $('#budget').find(":selected").val();
+
+
+                    $('#budget_').attr('name', `budget_${conceptName}`);
+                    $("#search-form").submit();
+                });
+            </script>
         @endpush
 
 </x-global-layout>

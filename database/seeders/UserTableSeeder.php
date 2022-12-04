@@ -18,33 +18,34 @@ class UserTableSeeder extends Seeder
     {
         // 1 = Admin
         User::firstOrCreate([
-            'name' => 'Dave Azanan',
+            'name' => 'Dave',
+            'lastname' => 'Azanan',
             'email' => 'dave.azanan@cbsua.edu.ph',
             'is_admin' => 1,
             'password' => Hash::make('qweqweqwe'),
         ]);
 
         User::firstOrCreate([
-            'name' => 'Admin One',
+            'name' => 'Admin',
+            'lastname' => 'One',
             'email' => 'admin1@admin.com',
             'is_admin' => 1,
             'password' => Hash::make('qweqweqwe'),
         ]);
-
         // 2 = Host
 
         User::firstOrCreate([
-            'name' => 'Host One',
+            'name' => 'Host',
+            'lastname' => 'One',
             'email' => 'host1@host.com',
             'is_admin' => 2,
             'password' => Hash::make('qweqweqwe'),
         ]);
-
-
         // 0 = Tenant
 
         User::firstOrCreate([
-            'name' => 'Tenant One',
+            'name' => 'Tenant',
+            'lastname' => 'One',
             'email' => 'tenant1@tenant.com',
             'student_id' => '18-0116',
             'address' => 'Light Residences, EDSA corner Madison Street, 1550 Manila, Philippines ',
@@ -53,7 +54,8 @@ class UserTableSeeder extends Seeder
         ]);
 
         User::firstOrCreate([
-            'name' => 'Tenant Two',
+            'name' => 'Tenant',
+            'lastname' => 'Two',
             'email' => 'tenant2@tenant.com',
             'student_id' => '18-0117',
             'address' => 'Light Residences, EDSA corner Madison Street, 1550 Manila, Philippines ',

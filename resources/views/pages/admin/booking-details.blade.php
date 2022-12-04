@@ -88,7 +88,23 @@
                                                 <h5 class="text-lg font-bold mb-2">Booking Details</h5>
 
                                                 <h3 class="text-base font-bold mt-4">Person who books</h3>
-                                                <span class="text-sm">{{ $booking->user->name }}</span>
+                                                <div class="text-sm mb-2">
+                                                    Full name:
+                                                    {{ $booking->user->name }}
+                                                    {{ $booking->user->lastname }}</div>
+
+                                                @if ($booking->user->contact != null)
+                                                    <div class="text-sm mb-2"> Contact:
+                                                        +63{{ $booking->user->contact }}
+                                                    </div>
+                                                @endif
+
+                                                <div class="text-sm mb-2">Address: {{ $booking->user->address }}
+                                                </div>
+
+                                                <div class="text-sm mb-2">Student ID: {{ $booking->user->student_id }}
+                                                </div>
+
 
                                                 <h3 class="text-base font-bold mt-2">Dates</h3>
                                                 <span class="text-sm">{{ $booking->check_in }} -

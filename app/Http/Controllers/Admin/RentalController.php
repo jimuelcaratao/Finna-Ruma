@@ -73,7 +73,7 @@ class RentalController extends Controller
 
         $validator = Validator::make($request->all(), [
             'listing_status' => 'required',
-            'facility_score' => 'required',
+            // 'facility_score' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -85,7 +85,7 @@ class RentalController extends Controller
         Listing::where('listing_id', $request->input('listing_id'))->update([
             'approved_by' => Auth::user()->name,
             'listing_status' => $request->input('listing_status'),
-            'facility_score' => $request->input('facility_score'),
+            // 'facility_score' => $request->input('facility_score'),
             'approved_at' => Carbon::now(),
         ]);
 

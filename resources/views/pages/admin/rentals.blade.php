@@ -369,7 +369,7 @@
                             <div id="emailHelp" class="form-text">Confirm this action.</div>
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="facility_score" class="block text-sm font-medium text-gray-700">Facility
                                 score</label>
                             <select id="facility_score" name="facility_score" class="form-select"
@@ -383,7 +383,7 @@
 
                             </select>
                             <div id="emailHelp" class="form-text">Confirm this action.</div>
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class="modal-footer">

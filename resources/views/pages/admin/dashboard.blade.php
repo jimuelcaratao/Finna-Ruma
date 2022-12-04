@@ -3,7 +3,7 @@
 
     <div class="projects-section">
         <div class="projects-section-header">
-            <p>{{ $dayTerm }}, {{ Auth::user()->name }}!</p>
+            <p>{{ $dayTerm }}, {{ Auth::user()->name }} {{ Auth::user()->lastname }}!</p>
             <p class="time">{{ Carbon\Carbon::now()->format('M d Y') }}</p>
         </div>
         <div class="projects-section-line">
@@ -116,8 +116,8 @@
                         </div>
                     </div>
                     <div class="project-box-content-header">
-                        <p class="box-content-header">{{ $page_visits }}</p>
-                        <p class="box-content-subheader">Visits for today</p>
+                        <p class="box-content-header">{{ $total }}</p>
+                        <p class="box-content-subheader">Total Bookings</p>
                     </div>
 
                 </div>

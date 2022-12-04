@@ -24,6 +24,7 @@ class CreateNewUser implements CreatesNewUsers
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
             'is_host' => ['string'],
             'status' => ['string'],
             'address' => ['required', 'string'],
@@ -43,6 +44,7 @@ class CreateNewUser implements CreatesNewUsers
             // tenant
             return User::create([
                 'name' => $input['name'],
+                'lastname' => $input['lastname'],
                 'email' => $input['email'],
                 'student_id' => $input['student_id'],
                 'address' => $input['address'],
@@ -51,10 +53,9 @@ class CreateNewUser implements CreatesNewUsers
             ]);
         }
 
-
-
         return User::create([
             'name' => $input['name'],
+            'lastname' => $input['lastname'],
             'email' => $input['email'],
             'address' => $input['address'],
             'contact' => $input['contact'],

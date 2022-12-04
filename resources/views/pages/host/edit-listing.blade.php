@@ -379,7 +379,7 @@
                                                 </select>
                                             </div>
 
-                                            <div class="col-span-6 sm:col-span-4">
+                                            {{-- <div class="col-span-6 sm:col-span-4">
                                                 <label for="property_type"
                                                     class="block text-sm font-medium text-gray-700">Property
                                                     Type <span class="text-red-600">*</span></label>
@@ -391,7 +391,7 @@
                                                     <option>Boarding House</option>
                                                     <option>Dormitory</option>
                                                 </select>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                 <label for="property_size"

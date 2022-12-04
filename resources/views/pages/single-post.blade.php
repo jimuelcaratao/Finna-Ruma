@@ -224,7 +224,7 @@
                                         <div>
                                             <span
                                                 class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
-                                                {{ $listing->property_type }}
+                                                {{ $listing->category->category_name }}
                                             </span>
 
                                             @if ($listing->location_score == 1)
