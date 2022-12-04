@@ -120,13 +120,13 @@
                     </svg>
                 </div>
 
-                <button data-bs-toggle="modal" data-bs-target="#searchFilter">
+                {{-- <button data-bs-toggle="modal" data-bs-target="#searchFilter">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                     </svg>
-                </button>
+                </button> --}}
 
 
                 <a href="{{ route('host.add.listing') }}" class="bg-gray-800 text-white p-2 rounded-full"
@@ -153,6 +153,11 @@
                             <th scope="col" class="px-6 py-3">
                                 Status
                             </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Availability
+                            </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Category
                             </th>
@@ -187,12 +192,8 @@
 
                                 <td class="px-6 py-3">
 
-                                    @if ($listing->listing_status == 'Unavailable')
-                                        <span
-                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-purple-500  to-purple-600">
-                                            {{ $listing->listing_status }}
-                                        </span>
-                                    @elseif ($listing->listing_status == 'Denied')
+
+                                    @if ($listing->listing_status == 'Denied')
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
                                             {{ $listing->listing_status }}
@@ -206,6 +207,20 @@
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-gray-500  to-gray-600">
                                             {{ $listing->listing_status }}
+                                        </span>
+                                    @endif
+                                </td>
+
+                                <td class="px-6 py-3">
+                                    @if ($listing->availability == 'Unavailable')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-purple-500  to-purple-600">
+                                            {{ $listing->availability }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-green-500  to-green-600">
+                                            {{ $listing->availability }}
                                         </span>
                                     @endif
                                 </td>

@@ -15,9 +15,8 @@ class ListingRule extends Model
     protected $fillable = [
         'listing_id',
 
-        'refundable',
-        'check_in',
-        'check_out',
+        'garbage_disposal',
+        'curfew',
         'claygo',
         'no_smoking',
         'no_drinking',

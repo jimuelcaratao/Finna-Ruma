@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Listing;
 use App\Models\ListingReview;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -54,6 +55,12 @@ class WriteReviewController extends Controller
 
         $booking = Booking::where('booking_id', $booking_id)->update([
             'reviewed_at' => Carbon::now(),
+        ]);
+
+        $list_ave_reviews = ListingReview::where('listing_id', $listing_id)->avg('stars');
+
+        Listing::where('listing_id', $listing_id)->update([
+            'facility_score' => round($list_ave_reviews, 0),
         ]);
 
         return Redirect::route('my-bookings')->with('toast_success', 'Review added.');

@@ -3,7 +3,7 @@
 
     <div class="projects-section">
         <div class="projects-section-header">
-            <p>{{ $dayTerm }}, {{ Auth::user()->name }}!</p>
+            <p>{{ $dayTerm }}, {{ Auth::user()->name }} {{ Auth::user()->lastname }}!</p>
             <p class="time">{{ Carbon\Carbon::now()->format('M d Y') }}</p>
         </div>
         <div class="projects-section-line">

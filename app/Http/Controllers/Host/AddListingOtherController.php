@@ -229,7 +229,7 @@ class AddListingOtherController extends Controller
 
         ListingRule::where('listing_id', $listing->listing_id)
             ->update([
-                'refundable' => $request->has('refundable') ? '1' : '0',
+                'garbage_disposal' => $request->has('garbage_disposal') ? '1' : '0',
                 'claygo' => $request->has('claygo') ? '1' : '0',
 
                 'no_smoking' => $request->has('no_smoking') ? '1' : '0',
@@ -237,8 +237,7 @@ class AddListingOtherController extends Controller
                 'no_pets' => $request->has('no_pets') ? '1' : '0',
                 'no_events' => $request->has('no_events') ? '1' : '0',
 
-                'check_in' => $request->input('check_in'),
-                'check_out' => $request->input('check_out'),
+                'curfew' => $request->input('curfew'),
                 'additional_rules' => $request->input('additional_rules'),
             ]);
     }

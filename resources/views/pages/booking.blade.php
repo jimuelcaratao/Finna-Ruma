@@ -122,6 +122,11 @@
 
                                                 {{ $booking->booking_status }}
                                             </span>
+                                            <span
+                                                class="mt-4 mb-2 bg-blue-100 text-blue-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+
+                                                {{ $booking->host_status }}
+                                            </span>
                                             <h3 class=" mb-2 text-xl ">{{ $booking->listing->listing_title }}
                                             </h3>
                                             <a class="text-sm font-medium text-gray-700 underline">
@@ -343,6 +348,16 @@
                                                 </button>
                                             </a>
                                         @endif
+
+                                        @if ($booking->booking_status == 'Waiting for payment approval')
+                                            <a href="{{ route('my-bookings') }}">
+                                                <button type="button"
+                                                    class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                    Go to my bookings
+                                                </button>
+                                            </a>
+                                        @endif
+
 
                                         @if ($booking->booking_status == 'Pending Confirmation')
                                             <a

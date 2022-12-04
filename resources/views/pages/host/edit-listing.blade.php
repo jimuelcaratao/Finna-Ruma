@@ -1,5 +1,13 @@
 <x-host-layout>
 
+    @push('styles')
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+    @endpush
 
 
 
@@ -78,9 +86,14 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </label>
-                                                <input type="text" name="contact" id="contact"
-                                                    value="{{ Auth::user()->contact }}" readonly
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
+                                                <div class="inline-flex w-full">
+                                                    <span class="text-xs text-gray-600 mt-3 mr-2">+63 </span>
+                                                    <input type="text" name="contact" id="contact"
+                                                        value="{{ Auth::user()->contact }}" readonly
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+
                                             </div>
 
                                             <div class="col-span-6 sm:col-span-4">
@@ -141,17 +154,17 @@
                                         <div class="grid grid-cols-6 gap-6">
 
                                             <div class="col-span-6 sm:col-span-4">
-                                                <label for="listing_status"
+                                                <label for="availability"
                                                     class="block text-sm font-medium text-gray-700">Listing Status
                                                     <span class="text-red-600">*</span></label>
-                                                <select id="listing_status" name="listing_status" required
+                                                <select id="availability" name="availability" required
                                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                     <option class="bg-gray-50" selected
-                                                        value=" {{ $listing->listing_status }}">
-                                                        {{ $listing->listing_status }}
+                                                        value=" {{ $listing->availability }}">
+                                                        {{ $listing->availability }}
                                                     </option>
-                                                    <option value="Approved">
-                                                        Approved</option>
+                                                    <option value="Available">
+                                                        Available</option>
                                                     <option value="Unavailable">
                                                         Unavailable</option>
                                                 </select>
@@ -210,27 +223,35 @@
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
 
-                                            {{-- <div class="col-span-6 sm:col-span-4">
-                                                <label for="map_pin"
-                                                    class="flex text-sm font-medium text-gray-700">Google Map
-                                                    Pin <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2"
-                                                        viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd"
-                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                            clip-rule="evenodd" />
-                                                    </svg></label>
-                                                <input type="text" name="map_pin" id="map_pin" required
-                                                    value="{{ $listing->map_pin }}"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div> --}}
+                                            <div class=" col-span-6 sm:col-span-3">
+                                                <div>
+                                                    <label for="latitude"
+                                                        class="block text-sm font-medium text-gray-700">Latitude
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="latitude" id="latitude" required
+                                                        readonly value="{{ $listing->latitude }}"
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
 
-                                            {{-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                                <label for="city"
-                                                    class="block text-sm font-medium text-gray-700">City</label>
-                                                <input type="text" name="city" id="city" required
-                                                    value="{{ $listing->city }}"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            </div> --}}
+                                            <div class=" col-span-6 sm:col-span-3">
+                                                <div>
+                                                    <label for="longitude"
+                                                        class="block text-sm font-medium text-gray-700">Longitude
+                                                        <span class="text-red-600">*</span></label>
+                                                    <input type="text" name="longitude" id="longitude" required
+                                                        readonly value="{{ $listing->longitude }}"
+                                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-span-6 sm:col-span-6">
+                                                <div>
+                                                    <strong>Map Preview:</strong>
+                                                    <div id="map">
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
 
@@ -251,6 +272,7 @@
                                                         <input type="number" min="0" step="0.01"
                                                             name="price_per_night" id="price_per_night" required
                                                             value="{{ $listing->price_per_night }}"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md"
                                                             placeholder="0.00">
 
@@ -273,6 +295,7 @@
                                                         <input type="number" min="0" step="0.01"
                                                             name="service_fee" id="service_fee" required
                                                             value="{{ $listing->service_fee }}"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md"
                                                             placeholder="0.00">
 
@@ -356,7 +379,7 @@
                                                 </select>
                                             </div>
 
-                                            <div class="col-span-6 sm:col-span-4">
+                                            {{-- <div class="col-span-6 sm:col-span-4">
                                                 <label for="property_type"
                                                     class="block text-sm font-medium text-gray-700">Property
                                                     Type <span class="text-red-600">*</span></label>
@@ -365,12 +388,10 @@
                                                     <option class="bg-gray-50" selected
                                                         value="{{ $listing->property_type }}">
                                                         {{ $listing->property_type }}</option>
-                                                    <option>House</option>
-                                                    <option>Guest House</option>
-                                                    <option>Apartment</option>
-                                                    <option>Hotel</option>
+                                                    <option>Boarding House</option>
+                                                    <option>Dormitory</option>
                                                 </select>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                 <label for="property_size"
@@ -393,6 +414,7 @@
                                                     </svg>
                                                 </label>
                                                 <input type="text" name="property_size" id="property_size"
+                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                     required value="{{ $listing->property_size }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div>
@@ -448,6 +470,25 @@
                                                 <input type="text" name="bed_detials" id="bed_detials"
                                                     value="{{ $listing->bed_detials }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            </div>
+
+                                            <div class="col-span-6 sm:col-span-4 mt-2">
+                                                <label for="location_score"
+                                                    class="block text-sm font-medium text-gray-700">Target
+                                                    Location</label>
+                                                <select id="location_score" name="location_score" required
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->location_score }}">
+                                                        @if ($listing->location_score == 0)
+                                                            None
+                                                        @elseif($listing->location_score == 1)
+                                                            Close to school
+                                                        @endif
+                                                    </option>
+                                                    <option value="0">None</option>
+                                                    <option value="1">Close to school</option>
+                                                </select>
                                             </div>
 
 
@@ -743,13 +784,13 @@
                                                 {{-- refund --}}
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
-                                                        <input id="refundable" name="refundable" type="checkbox"
-                                                            @checked($listing->listing_rule->refundable)
+                                                        <input id="garbage_disposal" name="garbage_disposal"
+                                                            type="checkbox" @checked($listing->listing_rule->garbage_disposal)
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="refundable"
-                                                            class="font-medium text-gray-700">Refundable
+                                                        <label for="garbage_disposal"
+                                                            class="font-medium text-gray-700">Garbage Disposal
                                                         </label>
                                                     </div>
                                                 </div>
@@ -822,19 +863,14 @@
 
 
                                             <div class="col-span-6 sm:col-span-2 space-y-3">
-                                                <label for="check_in"
-                                                    class="block text-sm font-medium text-gray-700">Check In Time
+                                                <label for="curfew"
+                                                    class="block text-sm font-medium text-gray-700">Curfew Time
                                                 </label>
-                                                <input type="text" name="check_in" id="check_in"
-                                                    value="{{ $listing->listing_rule->check_in }}"
+                                                <input type="text" name="curfew" id="curfew"
+                                                    value="{{ $listing->listing_rule->curfew }}"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 
-                                                <label for="check_out"
-                                                    class="block text-sm font-medium text-gray-700 mt-4">Check Out Time
-                                                </label>
-                                                <input type="text" name="check_out" id="check_out"
-                                                    value="{{ $listing->listing_rule->check_out }}"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
                                             </div>
 
                                             {{-- Additional Notes --}}
@@ -851,6 +887,11 @@
                                                 <p class="mt-2 text-sm text-gray-500">Brief description for your
                                                     Rule.</p>
                                             </div>
+
+
+
+
+
 
                                         </div>
 
@@ -875,6 +916,10 @@
     </div>
 
     @push('scripts')
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_KEY') }}&libraries=places&callback=initMap">
+        </script>
+        <script src="{{ asset('js/map.js') }}"></script>
         <script src="{{ asset('js/ckeditor.js') }}"></script>
 
         <script>

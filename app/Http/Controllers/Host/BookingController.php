@@ -142,6 +142,16 @@ class BookingController extends Controller
         return Redirect::route('host.bookings')->withSuccess('Listing Complete!');
     }
 
+    public function host_status(Request $request)
+    {
+        Booking::where('booking_id', $request->booking_id_edit)
+            ->update([
+                'host_status' => $request->input('host_status_edit'),
+            ]);
+
+        return Redirect::route('host.bookings')->withSuccess('Host status updated!');
+    }
+
 
     public function archive($booking_id)
     {

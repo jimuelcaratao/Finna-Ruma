@@ -170,7 +170,15 @@
                             <div class="input-field">
                                 <input id="name" type="text" class="validate" name="name"
                                     :value="old('name')" required autofocus autocomplete="name">
-                                <label for="name">{{ __('Full Name') }}</label>
+                                <label for="name">{{ __('First Name') }}</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-field">
+                                <input id="lastname" type="text" class="validate" name="lastname"
+                                    :value="old('lastname')" required>
+                                <label for="lastname">{{ __('Last Name') }}</label>
                             </div>
                         </div>
 
@@ -179,6 +187,22 @@
                                 <input id="email" type="email" class="validate" name="email"
                                     :value="old('email')" required>
                                 <label for="email">{{ __('Email') }}</label>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="input-field">
+                                <input id="address" type="text" class="validate" name="address"
+                                    :value="old('address')" required>
+                                <label for="address">{{ __('Address') }}</label>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="input-field">
+                                <input id="contact" type="text" class="validate" name="contact"
+                                    :value="old('contact')" required>
+                                <label for="contact">{{ __('Contact') }}</label>
                             </div>
                         </div>
 

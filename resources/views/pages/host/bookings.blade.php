@@ -84,12 +84,19 @@
                             <th scope="col" class="px-6 py-3">
                                 Booking ID
                             </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Listing name
                             </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Status
                             </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Host Status
+                            </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Tenant
                             </th>
@@ -127,8 +134,6 @@
 
                                 </th>
                                 <td class="px-6 py-3">
-
-
                                     @if ($booking->booking_status == 'Canceled')
                                         <span
                                             class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
@@ -163,6 +168,25 @@
                                 </td>
 
                                 <td class="px-6 py-3">
+                                    @if ($booking->host_status == 'Denied by Host')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-red-500  to-red-600">
+                                            {{ $booking->host_status }}
+                                        </span>
+                                    @elseif($booking->host_status == 'Confirmed by Host')
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-blue-500  to-blue-600">
+                                            {{ $booking->host_status }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="text-white px-2.5 py-0.5 rounded bg-gradient-to-r from-gray-500  to-gray-600">
+                                            {{ $booking->host_status }}
+                                        </span>
+                                    @endif
+                                </td>
+
+                                <td class="px-6 py-3">
                                     {{ $booking->user->name }}
                                 </td>
 
@@ -189,6 +213,13 @@
                                     <div id="tooltip-payment" role="tooltip"
                                         class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                         Approve Payment
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+
+                                    {{-- Tooltip --}}
+                                    <div id="tooltip-edit" role="tooltip"
+                                        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                        Edit status
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
 
@@ -241,6 +272,22 @@
                                             @endif
                                         @endif
                                     @endif
+
+                                    <a href="" data-tooltip-target="tooltip-edit" data-tooltip-placement="top"
+                                        id="edit-item-status" data-bs-toggle="modal"
+                                        data-bs-target="#edit-modal-status"
+                                        data-item-booking_id="{{ $booking->booking_id }}"
+                                        data-item-host_status="{{ $booking->host_status }}"
+                                        class="font-medium text-purple-600  hover:text-purple-900 ml-2 hover:underline no-underline"><svg
+                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                            <path fill-rule="evenodd"
+                                                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                clip-rule="evenodd" />
+                                        </svg></a>
+
 
 
 
@@ -380,6 +427,50 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="edit-modal-status" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Update </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('host.bookings.host_status') }}" method="POST" id="edit-status">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body">
+
+                        <div class=" col-span-6 sm:col-span-4 mb-4">
+                            <label for="booking_id_edit" class="block text-sm font-medium text-gray-700">Booking ID
+                                <span class="text-red-600">*</span></label>
+                            <input type="text" name="booking_id_edit" id="booking_id_edit" readonly required
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="host_status_edit" class="block text-sm font-medium text-gray-700">Host
+                                Status</label>
+                            <select id="host_status_edit" name="host_status_edit" class="form-select"
+                                aria-label="Default select example">
+                                <option disabled selected></option>
+                                <option value="Waiting for Host">Waiting for Host</option>
+                                <option value="Confirmed by Host">Confirmed by Host</option>
+                                <option value="Denied by Host">Denied by Host</option>
+                            </select>
+                            <div id="emailHelp" class="form-text">Confirm this action.</div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -439,6 +530,38 @@
                                 return false;
                             }
                         });
+                });
+            });
+
+            $(document).ready(function() {
+                $(document).on("click", "#edit-item-status", function() {
+                    $(this).addClass(
+                        "edit-item-trigger-clicked"
+                    ); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
+                    var options = {
+                        backdrop: "static"
+                    };
+                    $("#edit-modal-status").modal(options);
+                    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
+                    var row = el.closest(".data-row");
+
+                    // get the data
+                    var booking_id_edit = el.data("item-booking_id");
+                    var host_status_edit = el.data("item-host_status");
+
+                    $("#booking_id_edit").val(booking_id_edit);
+                    $("#host_status_edit").val(host_status_edit);
+
+                });
+                // on modal hide
+                $("#edit-modal-status").on("hide.bs.modal", function() {
+                    $(".edit-item-trigger-clicked").removeClass(
+                        "edit-item-trigger-clicked"
+                    );
+                    $("#edit-status").trigger("reset");
+
+                    // disabled attr
+                    $("button#edit_submit_category").attr("disabled", true);
                 });
             });
 

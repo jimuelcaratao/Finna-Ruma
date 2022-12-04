@@ -28,6 +28,11 @@
 
                                                 {{ $booking->booking_status }}
                                             </span>
+                                            <span
+                                                class="mt-4 mb-2 bg-blue-100 text-blue-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+
+                                                {{ $booking->host_status }}
+                                            </span>
                                             <h3 class=" mb-2 text-xl ">{{ $booking->listing->listing_title }}
                                             </h3>
                                             <a class="text-sm font-medium text-gray-700 underline">
@@ -85,7 +90,22 @@
                                                 <h5 class="text-lg font-bold mb-2">Booking Details</h5>
 
                                                 <h3 class="text-base font-bold mt-4">Person who books</h3>
-                                                <span class="text-sm">{{ $booking->user->name }}</span>
+                                                <div class="text-sm mb-2">
+                                                    Full name:
+                                                    {{ $booking->user->name }}
+                                                    {{ $booking->user->lastname }}</div>
+
+                                                @if ($booking->user->contact != null)
+                                                    <div class="text-sm mb-2"> Contact:
+                                                        +63{{ $booking->user->contact }}
+                                                    </div>
+                                                @endif
+
+                                                <div class="text-sm mb-2">Address: {{ $booking->user->address }}
+                                                </div>
+
+                                                <div class="text-sm mb-2">Student ID: {{ $booking->user->student_id }}
+                                                </div>
 
                                                 <h3 class="text-base font-bold mt-2">Dates</h3>
                                                 <span class="text-sm">{{ $booking->check_in }} -

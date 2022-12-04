@@ -79,7 +79,7 @@
     <div class="app-container">
         <div class="app-header">
             <div class="app-header-left">
-                <span> <img src="{{ asset('img/logo/main-logo.png') }}" class="mr-4" width="80px"
+                <span> <img src="{{ asset('img/logo/main-logo-v2.png') }}" class="mr-4" width="80px"
                         alt="App Logo"></span>
                 {{-- <p class="app-name">Portfolio</p> --}}
 
@@ -211,6 +211,27 @@
                 <div id="tooltip-dashboard" role="tooltip"
                     class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                     Dashboard
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+
+                <a href="{{ route('admin.bookings') }}" data-tooltip-target="tooltip-bookings"
+                    data-tooltip-placement="right"
+                    class="app-sidebar-link {{ request()->is('admin/bookings') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-calendar">
+                        <rect x="3" y="4" width="18" height="18" rx="2"
+                            ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                </a>
+
+                {{-- Tooltip --}}
+                <div id="tooltip-bookings" role="tooltip"
+                    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Bookings
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 

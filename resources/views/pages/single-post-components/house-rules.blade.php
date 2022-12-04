@@ -1,26 +1,20 @@
 <div class="grid grid-cols-3 gap-4">
 
-    @if ($listing->listing_rule->refundable == true)
+    @if ($listing->listing_rule->garbage_disposal == true)
         <div class="relative inline-flex items-center w-full  py-1  text-sm  ">
-            <img src="{{ asset('img/global/icons/refund.png') }}" class="h-7 w-7 mr-3">
-            Refundable
+            <img src="{{ asset('img/global/icons/garbage.png') }}" class="h-7 w-7 mr-3">
+            Garbage Disposal
         </div>
     @endif
 
 
-    @if ($listing->listing_rule->check_in !== null)
+    @if ($listing->listing_rule->curfew !== null)
         <div class="relative inline-flex items-center w-full  py-1  text-sm ">
             <img src="{{ asset('img/global/icons/clock.png') }}" class="h-7 w-7 mr-3">
-            Check In time: {{ $listing->listing_rule->check_in }}
+            Curfew time: {{ $listing->listing_rule->curfew }}
         </div>
     @endif
 
-    @if ($listing->listing_rule->check_out !== null)
-        <div class="relative inline-flex items-center w-full py-1  text-sm ">
-            <img src="{{ asset('img/global/icons/clock.png') }}" class="h-7 w-7 mr-3">
-            Check out time: {{ $listing->listing_rule->check_out }}
-        </div>
-    @endif
 
 
     @if ($listing->listing_rule->claygo == true)

@@ -51,6 +51,9 @@ class AddListingController extends Controller
             'service_fee' => 'required',
             'location' => 'required',
 
+            'latitude' => 'required',
+            'longitude' => 'required',
+
         ]);
 
         if ($validator->fails()) {
@@ -78,6 +81,8 @@ class AddListingController extends Controller
             'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
             'country' => $request->input('country'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
 
             'bedrooms' => $request->input('bedrooms'),
             'beds' => $request->input('beds'),
@@ -87,6 +92,8 @@ class AddListingController extends Controller
             'property_type' => $request->input('property_type'),
 
             'listing_status' => 'Pending Approval',
+            'availability' => 'Available',
+
             'messenger_url' => $request->input('messenger_url'),
             'additional_notes' => $request->input('additional_notes'),
             'viewers' => 0,
@@ -113,6 +120,52 @@ class AddListingController extends Controller
 
         $this->add_listing_others->AddRules($request, $listing);
 
+        // Criteria
+        $property_size = 0;
+        $cost = 0;
+
+        // property size
+        if ($request->input('property_size') >= 50) {
+            $property_size = 1;
+        }
+        if (in_array($request->input('property_size'), range(30, 49))) {
+            $property_size = 2;
+        }
+        if (in_array($request->input('property_size'), range(20, 29))) {
+            $property_size = 3;
+        }
+        if (in_array($request->input('property_size'), range(10, 19))) {
+            $property_size = 4;
+        }
+        if ($request->input('property_size') <= 9) {
+            $property_size = 5;
+        }
+
+        // cost
+        if ($request->input('price_per_night') >= 15000) {
+            $cost = 1;
+        }
+        if (in_array($request->input('price_per_night'), range(13000, 14999))) {
+            $cost = 2;
+        }
+        if (in_array($request->input('price_per_night'), range(10000, 12999))) {
+            $cost = 3;
+        }
+        if (in_array($request->input('price_per_night'), range(7000, 9999))) {
+            $cost = 4;
+        }
+        if (in_array($request->input('price_per_night'), range(4000, 6999))) {
+            $cost = 5;
+        }
+        if ($request->input('price_per_night') <= 3999) {
+            $cost = 6;
+        }
+
+        Listing::where('listing_id', $listing->listing_id)->update([
+            'room_size_score' => $property_size,
+            'cost_score' => $cost,
+        ]);
+
         return Redirect::route('host.listing')->withSuccess('Listing :' . $request->input('listing_title') . '. Created Successfully!');
     }
 
@@ -120,6 +173,9 @@ class AddListingController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'listing_title' => 'required',
+
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -135,7 +191,7 @@ class AddListingController extends Controller
             'category_id' => $request->input('category_id'),
             'slug' => Str::of($request->input('listing_title'))->slug('-'),
 
-            'listing_status' => $request->input('listing_status'),
+            'availability' => $request->input('availability'),
 
             'listing_title' => $request->input('listing_title'),
             'description' => $request->input('description'),
@@ -151,6 +207,8 @@ class AddListingController extends Controller
             'map_pin' => Str::replace(' ', '%20', $request->input('location')),
             'city' => $request->input('city'),
             'country' => $request->input('country'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
 
             'bedrooms' => $request->input('bedrooms'),
             'beds' => $request->input('beds'),
@@ -159,9 +217,10 @@ class AddListingController extends Controller
 
             'property_type' => $request->input('property_type'),
 
+            'location_score' => $request->input('location_score'),
+
             'messenger_url' => $request->input('messenger_url'),
             'additional_notes' => $request->input('additional_notes'),
-            'viewers' => 0,
         ]);
 
         $this->add_listing_others->AddAmenities($request, $listing);
@@ -169,6 +228,53 @@ class AddListingController extends Controller
         $this->add_listing_others->AddPhoto($request, $listing);
 
         $this->add_listing_others->AddRules($request, $listing);
+
+
+        // Criteria
+        $property_size = 0;
+        $cost = 0;
+
+        // property size
+        if ($request->input('property_size') >= 50) {
+            $property_size = 1;
+        }
+        if (in_array($request->input('property_size'), range(30, 49))) {
+            $property_size = 2;
+        }
+        if (in_array($request->input('property_size'), range(20, 29))) {
+            $property_size = 3;
+        }
+        if (in_array($request->input('property_size'), range(10, 19))) {
+            $property_size = 4;
+        }
+        if ($request->input('property_size') <= 9) {
+            $property_size = 5;
+        }
+
+        // cost
+        if ($request->input('price_per_night') >= 15000) {
+            $cost = 1;
+        }
+        if (in_array($request->input('price_per_night'), range(13000, 14999))) {
+            $cost = 2;
+        }
+        if (in_array($request->input('price_per_night'), range(10000, 12999))) {
+            $cost = 3;
+        }
+        if (in_array($request->input('price_per_night'), range(7000, 9999))) {
+            $cost = 4;
+        }
+        if (in_array($request->input('price_per_night'), range(4000, 6999))) {
+            $cost = 5;
+        }
+        if ($request->input('price_per_night') <= 3999) {
+            $cost = 6;
+        }
+
+        Listing::where('listing_id', $listing_id)->update([
+            'room_size_score' => $property_size,
+            'cost_score' => $cost,
+        ]);
 
         return Redirect::route('host.listing')->withSuccess('Listing :' . $request->input('listing_title') . '. Updated Successfully!');
     }

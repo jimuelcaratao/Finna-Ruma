@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('lastname');
             $table->string('email')->unique();
+            $table->string('student_id')->nullable();
+            $table->string('address')->nullable();
             $table->string('status')->nullable(); //if admin or user (active/inactive) else host (Approved/Pending/Denied)
             $table->string('contact')->nullable();
             $table->timestamp('email_verified_at')->nullable();

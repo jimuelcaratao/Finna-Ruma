@@ -1,4 +1,4 @@
-<div x-data="{ open: false }" class="bg-white">
+<div x-data="{ open: false }" class="bg-white no-underline text-decoration-none">
     <div>
 
         <div :class="{ 'block': open, 'hidden': !open }" class="fixed inset-0 flex z-40 lg:hidden" role="dialog"
@@ -61,7 +61,7 @@
             </div>
 
             <section aria-labelledby="products-heading" class="pt-6 pb-24">
-                <h2 id="products-heading" class="sr-only">Products</h2>
+                <h2 id="products-heading" class="sr-only">Properties</h2>
 
                 <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                     <!-- Filters -->

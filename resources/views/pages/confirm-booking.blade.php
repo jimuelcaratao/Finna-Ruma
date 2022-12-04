@@ -117,6 +117,17 @@
                                             <h3 class="pt-4 mb-2 text-3xl font-semibold">
                                                 Confirm and Pay
                                             </h3>
+                                            <span
+                                                class="mt-4 mb-2 bg-blue-100 text-blue-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+
+                                                {{ $booking->booking_status }}
+                                            </span>
+
+                                            <span
+                                                class="mt-4 mb-2 bg-blue-100 text-blue-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+
+                                                {{ $booking->host_status }}
+                                            </span>
                                             <h3 class="pt-4 mb-2 text-xl ">{{ $listing->listing_title }}
                                             </h3>
                                             <a class="text-sm font-medium text-gray-700 underline">
@@ -287,62 +298,75 @@
                                     </div>
 
                                     <div class="border-b-2 border-gray-30 my-6"></div>
-                                    {{-- form --}}
-                                    <form action="{{ route('payment.booking', [$booking->booking_id]) }}"
-                                        method="POST" id="payment">
-                                        @csrf
 
-                                        <input type="text" class="hidden" name="payment_method" id="payment_method">
+                                    @if ($booking->host_status == 'Confirmed by Host')
+                                        {{-- form --}}
+                                        <form action="{{ route('payment.booking', [$booking->booking_id]) }}"
+                                            method="POST" id="payment">
+                                            @csrf
 
-                                        <input type="text" class="hidden" name="booking_status" id="booking_status"
-                                            value="Confirmed Reservation">
+                                            <input type="text" class="hidden" name="payment_method"
+                                                id="payment_method">
 
-                                        <input type="text" class="hidden" name="total_paid" id="total_paid"
-                                            value="{{ $booking->total }}">
+                                            <input type="text" class="hidden" name="booking_status"
+                                                id="booking_status" value="Confirmed Reservation">
 
-                                        <div class="grid grid-cols-1   gap-2 items-center justify-center mb-4"
-                                            id="rd-btn">
-                                            <div class="rd-btns">
-                                                <input class="hidden" type="radio" name="payment_status"
-                                                    id="radio_1" value="Fully Paid" checked>
-                                                <label
-                                                    class="flex flex-col p-4 border  rounded-lg border-gray-200 cursor-pointer"
-                                                    for="radio_1">
-                                                    <span class="text-md font-bold text-center" for="radio_1">Full
-                                                        payment</span>
-                                                </label>
+                                            <input type="text" class="hidden" name="total_paid" id="total_paid"
+                                                value="{{ $booking->total }}">
+
+                                            <div class="grid grid-cols-1   gap-2 items-center justify-center mb-4"
+                                                id="rd-btn">
+                                                <div class="rd-btns">
+                                                    <input class="hidden" type="radio" name="payment_status"
+                                                        id="radio_1" value="Fully Paid" checked>
+                                                    <label
+                                                        class="flex flex-col p-4 border  rounded-lg border-gray-200 cursor-pointer"
+                                                        for="radio_1">
+                                                        <span class="text-md font-bold text-center"
+                                                            for="radio_1">Full
+                                                            payment</span>
+                                                    </label>
+                                                </div>
+                                                {{-- <div class="rd-btns">
+                                                        <input class="hidden" type="radio" name="payment_status"
+                                                            id="radio_2" value="Half Paid">
+                                                        <label
+                                                            class="flex flex-col p-4 border shadow rounded-lg border-gray-200  transition-shadow cursor-pointer"
+                                                            for="radio_2">
+                                                            <span class="text-md font-bold text-center " for="radio_2">Half
+                                                                Payment</span>
+                                                        </label>
+                                                    </div> --}}
                                             </div>
-                                            {{-- <div class="rd-btns">
-                                                <input class="hidden" type="radio" name="payment_status"
-                                                    id="radio_2" value="Half Paid">
-                                                <label
-                                                    class="flex flex-col p-4 border shadow rounded-lg border-gray-200  transition-shadow cursor-pointer"
-                                                    for="radio_2">
-                                                    <span class="text-md font-bold text-center " for="radio_2">Half
-                                                        Payment</span>
-                                                </label>
-                                            </div> --}}
-                                        </div>
 
 
-                                        {{-- gcash --}}
+                                            {{-- gcash --}}
 
-                                        @if ($listing->gcash_qr != null)
-                                            <button type="button" data-modal-toggle="popup-modal"
-                                                class="w-full  text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center  mr-2 mb-3">
+                                            @if ($listing->gcash_qr != null)
+                                                <button type="button" data-modal-toggle="popup-modal"
+                                                    class="w-full  text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center  mr-2 mb-3">
 
-                                                <span class="mx-auto inline-flex">
-                                                    <img width="80px" height="70px"
-                                                        src="{{ asset('img/global/gcash.png') }}" alt="Gcash">
-                                                    <span class="ml-4"> Pay with Gcash</span>
-                                                </span>
+                                                    <span class="mx-auto inline-flex">
+                                                        <img width="80px" height="70px"
+                                                            src="{{ asset('img/global/gcash.png') }}" alt="Gcash">
+                                                        <span class="ml-4"> Pay with Gcash</span>
+                                                    </span>
+                                                </button>
+                                            @endif
+                                        </form>
+
+                                        {{-- paypal --}}
+                                        <div style="z-index: 500;" id="paypal-button-container"></div>
+                                    @else
+                                        <a href="{{ route('my-bookings') }}">
+                                            <button type="button"
+                                                class=" text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
+                                                Go to my bookings
                                             </button>
-                                        @endif
+                                        </a>
+                                    @endif
 
 
-                                    </form>
-
-                                    <div style="z-index: 500;" id="paypal-button-container"></div>
                                 </div>
                             </div>
                         </div>

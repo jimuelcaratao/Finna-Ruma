@@ -35,6 +35,9 @@ return new class extends Migration
 
             $table->string('location')->nullable();
             $table->string('map_pin')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+
             $table->string('city')->nullable();
             $table->string('country')->nullable();
 
@@ -46,6 +49,8 @@ return new class extends Migration
             $table->string('property_type')->nullable(); // house, apartment, guesthouse, hotel
 
             $table->string('listing_status'); // Approved or Pending Approval, Denied
+            $table->string('availability'); // Available or Unavailable
+
             $table->text('default_photo')->nullable();
             $table->text('gcash_qr')->nullable();
             $table->integer('viewers')->nullable();
@@ -53,6 +58,11 @@ return new class extends Migration
             $table->string('messenger_url')->nullable();
 
             $table->longText('additional_notes')->nullable();
+
+            $table->string('cost_score')->nullable();
+            $table->string('location_score')->nullable();
+            $table->string('facility_score')->nullable();
+            $table->string('room_size_score')->nullable();
 
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();

@@ -1,6 +1,45 @@
 <x-global-layout>
 
     @push('styles')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+            integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    timeZone: 'Asia/Manila',
+                    events: [
+
+                        @foreach ($listing->Booking as $item)
+                            @if ($item->host_status === 'Confirmed by Host')
+                                {
+                                    title: "Occupied",
+                                    start: "{{ date('Y-m-d', strtotime($item->check_in)) }}",
+                                    end: "{{ date('Y-m-d', strtotime($item->checkout)) }}T12:00:00"
+                                },
+                            @endif
+                        @endforeach
+
+                    ]
+                });
+                calendar.render();
+            });
+        </script>
+
+        <!-- Styles -->
+        <style>
+            #calendar {
+                max-width: 100%;
+                height: 500px;
+                margin: 40px 0px;
+            }
+
+            input:checked+label {
+                border-color: #160e06;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+        </style>
         <style>
             .mapouter {
                 position: relative;
@@ -94,7 +133,6 @@
     <div class="lg:pb-12 lg:pt-6">
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-24">
 
-
             <div id="indicators-carousel" class="relative" data-carousel="slide">
 
                 <div class="overflow-hidden relative h-48 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
@@ -184,13 +222,20 @@
 
                                     <div class="flex justify-between gap-10">
                                         <div>
-                                            @if ($listing->listing_status == 'Unavailable')
+                                            <span
+                                                class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                                {{ $listing->category->category_name }}
+                                            </span>
+
+                                            @if ($listing->location_score == 1)
                                                 <span
-                                                    class=" bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
-                                                    Unavailable
+                                                    class="mb-2 bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                                    Close to school
                                                 </span>
                                             @endif
-                                            <h3 class="pt-4 mb-2 text-4xl font-semibold">{{ $listing->listing_title }}
+
+
+                                            <h3 class="pt-2 mb-2 text-4xl font-semibold">{{ $listing->listing_title }}
                                             </h3>
                                             <a class="text-sm font-medium text-gray-700 underline">
                                                 {{ $listing->location }}</a>
@@ -334,6 +379,8 @@
                                     </div>
 
 
+
+
                                 </div>
 
                             </div>
@@ -344,17 +391,72 @@
                             <!-- Payment Section -->
                             <div class="flex-initial  w-full lg:w-2/5 ">
                                 <div class=" mb-4 p-6 mt-4 shadow-md border-2 border-gray-300 lg:rounded-lg">
+                                    @if ($listing->availability == 'Unavailable')
+                                        <span
+                                            class=" bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mb-2">
+                                            Unavailable
+                                        </span>
+                                    @endif
                                     <h3 class=" mb-4 text-3xl font-semibold">₱ @convert($listing->price_per_night) <span
                                             class="text-sm text-gray-400 font-normal">night</span></h3>
 
                                     <div class="border-b-2 border-gray-30 my-6"></div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-center justify-center mb-4"
+                                        id="rd-btn">
+                                        <div>
+                                            <input class="hidden" type="radio" name="payment_method"
+                                                id="radio_1" value="Cash on Delivery" checked>
+                                            <label
+                                                class="flex flex-col p-4 border shadow rounded-lg border-gray-200 cursor-pointer"
+                                                for="radio_1">
+                                                <span class="text-md font-bold text-center" for="radio_1">Per
+                                                    night</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input class="hidden" type="radio" name="payment_method"
+                                                id="radio_2" value="Pick Up">
+                                            <label
+                                                class="flex flex-col p-4 border shadow rounded-lg border-gray-200 cursor-pointer"
+                                                for="radio_2">
+                                                <span class="text-md font-bold text-center"
+                                                    for="radio_2">Monthly</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
 
                                     {{-- Datepicker --}}
 
                                     <form action="{{ route('global.booking', [$listing->listing_id]) }}"
                                         method="POST">
                                         @csrf
-                                        <div date-rangepicker="" class="flex items-center">
+
+                                        <div id="monthly_date">
+                                            <div class="relative mb-4">
+                                                <div
+                                                    class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                    <svg aria-hidden="true"
+                                                        class="w-5 h-5 mt-5 text-gray-500 dark:text-gray-400"
+                                                        fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </div>
+                                                <label for="check-in-monthly"
+                                                    class="text-xs font-semibold">CHECK-IN</label>
+
+                                                <input datepicker name="check-in-monthly" id="check-in-monthly"
+                                                    type="text"
+                                                    class="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  "
+                                                    placeholder="Select date">
+                                            </div>
+                                        </div>
+
+                                        <div id="per_night_date" date-rangepicker="" class="flex items-center">
                                             <div class="relative">
                                                 <div
                                                     class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -578,15 +680,20 @@
                 </div>
             </div>
 
+            {{-- Calendar --}}
+            <div id='calendar'></div>
+
             {{-- Maps --}}
             <div>
                 <div class="mapouter">
-                    <div class="gmap_canvas  lg:rounded-lg py-8"><iframe width="100%" height="400"
-                            id="gmap_canvas"
-                            src="https://maps.google.com/maps?q={{ $listing->map_pin }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 
+                    <div id="map" style="width: 100%; height:400px;">
                     </div>
+                    <input type="text" name="latitude" id="latitude" readonly value="{{ $listing->latitude }}"
+                        class="hidden">
+
+                    <input type="text" name="longitude" id="longitude" readonly
+                        value="{{ $listing->longitude }}" class="hidden">
                 </div>
             </div>
 
@@ -614,10 +721,6 @@
                             </div>
                         </div>
                     @endif
-
-
-
-
 
                 </div>
 
@@ -674,11 +777,16 @@
     </div>
 
 
-
     @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"
+            integrity="sha256-7PzqE1MyWa/IV5vZumk1CVO6OQbaJE4ns7vmxuUP/7g=" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
         <script src="https://unpkg.com/flowbite@1.4.7/dist/datepicker.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key={{ env('PLACE_KEY') }}&libraries=places&callback=initMap">
+        </script>
+        <script src="{{ asset('js/map.js') }}"></script>
         <script>
             function textAreaAdjust(element) {
                 element.style.height = "1px";
@@ -693,6 +801,18 @@
                 var price_night = $('#price_night').val();
                 var service_fee = $('#service_fee').val();
 
+                $('#monthly_date').hide();
+                $('#per_night_date').show();
+
+                $("#radio_1").on("click", function() {
+                    $('#monthly_date').hide();
+                    $('#per_night_date').show();
+                })
+
+                $("#radio_2").on("click", function() {
+                    $('#monthly_date').show();
+                    $('#per_night_date').hide();
+                })
 
                 function treatAsUTC(date) {
                     var result = new Date(date);
@@ -704,6 +824,38 @@
                     var millisecondsPerDay = 24 * 60 * 60 * 1000;
                     return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
                 }
+
+
+                // monthly
+                $('#check-in-monthly').focusout(function() {
+                    var monthly = $('#check-in-monthly').val();
+
+                    // var today = new Date(monthly);
+                    // var priorDate = new Date(new Date().setDate(today.getDate() + 30));
+
+                    const priorDate = moment(monthly, "MM/DD/YYYY").add(30, 'days').format('L');
+                    console.log(priorDate)
+
+                    console.log(priorDate);
+
+
+                    $('#check-in').val(monthly);
+                    $('#checkout').val(priorDate);
+
+                    var days = daysBetween(monthly, priorDate);
+
+                    $('#total-days').text(days);
+
+                    $('#days').val(days);
+                    $('#pending-total').val((price_night * days).toLocaleString());
+
+                    var service = parseInt(service_fee);
+                    var get_total = (price_night * days) + service;
+                    $('#total').val(get_total);
+                    $('#total-fee').show();
+                });
+
+
 
 
                 $('#check-in').focusout(function() {
