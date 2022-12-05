@@ -29,9 +29,29 @@
 
         <!-- Styles -->
         <style>
+            #calendar ::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                background-color: #F5F5F5;
+                border-radius: 40px;
+
+            }
+
+            #calendar ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+                background-color: #F5F5F5;
+            }
+
+            #calendar ::-webkit-scrollbar-thumb {
+                border-radius: 40px;
+                background-color: rgb(179, 179, 179);
+
+
+            }
+
             #calendar {
                 max-width: 100%;
-                height: 500px;
+                height: 450px;
                 margin: 40px 0px;
             }
 
@@ -353,6 +373,9 @@
                                         </div>
                                     </div>
 
+
+                                    {{-- Calendar --}}
+                                    <div id='calendar'></div>
 
                                     {{-- borderb --}}
                                     <div class="border-b-2 border-gray-30 my-6"></div>
@@ -681,8 +704,6 @@
                 </div>
             </div>
 
-            {{-- Calendar --}}
-            <div id='calendar'></div>
 
             {{-- Maps --}}
             <div>
