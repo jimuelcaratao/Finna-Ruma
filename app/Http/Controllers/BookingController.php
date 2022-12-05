@@ -36,7 +36,7 @@ class BookingController extends Controller
         $listing = Listing::where('listing_id', $listing_id)->first();
 
         $validator = Validator::make($request->all(), [
-            'check-in' => 'required',
+            'check-in' => 'required|date_format:m/d/Y|after:today',
             'checkout' => 'required',
         ]);
 
@@ -54,11 +54,15 @@ class BookingController extends Controller
             ->whereBetween('checkout', [$request->input('check-in'), $request->input('checkout')])
             ->first();
 
+        $get_date =  date('m/d/Y', strtotime($request->input('check-in')));
 
-        if ($request->input('check-in') < Carbon::now()->format('m/d/Y')) {
-            return Redirect::back()
-                ->with('toast_error', 'You cannot reserve on past date.');
-        }
+
+        // dd($get_date, Carbon::now()->format('m/d/Y'));
+
+        // if ($get_date  < Carbon::now()->format('m/d/Y')) {
+        //     return Redirect::back()
+        //         ->with('toast_error', 'You cannot reserve on past date.');
+        // }
 
         if ($get_booking != null || $get_booking_1 != null) {
             return Redirect::back()
