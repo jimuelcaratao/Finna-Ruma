@@ -498,8 +498,9 @@
                                         <div class="mt-4">
                                             <div class="flex items-center justify-between w-full md:w-3/5">
                                                 <div>
-                                                    <h3 class="text-base text-gray-900 font-bold">Adults</h3>
-                                                    <h3 class="text-sm text-gray-900 font-medium">Age 13+</h3>
+                                                    <h3 class="text-base text-gray-900 font-bold">Occupants</h3>
+                                                    <h3 class="text-sm text-gray-900 font-medium">How many guests
+                                                    </h3>
                                                 </div>
                                                 <fieldset class="mt-2">
                                                     <td>
@@ -526,7 +527,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mt-4">
+                                        {{-- <div class="mt-4">
                                             <div class="flex items-center justify-between w-full md:w-3/5">
                                                 <div>
                                                     <h3 class="text-base text-gray-900 font-bold">Children</h3>
@@ -555,7 +556,7 @@
                                                     </td>
                                                 </fieldset>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="mt-4 hidden">
                                             <div class="flex items-center justify-between w-full md:w-3/5">

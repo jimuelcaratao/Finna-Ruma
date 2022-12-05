@@ -112,8 +112,7 @@
                                                     {{ $booking->checkout }} </span>
 
                                                 <h3 class="text-base font-bold mt-2">Guests</h3>
-                                                <span class="text-sm">{{ $booking->adults }} Adults,
-                                                    {{ $booking->children }} Children</span>
+                                                <span class="text-sm">{{ $booking->adults }} Occupant/s</span>
 
 
                                             </div>
