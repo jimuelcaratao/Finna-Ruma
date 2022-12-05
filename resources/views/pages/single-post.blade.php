@@ -550,7 +550,7 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div class="mt-4">
+                                        <div class="mt-4 hidden">
                                             <div class="flex items-center justify-between w-full md:w-3/5">
                                                 <div>
                                                     <h3 class="text-base text-gray-900 font-bold">Children</h3>
@@ -579,7 +579,7 @@
                                                     </td>
                                                 </fieldset>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
                                         <div class="mt-4 hidden">
                                             <div class="flex items-center justify-between w-full md:w-3/5">
