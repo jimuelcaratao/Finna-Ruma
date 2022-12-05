@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-4 gap-4">
 
     @if ($listing->listing_rule->garbage_disposal == true)
         <div class="relative inline-flex items-center w-full  py-1  text-sm  ">
