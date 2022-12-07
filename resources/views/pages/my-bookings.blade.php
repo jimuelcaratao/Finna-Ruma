@@ -139,8 +139,7 @@
                                                     <a class="text-xs font-medium text-gray-700 underline">
                                                         {{ $booking->listing->location }}</a>
                                                     <p class="text-xs text-gray-700">{{ $booking->listing->max_guest }}
-                                                        guests•{{ $booking->listing->bedrooms }}
-                                                        bedrooms•{{ $booking->listing->beds }}
+                                                        guests•{{ $booking->listing->beds }}
                                                         beds•{{ $booking->listing->bathrooms }}
                                                         baths</p>
                                                 </div>

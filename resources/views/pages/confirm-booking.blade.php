@@ -142,16 +142,7 @@
                                                             {{ $listing->max_guest }} guests
                                                         </span>
                                                     </li>
-                                                    <li>
-                                                        <div class="flex items-center">
-                                                            <span class="mx-1">
-                                                                •
-                                                            </span>
-                                                            <span
-                                                                class="ml-1 text-sm font-medium text-gray-700 md:ml-2 ">{{ $listing->bedrooms }}
-                                                                bedrooms</span>
-                                                        </div>
-                                                    </li>
+
                                                     <li aria-current="page">
                                                         <div class="flex items-center">
                                                             <span class="mx-1">
@@ -216,8 +207,7 @@
                                                     {{ $booking->checkout }} </span>
 
                                                 <h3 class=" font-bold mt-2">Guests</h3>
-                                                <span class="text-sm">{{ $booking->adults }} Adults,
-                                                    {{ $booking->children }} Children</span>
+                                                <span class="text-sm">{{ $booking->adults }} Occupant/s</span>
                                             </div>
 
                                         </div>
@@ -322,8 +312,7 @@
                                                     <label
                                                         class="flex flex-col p-4 border  rounded-lg border-gray-200 cursor-pointer"
                                                         for="radio_1">
-                                                        <span class="text-md font-bold text-center"
-                                                            for="radio_1">Full
+                                                        <span class="text-md font-bold text-center" for="radio_1">Full
                                                             payment</span>
                                                     </label>
                                                 </div>
