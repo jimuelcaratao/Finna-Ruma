@@ -148,7 +148,7 @@
                                             <div class="border-b-2 border-gray-30 my-5"></div>
 
                                             <div class="mt-8">
-                                                <h5 class="text-lg font-bold mb-2">Your Trip</h5>
+                                                <h5 class="text-lg font-bold mb-2">Your Stay</h5>
 
                                                 <h3 class=" font-bold">Dates <span
                                                         class="text-sm text-gray-400 font-normal">({{ $booking->days }}
@@ -156,7 +156,7 @@
                                                 <span class="text-sm">{{ $booking->check_in }} -
                                                     {{ $booking->checkout }}</span>
 
-                                                <h3 class=" font-bold mt-2">Guests</h3>
+                                                <h3 class=" font-bold mt-2">Occupants</h3>
                                                 <span class="text-sm">{{ $booking->adults }} Occupant/s
                                                 </span>
 

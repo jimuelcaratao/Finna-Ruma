@@ -132,8 +132,7 @@
                         <input id="budget_1" name="budget_1" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_1" class="ml-2 text-sm font-medium text-gray-900 ">₱ 0
-                            - ₱ 499</label>
+                        <label for="budget_1" class="ml-2 text-sm font-medium text-gray-900 ">₱ 500.00</label>
                     </div>
                 </li>
 
@@ -142,8 +141,7 @@
                         <input id="budget_2" name="budget_2" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 500
-                            - ₱ 999</label>
+                        <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 800.00</label>
                     </div>
                 </li>
 
@@ -152,8 +150,7 @@
                         <input id="budget_3" name="budget_3" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1000
-                            - ₱ 1599</label>
+                        <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 900.00</label>
                     </div>
                 </li>
 
@@ -162,8 +159,7 @@
                         <input id="budget_4" name="budget_4" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1600
-                            - ₱ 1999</label>
+                        <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1000.00</label>
                     </div>
                 </li>
 
@@ -172,21 +168,21 @@
                         <input id="budget_5" name="budget_5" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_5" class="ml-2 text-sm font-medium text-gray-900 ">₱ 2000+</label>
+                        <label for="budget_5" class="ml-2 text-sm font-medium text-gray-900 ">₱ 5000.00</label>
                     </div>
                 </li>
 
                 <div class="border-b border-gray-200 py-2"></div>
 
                 {{-- Property Size --}}
-                <h3 class="pt-4 pb-4">Property Size</h3>
+                <h3 class="pt-4 pb-4">Room Size</h3>
                 <li>
                     <div class="flex items-center mb-2">
                         <input id="size_1" name="size_1" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
                         <label for="size_1" class="ml-2 text-sm font-medium text-gray-900 ">0
-                            - 19 sq. m</label>
+                            - 3 sq. m</label>
                     </div>
                 </li>
 
@@ -195,8 +191,8 @@
                         <input id="size_2" name="size_2" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_2" class="ml-2 text-sm font-medium text-gray-900 "> 20 sq. m
-                            - 29 sq. m</label>
+                        <label for="size_2" class="ml-2 text-sm font-medium text-gray-900 ">3 sq. m
+                            - 5 sq. m</label>
                     </div>
                 </li>
 
@@ -205,8 +201,8 @@
                         <input id="size_3" name="size_3" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_3" class="ml-2 text-sm font-medium text-gray-900 "> 30 sq. m
-                            - 39 sq. m</label>
+                        <label for="size_3" class="ml-2 text-sm font-medium text-gray-900 "> 5 sq. m
+                            - 7 sq. m</label>
                     </div>
                 </li>
 
@@ -216,8 +212,8 @@
                         <input id="size_4" name="size_4" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_4" class="ml-2 text-sm font-medium text-gray-900 "> 40 sq. m
-                            - 49 sq. m</label>
+                        <label for="size_4" class="ml-2 text-sm font-medium text-gray-900 "> 7 sq. m
+                            - 10 sq. m</label>
                     </div>
                 </li>
 
@@ -226,7 +222,7 @@
                         <input id="size_5" name="size_5" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="size_5" class="ml-2 text-sm font-medium text-gray-900 "> 50+ sq. m</label>
+                        <label for="size_5" class="ml-2 text-sm font-medium text-gray-900 "> 10+ sq. m</label>
                     </div>
                 </li>
 
@@ -498,6 +494,45 @@
                     </div>
                 </li>
 
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="target_type_2" type="radio" value="2" name="target_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="target_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Close to road
+                        </label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="target_type_2" type="radio" value="3" name="target_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="target_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Close to worship place
+                        </label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="target_type_2" type="radio" value="4" name="target_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="target_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Close to restaurant
+                        </label>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="flex items-center mb-2">
+                        <input id="target_type_2" type="radio" value="5" name="target_type"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                            onChange="this.form.submit()">
+                        <label for="target_type_2" class="ml-2 text-sm font-medium text-gray-900 ">Close to market
+                        </label>
+                    </div>
+                </li>
 
                 <div class="border-b border-gray-200 py-2"></div>
 
@@ -767,7 +802,11 @@
                                         </option>
                                     @endif
                                     <option>All</option>
-                                    <option value="1">Close to school</option>
+                                        <option value="1">Close to school</option>
+                                        <option value="2">Close to road</option>
+                                        <option value="3">Close to worship place</option>
+                                        <option value="4">Close to retaurant</option>
+                                        <option value="5">Close to market</option>
                                 </select>
                             </div>
 

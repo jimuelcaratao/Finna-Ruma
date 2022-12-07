@@ -22,11 +22,11 @@
 </div>
 
 {{-- Navbar --}}
-<nav x-data="{ open: false }" class="navbar-main bg-white sticky top-0 z-50 always-top border-b-2 ">
+<nav x-data="{ open: false }" class="navbar-main bg-#0000 sticky top-0 z-50 always-top border-b-2  " style="background: #276221" >
 
-    <div class="max-w-screen-2xl mx-auto px-2 sm:px-6 lg:px-24">
-        <div class="relative flex items-center justify-between h-16">
-            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+    <div class="max-w-screen-2xl mx-auto px-2 sm:px-6 lg:px-24" >
+        <div class="relative flex items-center justify-between h-16" >
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden" style = "color: black">
                 <!-- Mobile menu button-->
                 <button @click="open = ! open" type="button"
                     class="inline-flex items-center justify-center p-2 rounded-md text-black hover:text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -61,7 +61,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start" style = "background color : yellow">
                 <div class="flex-shrink-0 flex items-center">
 
                     <a href="{{ route('home') }}">
@@ -73,16 +73,16 @@
                 </div>
 
                 <div class="hidden sm:block sm:ml-6 mt-1">
-                    <div class="flex space-x-4">
+                    <div class="flex space-x-4" >
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <a href="{{ route('home') }}"
-                            class="text-black hover:bg-gray-300 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            class="text-white hover:bg-gray-400 px-3 py-2 rounded-md text-sm font-medium">Home</a>
 
                         <a href="{{ route('rentals') }}"
-                            class="text-black hover:bg-gray-300 px-3 py-2 rounded-md text-sm font-medium">Rentals</a>
+                            class="text-white hover:bg-gray-400 px-3 py-2 rounded-md text-sm font-medium">Rentals</a>
 
                         <a href="{{ route('about') }}"
-                            class="text-black hover:bg-gray-300 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                            class="text-white hover:bg-gray-400 px-3 py-2 rounded-md text-sm font-medium">About</a>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                     {{-- wishlist --}}
                     <a href="{{ route('wishlist') }}">
                         <button type="button"
-                            class=" p-1 mr-2 md:mr-3 rounded-full text-black hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                            class=" p-1 mr-2 md:mr-3 rounded-full text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span class="sr-only">View notifications</span>
                             <!-- Heroicon name: outline/bell -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -145,14 +145,14 @@
                             @if (Route::has('login'))
                                 <div class="md:px-2 py-4 sm:block">
 
-                                    <a href="{{ route('host.home') }}" class="invisible md:visible text-sm text-black">
+                                    <a href="{{ route('host.home') }}" class="invisible md:visible text-sm text-white">
                                         Become a Host </a>
                                     <span class="invisible md:visible  text-sm text-gray-500 mx-2">|</span>
-                                    <a href="{{ route('login') }}" class="text-sm text-black">Log
+                                    <a href="{{ route('login') }}" class="text-sm text-white">Log
                                         In</a>
 
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="ml-2 text-sm text-black">Register</a>
+                                        <a href="{{ route('register') }}" class="ml-2 text-sm text-white">Register</a>
                                     @endif
                                 </div>
                             @endif

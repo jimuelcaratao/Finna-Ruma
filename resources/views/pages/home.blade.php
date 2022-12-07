@@ -80,15 +80,11 @@
                                         @else
                                             <option value="" selected>Open</option>
                                         @endif
-                                        <option value="1">₱ 0
-                                            - ₱ 499</option>
-                                        <option value="2">₱ 500
-                                            - ₱ 999</option>
-                                        <option value="3">₱ 1000
-                                            - ₱ 1599</option>
-                                        <option value="4">₱ 1600
-                                            - ₱ 1999</option>
-                                        <option value="5">₱ 2000+</option>
+                                        <option value="1">₱ 500.00</option>
+                                        <option value="2">₱ 800.00</option>
+                                        <option value="3">₱ 900.00</option>
+                                        <option value="4">₱ 1000.00</option>
+                                        <option value="5">₱ 1500.00</option>
                                     </select>
                                 </div>
                                 <div class="mt-2">
@@ -105,6 +101,10 @@
                                             <option value="" selected>Open</option>
                                         @endif
                                         <option value="1">Close to school</option>
+                                        <option value="2">Close to road</option>
+                                        <option value="3">Close to worship place</option>
+                                        <option value="4">Close to retaurant</option>
+                                        <option value="5">Close to market</option>
                                     </select>
                                 </div>
                             </div>

@@ -138,7 +138,7 @@
                                                     <li class="inline-flex items-center">
                                                         <span
                                                             class="inline-flex items-center text-sm font-medium text-gray-700">
-                                                            {{ $booking->listing->max_guest }} guests
+                                                            {{ $booking->listing->max_guest }} occupants
                                                         </span>
                                                     </li>
 
@@ -199,13 +199,13 @@
 
                                             {{-- Your Trip --}}
                                             <div class="mt-8">
-                                                <h5 class="text-lg font-bold mb-2">Your Trip</h5>
+                                                <h5 class="text-lg font-bold mb-2">Your Stay</h5>
 
                                                 <h3 class=" font-bold">Dates</h3>
                                                 <span class="text-sm">{{ $booking->check_in }} -
                                                     {{ $booking->checkout }} </span>
 
-                                                <h3 class=" font-bold mt-2">Guests</h3>
+                                                <h3 class=" font-bold mt-2">Occupant</h3>
                                                 <span class="text-sm">{{ $booking->adults }} Occupant/s</span>
 
                                                 <h3 class=" font-bold mt-2">Payment Status</h3>
