@@ -35,6 +35,7 @@ class OAuthController extends Controller
                     'external_provider' => 'Google',
                     'external_id' => $user->getId(),
                     'name' => $user->getName(),
+                    'lastname' => '',
                     'email' =>  $user->getEmail(),
                 ]);
 

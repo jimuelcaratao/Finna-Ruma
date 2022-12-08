@@ -27,13 +27,13 @@ class BookingController extends Controller
 
 
         if ($tablebookings->isEmpty()) {
-            $bookings = Booking::paginate(10);
+            $bookings = Booking::where('host_id', Auth::user()->id)->paginate(10);
         }
 
         if ($tablebookings->isNotEmpty()) {
 
             // search validation
-            $search = Booking::searchfilter()
+            $search = Booking::where('host_id', Auth::user()->id)->searchfilter()
                 ->statusfilter()
                 ->first();
 
@@ -43,7 +43,7 @@ class BookingController extends Controller
 
             if ($search != null) {
                 // default returning
-                $bookings = Booking::searchfilter()
+                $bookings = Booking::where('host_id', Auth::user()->id)->searchfilter()
                     ->statusfilter()
                     ->latest()
                     ->paginate(10);
