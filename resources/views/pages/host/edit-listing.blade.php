@@ -812,6 +812,18 @@
                                                     </div>
                                                 </div>
 
+                                                {{-- no visitor allowed --}}
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="claygo" name="claygo" type="checkbox"
+                                                            @checked($listing->listing_rule->claygo)
+                                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="claygo" class="font-medium text-gray-700">No Visitor allowed</label>
+                                                    </div>
+                                                </div>
+
                                                 {{-- no_smoking --}}
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">

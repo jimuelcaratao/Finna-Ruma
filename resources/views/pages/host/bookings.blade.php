@@ -199,7 +199,7 @@
                                 </td>
                                 <td class="px-6 py-3 ">
                                     {{ $booking->adults + $booking->children + $booking->infants + $booking->pets }}
-                                    guests
+                                    occupants
                                 </td>
 
                                 <td class="px-6 py-3 text-center font-bold">
