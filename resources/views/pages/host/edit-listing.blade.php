@@ -395,7 +395,7 @@
 
                                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                 <label for="property_size"
-                                                    class="flex text-sm font-medium text-gray-700">Property Size
+                                                    class="flex text-sm font-medium text-gray-700">Room Size
                                                     <span class="text-red-600">*</span>
                                                     {{-- Tooltip --}}
                                                     <div id="tooltip-size" role="tooltip"
@@ -488,6 +488,10 @@
                                                     </option>
                                                     <option value="0">None</option>
                                                     <option value="1">Close to school</option>
+                                                    <option value="2">Close to road</option>
+                                                    <option value="3">Close to worship place</option>
+                                                    <option value="4">Close to retaurant</option>
+                                                    <option value="5">Close to market</option>
                                                 </select>
                                             </div>
 

@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     {{-- icon --}}
-    <link rel="icon" href="{{ asset('img/logo/icon-logo.png') }}">
+    <link rel="icon" href="{{ asset('img/logo/main-logo-v2.png') }}">
 
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
 

@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     {{-- icon --}}
-    <link rel="icon" href="{{ asset('img/logo/icon-logo.png') }}">
+    <link rel="icon" href="{{ asset('img/logo/main-logo-v2.png') }}">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -73,7 +73,7 @@
     <div class="app-container">
         <div class="app-header">
             <div class="app-header-left">
-                <span> <img src="{{ asset('img/logo/main-logo.png') }}" class="mr-4" width="80px"
+                <span> <img src="{{ asset('img/logo/main-logo-v2.png') }}" class="mr-4" width="80px"
                         alt="App Logo"></span>
 
                 @if (isset($searchbar))
