@@ -183,7 +183,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>z
                         @forelse ($listings as $listing)
                             <tr class="bg-white border-b  ">
                                 <th scope="row" class="px-6 py-3 font-medium text-gray-900  whitespace-nowrap">
