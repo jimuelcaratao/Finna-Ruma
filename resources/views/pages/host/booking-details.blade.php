@@ -44,7 +44,7 @@
                                                     <li class="inline-flex items-center">
                                                         <span
                                                             class="inline-flex items-center text-sm font-medium text-gray-700">
-                                                            {{ $booking->listing->max_guest }} guests
+                                                            {{ $booking->listing->max_guest }} occupants
                                                         </span>
                                                     </li>
 
@@ -102,7 +102,7 @@
                                                 <span class="text-sm">{{ $booking->check_in }} -
                                                     {{ $booking->checkout }} </span>
 
-                                                <h3 class="text-base font-bold mt-2">Guests</h3>
+                                                <h3 class="text-base font-bold mt-2">Occupant</h3>
                                                 <span class="text-sm">{{ $booking->adults }} Occupant/s</span>
 
 
