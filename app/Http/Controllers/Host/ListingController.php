@@ -67,7 +67,6 @@ class ListingController extends Controller
             'listing_approved' => $listing_approved,
             'listing_pending' => $listing_pending,
             'listing_denied' => $listing_denied,
-
         ]);
     }
 

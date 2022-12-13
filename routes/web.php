@@ -10,6 +10,7 @@ use App\Http\Controllers\CancelBookingController;
 use App\Http\Controllers\ConfirmBookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Host\AddListingController;
+use App\Http\Controllers\Host\BoardingHouseController;
 use App\Http\Controllers\Host\BookingController as HostBookingController;
 use App\Http\Controllers\Host\DashboardController as HostDashboardController;
 use App\Http\Controllers\Host\ListingController;
@@ -152,6 +153,12 @@ Route::middleware([
 
         Route::get('/dashboard', [HostDashboardController::class, 'index'])->name('host.dashboard');
 
+        // host board APIs
+        Route::get('/boarding-houses', [BoardingHouseController::class, 'index'])->name('host.boarding-house');
+        Route::get('/boarding-houses/add', [BoardingHouseController::class, 'create'])->name('host.boarding-house.create');
+        Route::get('/boarding-houses/edit/{slug}', [BoardingHouseController::class, 'edit'])->name('host.boarding-house.edit');
+        Route::post('/boarding-houses/add/store', [BoardingHouseController::class, 'store'])->name('host.boarding-house.store');
+        Route::put('/boarding-houses/update/{boarding_house_id}', [BoardingHouseController::class, 'update'])->name('host.boarding-house.update');
         // host listing APIs
         Route::get('/my-listing', [ListingController::class, 'index'])->name('host.listing');
 

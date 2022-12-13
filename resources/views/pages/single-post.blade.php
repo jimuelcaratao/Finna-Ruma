@@ -242,9 +242,15 @@
 
                                     <div class="flex justify-between gap-10">
                                         <div>
+
                                             <span
                                                 class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
                                                 {{ $listing->category->category_name }}
+                                            </span>
+
+                                            <span
+                                                class="mb-2 bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded ">
+                                                {{ $listing->house->title }}
                                             </span>
 
                                             @if ($listing->location_score == 1)

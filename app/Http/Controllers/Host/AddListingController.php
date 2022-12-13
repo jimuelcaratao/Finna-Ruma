@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Models\BoardingHouse;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Models\Listing;
@@ -28,8 +29,11 @@ class AddListingController extends Controller
     public function index()
     {
         $categories = Category::get();
+        $boarding_houses = BoardingHouse::where('user_id', Auth::user()->id)->get();
+
         return view('pages.host.add-listing', [
             'categories' => $categories,
+            'boarding_houses' => $boarding_houses,
         ]);
     }
 
@@ -65,6 +69,7 @@ class AddListingController extends Controller
         $listing =  Listing::create([
             'user_id' => Auth::user()->id,
             'category_id' => $request->input('category_id'),
+            'boarding_house_id' => $request->input('boarding_house_id'),
             'slug' => Str::of($request->input('listing_title'))->slug('-'),
 
             'listing_title' => $request->input('listing_title'),
@@ -189,6 +194,7 @@ class AddListingController extends Controller
         Listing::where('listing_id', $listing_id)->update([
             // 'user_id' => Auth::user()->id,
             'category_id' => $request->input('category_id'),
+            'boarding_house_id' => $request->input('boarding_house_id'),
             'slug' => Str::of($request->input('listing_title'))->slug('-'),
 
             'availability' => $request->input('availability'),

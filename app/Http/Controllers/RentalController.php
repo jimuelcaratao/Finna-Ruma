@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BoardingHouse;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Models\Booking;
@@ -27,6 +28,7 @@ class RentalController extends Controller
             ->facilityscorefilter()
             ->targetlocationfilter()
             ->categoryfilter()
+            ->housefilter()
             ->sizefilter()
             ->bedroomfilter();
 
@@ -44,6 +46,8 @@ class RentalController extends Controller
 
         $categories = Category::get();
 
+        $houses = BoardingHouse::get();
+
         $listings = $listings->get();
 
         if (Auth::check() == true) {
@@ -53,6 +57,7 @@ class RentalController extends Controller
         return view('pages.rentals', [
             'listings' => $listings,
             'categories' => $categories,
+            'houses' => $houses,
             'user_pref' => $user_pref ?? null,
         ]);
     }

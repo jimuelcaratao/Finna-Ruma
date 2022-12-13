@@ -113,6 +113,7 @@
                     !empty(request()->checkout) ||
                     !empty(request()->guests) ||
                     !empty(request()->search_cat) ||
+                    !empty(request()->search_house) ||
                     !empty(request()->target_type) ||
                     !empty(request()->property_type))
                     <a href="{{ route('rentals') }}"><button type="button"
@@ -523,6 +524,7 @@
                         </label>
                     </div>
                 </li> --}}
+
                 {{-- Category Filter --}}
                 <h3 class="pt-4 pb-4">Category</h3>
                 @forelse ($categories as $category)
@@ -538,6 +540,25 @@
                 @empty
                     <li>
                         No category available.
+                    </li>
+                @endforelse
+
+                <div class="border-b border-gray-200 py-2"></div>
+
+                {{-- Category Filter --}}
+                <h3 class="pt-4 pb-4">Boarding House</h3>
+                @forelse ($houses as $house)
+                    <li>
+                        <label class="inline-flex items-center">
+                            <input type="radio"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  brand-radio"
+                                name="search_house" value="{{ $house->title }}" onChange="this.form.submit()">
+                            <span class="ml-2">{{ $house->title }}</span>
+                        </label>
+                    </li>
+                @empty
+                    <li>
+                        No Boarding House available.
                     </li>
                 @endforelse
 
@@ -596,6 +617,8 @@
                                 src="{{ asset('storage/media/listing/cover_' . $listing->listing_id . '_' . $listing->default_photo) }}" />
                             <!-- text information -->
                             <div class="p-4">
+
+                                <small class="text-blue-400 text-xs">{{ $listing->house->title }} /</small>
 
                                 <small class="text-blue-400 text-xs">{{ $listing->category->category_name }}</small>
 
@@ -899,6 +922,13 @@
                         .prop("checked", true);
                 }
 
+
+                // house type
+
+                if ('{{ request()->search_house }}' != '') {
+                    $('input[name="search_house"][value="{{ request()->search_house }}"]')
+                        .prop("checked", true);
+                }
 
                 // property_size
                 if ('{{ request()->size_1 }}' != '') {

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('listing_id');
             $table->foreignId('user_id'); // host
             $table->foreignId('category_id');
+            $table->foreignId('boarding_house_id');
 
             $table->string('slug', 255);
             $table->string('listing_title', 255);
@@ -70,6 +71,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('category_id')->on('categories');
+            $table->foreign('boarding_house_id')->references('boarding_house_id')->on('boarding_houses');
         });
     }
 

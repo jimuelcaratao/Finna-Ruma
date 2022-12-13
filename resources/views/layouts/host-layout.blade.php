@@ -200,13 +200,13 @@
                 {{-- Tooltip --}}
                 <div id="tooltip-listing" role="tooltip"
                     class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    My Listings
+                    Boarding Houses
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 
-                <a href="{{ route('host.listing') }}"data-tooltip-target="tooltip-listing"
+                <a href="{{ route('host.boarding-house') }}"data-tooltip-target="tooltip-listing"
                     data-tooltip-placement="right"
-                    class="app-sidebar-link {{ request()->is('host/my-listing') ? 'active' : '' }}">
+                    class="app-sidebar-link {{ request()->is('host/boarding-houses') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -217,13 +217,13 @@
                 {{-- Tooltip --}}
                 <div id="tooltip-add" role="tooltip"
                     class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Add Listing
+                    Listing
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
 
-                <a href="{{ route('host.add.listing') }}"data-tooltip-target="tooltip-add"
+                <a href="{{ route('host.listing') }}"data-tooltip-target="tooltip-add"
                     data-tooltip-placement="right"
-                    class="app-sidebar-link {{ request()->is('host/listing/add') ? 'active' : '' }}">
+                    class="app-sidebar-link {{ request()->is('host/my-listing') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"

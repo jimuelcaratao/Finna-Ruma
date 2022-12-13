@@ -17,6 +17,7 @@ class Listing extends Model
     protected $fillable = [
         'user_id',
         'category_id',
+        'boarding_house_id',
 
         'slug',
 
@@ -93,6 +94,11 @@ class Listing extends Model
         return $this->hasOne(Category::class, 'category_id', 'category_id');
     }
 
+    public function house()
+    {
+        return $this->hasOne(BoardingHouse::class, 'boarding_house_id', 'boarding_house_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
@@ -113,6 +119,16 @@ class Listing extends Model
         if (request()->search_cat != null) {
             $q->whereHas('category', function ($s) {
                 $s->Where('category_name', 'LIKE', '%' .  request()->search_cat  .  '%');
+            });
+        }
+        return $q;
+    }
+
+    public function scopeHouseFilter($q)
+    {
+        if (request()->search_house != null) {
+            $q->whereHas('house', function ($s) {
+                $s->Where('title', 'LIKE', '%' .  request()->search_house  .  '%');
             });
         }
         return $q;
