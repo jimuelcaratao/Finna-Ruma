@@ -214,6 +214,28 @@
                                                 </select>
                                             </div>
 
+                                            <div class="col-span-6 sm:col-span-4">
+                                                <label for="boarding_house_id"
+                                                    class="block text-sm font-medium text-gray-700">Boarding House
+                                                    <span class="text-red-600">*</span></label>
+                                                <select id="boarding_house_id" name="boarding_house_id" required
+                                                    value="{{ $listing->boarding_house_id }}"
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    <option class="bg-gray-50" selected
+                                                        value=" {{ $listing->house->boarding_house_id }}">
+                                                        {{ $listing->house->title }}
+                                                    </option>
+                                                    @forelse ($boarding_houses as $boarding_house)
+                                                        <option value="{{ $boarding_house->boarding_house_id }}">
+                                                            {{ $boarding_house->title }}</option>
+                                                    @empty
+                                                        <option>
+                                                            No boarding house available.</option>
+                                                    @endforelse
+
+                                                </select>
+                                            </div>
+
                                             <div class="col-span-6">
                                                 <label for="location"
                                                     class="block text-sm font-medium text-gray-700">Location

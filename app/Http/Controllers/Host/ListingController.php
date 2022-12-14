@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Models\BoardingHouse;
 use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Listing;
@@ -79,10 +80,12 @@ class ListingController extends Controller
         $listing = Listing::where('slug', $slug)->first();
 
         $categories = Category::latest()->get();
+        $boarding_houses = BoardingHouse::where('user_id', Auth::user()->id)->get();
 
         return view('pages.host.edit-listing', [
             'listing' =>   $listing,
             'categories' =>   $categories,
+            'boarding_houses' =>   $boarding_houses,
         ]);
     }
 
