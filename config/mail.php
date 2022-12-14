@@ -44,7 +44,9 @@ return [
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
-
+        'sendgrid' => [
+            'transport' => 'sendgrid',
+        ],
         'ses' => [
             'transport' => 'ses',
         ],
