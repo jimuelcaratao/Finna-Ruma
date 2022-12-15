@@ -134,7 +134,7 @@
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
                         <label for="budget_1" class="ml-2 text-sm font-medium text-gray-900 ">₱ 0
-                            - ₱ 499</label>
+                            - ₱ 35</label>
                     </div>
                 </li>
 
@@ -143,8 +143,8 @@
                         <input id="budget_2" name="budget_2" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 500
-                            - ₱ 999</label>
+                        <label for="budget_2" class="ml-2 text-sm font-medium text-gray-900 ">₱ 36
+                            - ₱ 70</label>
                     </div>
                 </li>
 
@@ -153,8 +153,8 @@
                         <input id="budget_3" name="budget_3" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1000
-                            - ₱ 1599</label>
+                        <label for="budget_3" class="ml-2 text-sm font-medium text-gray-900 ">₱ 71
+                            - ₱ 105</label>
                     </div>
                 </li>
 
@@ -163,8 +163,8 @@
                         <input id="budget_4" name="budget_4" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 1600
-                            - ₱ 1999</label>
+                        <label for="budget_4" class="ml-2 text-sm font-medium text-gray-900 ">₱ 106
+                            - ₱ 140</label>
                     </div>
                 </li>
 
@@ -173,7 +173,7 @@
                         <input id="budget_5" name="budget_5" type="checkbox" value="1"
                             class="form_inp w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 "
                             onChange="this.form.submit()">
-                        <label for="budget_5" class="ml-2 text-sm font-medium text-gray-900 ">₱ 2000+</label>
+                        <label for="budget_5" class="ml-2 text-sm font-medium text-gray-900 ">₱ 141+</label>
                     </div>
                 </li>
 
@@ -878,6 +878,10 @@
 
                 if ('{{ request()->budget_4 }}' != '') {
                     $('input[name="budget_4"]').prop("checked", true);
+                }
+
+                if ('{{ request()->budget_5 }}' != '') {
+                    $('input[name="budget_5"]').prop("checked", true);
                 }
 
                 // facility score

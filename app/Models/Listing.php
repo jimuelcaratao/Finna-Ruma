@@ -184,23 +184,23 @@ class Listing extends Model
         }
 
         if (!empty(request()->budget_1)) {
-            $q->OrwhereBetween('price_per_night', [0, 499]);
+            $q->OrwhereBetween('price_per_night', [0, 35]);
         }
 
         if (!empty(request()->budget_2)) {
-            $q->OrwhereBetween('price_per_night', [500, 999]);
+            $q->OrwhereBetween('price_per_night', [36, 70]);
         }
 
         if (!empty(request()->budget_3)) {
-            $q->OrwhereBetween('price_per_night', [1000, 1599]);
+            $q->OrwhereBetween('price_per_night', [71, 105]);
         }
 
         if (!empty(request()->budget_4)) {
-            $q->OrwhereBetween('price_per_night', [1600, 1999]);
+            $q->OrwhereBetween('price_per_night', [106, 140]);
         }
 
         if (!empty(request()->budget_5)) {
-            $q->Orwhere('price_per_night', '>', 2000);
+            $q->Orwhere('price_per_night', '>', 141);
         }
         return $q;
     }
