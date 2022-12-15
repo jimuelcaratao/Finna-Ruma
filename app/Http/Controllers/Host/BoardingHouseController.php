@@ -125,7 +125,7 @@ class BoardingHouseController extends Controller
     {
         // dd($request->all(), $boarding_house_id);
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
+            'title' => 'required|unique:boarding_houses',
             'description' => 'required',
         ]);
 

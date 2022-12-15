@@ -80,7 +80,7 @@ class ListingController extends Controller
         $listing = Listing::where('slug', $slug)->first();
 
         $categories = Category::latest()->get();
-        $boarding_houses = BoardingHouse::where('user_id', Auth::user()->id)->get();
+        $boarding_houses = BoardingHouse::where('status', 'Available')->where('user_id', Auth::user()->id)->get();
 
         return view('pages.host.edit-listing', [
             'listing' =>   $listing,

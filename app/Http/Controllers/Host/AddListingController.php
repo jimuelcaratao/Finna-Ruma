@@ -29,7 +29,7 @@ class AddListingController extends Controller
     public function index()
     {
         $categories = Category::get();
-        $boarding_houses = BoardingHouse::where('user_id', Auth::user()->id)->get();
+        $boarding_houses = BoardingHouse::where('status', 'Available')->where('user_id', Auth::user()->id)->get();
 
         return view('pages.host.add-listing', [
             'categories' => $categories,

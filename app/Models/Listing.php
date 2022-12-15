@@ -297,22 +297,22 @@ class Listing extends Model
             !empty(request()->bedroom_3) ||
             !empty(request()->bedroom_4)
         ) {
-            $q->whereBetween('bedrooms', [0, 0]);
+            $q->whereBetween('beds', [0, 0]);
         }
 
         if (!empty(request()->bedroom_1)) {
-            $q->OrwhereBetween('bedrooms', [0, 2]);
+            $q->OrwhereBetween('beds', [0, 2]);
         }
 
         if (!empty(request()->bedroom_2)) {
-            $q->OrwhereBetween('bedrooms', [3, 4]);
+            $q->OrwhereBetween('beds', [3, 4]);
         }
         if (!empty(request()->bedroom_3)) {
-            $q->OrwhereBetween('bedrooms', [5, 6]);
+            $q->OrwhereBetween('beds', [5, 6]);
         }
 
         if (!empty(request()->bedroom_4)) {
-            $q->Orwhere('bedrooms', '>', 7);
+            $q->Orwhere('beds', '>', 7);
         }
         return $q;
     }

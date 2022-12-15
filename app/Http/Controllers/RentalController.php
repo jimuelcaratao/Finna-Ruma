@@ -46,7 +46,7 @@ class RentalController extends Controller
 
         $categories = Category::get();
 
-        $houses = BoardingHouse::get();
+        $houses = BoardingHouse::where('status', 'Available')->get();
 
         $listings = $listings->get();
 

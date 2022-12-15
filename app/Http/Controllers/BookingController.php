@@ -64,6 +64,11 @@ class BookingController extends Controller
         //         ->with('toast_error', 'You cannot reserve on past date.');
         // }
 
+        if (Auth::user()->is_admin != 0) {
+            return Redirect::back()
+                ->with('toast_error', 'This user cannot book, create a tenant account.');
+        }
+
         if ($get_booking != null || $get_booking_1 != null) {
             return Redirect::back()
                 ->with('toast_error', 'Sorry Date between ' . $request->input('check-in') . ' and ' . $request->input('checkout') . 'are occupied.');
